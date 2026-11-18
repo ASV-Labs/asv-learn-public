@@ -1,0 +1,462 @@
+{
+  "slug": "kali-linux",
+  "title": "Kali Linux & Penetration Testing Tools",
+  "description": "Controlled Kali lab tools & evidence: setup, safe workflows, documentation under scope. Pair with Ethical Hacking for full assessment methodology.",
+  "icon": "KL",
+  "difficulty": "Intermediate",
+  "hours": "20-25",
+  "topics": [
+    "Kali Linux",
+    "Security Tools",
+    "Lab Workflow",
+    "Evidence Handling"
+  ],
+  "certBadges": [
+    "Kali Lab Practitioner"
+  ],
+  "runtime": "shell",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/kali-linux.ts",
+    "live": "https://technodex.io/courses/kali-linux",
+    "feedstock": "https://github.com/P0GL0L/Kali_Linux_Zero_to_Job_Ready"
+  },
+  "stages": [
+    {
+      "slug": "stage-01",
+      "title": "Kali Linux Setup & Basics",
+      "hours": "2-3",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should be named before using Kali tools?",
+          "options": [
+            "The authorized target and purpose",
+            "A random public host",
+            "A hidden credential",
+            "A shortcut alias only"
+          ],
+          "correct": 0,
+          "explanation": "Kali work starts with scope, purpose, and evidence handling before tool use."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice this ASV Learn Kali path?",
+          "options": [
+            "Through a built-in hosted shell workspace with auto-grading",
+            "Against any interesting host that appears in a scan",
+            "On your own local terminal, VM, or authorized lab hosts with written scope",
+            "Only by reading quizzes without writing lab notes"
+          ],
+          "correct": 2,
+          "explanation": "Lessons are read in ASV Learn; practice is authorized local or lab work only — no in-lesson shell sandbox."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why include a cleanup note in the Stage 01 lab note?",
+          "options": [
+            "So the authorized target can be expanded quietly",
+            "So temporary scratch files do not become confusing evidence later",
+            "So tool output can replace the written scope",
+            "So snapshots are never needed"
+          ],
+          "correct": 1,
+          "explanation": "Cleanup keeps the next session reviewable and prevents stale files from looking like proof."
+        }
+      ],
+      "content": "# Kali Linux Setup & Basics\n\n## Why this lesson exists\n\nKali is a **security workstation**, not permission. Installing tools does not authorize you to touch systems. The first professional skill is setting up a repeatable lab, naming the authorized target, and recording what each tool run is meant to prove.\n\nIn this lesson you will create a lab note that names workspace, authorized target, purpose, and cleanup before any scan or exploit language enters the conversation.\n\nThis card is a focused **20–25 hour** introduction to Kali lab hygiene. A longer zero-to-job-ready path exists outside this course; do not treat this card as that full path.\n\n## Where this course sits\n\nThis course teaches **lab workstation and tool craft** inside a controlled Kali environment: setup, safe workflows, evidence handling, and documentation under scope. It complements — it does not replace — **Ethical Hacking & Penetration Testing**, which covers full assessment methodology end-to-end. Pick Kali when you need to operate tools carefully; pair with Ethical Hacking for the engagement process from scope through reporting and defender handoff. Practice only against **authorized local lab** targets you name in writing. Kali is a workstation, not permission.\n\n## Reminder: where you work\n\nCreate a course notes folder on your machine (or inside your Kali / lab VM):\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-01\ncd ~/asv-learn-kali-linux/stage-01\n```\n\nWindows (PowerShell on the host, or WSL if that is your lab shell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-01\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-01\"\n```\n\nYou will write `lab_note.txt` (or a short shell script that prints the same fields) in that folder. Prefer a **dedicated lab VM** with snapshots so mistakes stay contained.\n\n## Start here: scope before shell\n\nDo not open tools and hunt for interesting output. Write the operating boundary first:\n\n1. Where do notes and temporary files live?\n2. What authorized target label may be touched?\n3. Why would a future tool run be useful?\n4. How will temporary lab files be cleaned up?\n\nYou are not proving exploitation yet. You are making Kali work **reviewable** so an instructor, teammate, or future you can tell what was allowed, what was touched, and why.\n\n## Workstation boundary\n\n| Item | Purpose | Honest limit |\n| --- | --- | --- |\n| Workspace | Keeps notes and evidence together | A folder is not a target |\n| Authorized target | Names the lab system that can be touched | Visibility ≠ permission |\n| Tool purpose | Explains why a command would be run | Purpose is not a finding |\n| Cleanup note | Prevents stale files from becoming confusing evidence | Cleanup must be real, not aspirational |\n\nFirst say the boundary in one sentence: *this workstation may only create a lab note for the named target, with a stated purpose and cleanup rule.*\n\n## Lab setup habits that matter early\n\n| Habit | Why it matters |\n| --- | --- |\n| Snapshot or backup before practice | You can recover when a package or config break happens |\n| Separate notes / evidence / scratch | Scratch files do not look like proof later |\n| Label targets as lab hosts | Reduces accidental public-system contact |\n| Record tool purpose before output | Stops “interesting output” from rewriting the plan |\n| Prefer host-only or isolated lab networks | Limits blast radius |\n\nIf you run Kali in a VM, treat the guest as the workstation and the host notes folder (or a synced lab folder) as the evidence shelf. Do not practice against production, neighbors’ Wi‑Fi, or random internet hosts.\n\n## Scope sentence patterns\n\nUse plain language. Examples for authorized practice only:\n\n```text\nAuthorized: lab.local (Metasploitable / DVWA / custom lab VM on host-only network)\nPurpose: document discovery workflow for that labeled target\nOut of scope: any host not named in this note\nCleanup: delete /tmp lab scratch files after notes are saved\n```\n\nBad scope: “whatever shows up in nmap.” Good scope: one named lab label plus an explicit out-of-scope line.\n\n## Common beginner mistakes\n\n- Opening tools before naming the authorized target\n- Treating a public hostname as “practice” because it is interesting\n- Saving evidence only in `/tmp` with no durable note\n- Skipping cleanup so the next session inherits junk as “evidence”\n- Confusing Kali installation success with authorization\n- Expecting an automatic grading inside the lesson instead of writing a local lab note\n\n## Your local task\n\n### Step 1 — Confirm lab context\n\nWrite three lines in a scratch file:\n\n```text\nworkstation=kali-lab-vm (or your authorized lab host)\nnetwork=host-only / isolated lab (name yours)\nauthorized_target=lab.local\n```\n\nIf you cannot name those honestly, stop and fix the lab setup before any tool practice.\n\n### Step 2 — Write the lab note\n\nCreate `lab_note.txt`:\n\n```text\nworkspace=/home/kali/asv-learn-kali-linux/stage-01\nauthorized_target=lab.local\ntool_purpose=document safe discovery workflow for an authorized lab target\ncleanup_note=remove temporary lab notes from /tmp after practice; keep this lab_note.txt\nout_of_scope=any host not labeled lab.local\n```\n\nOptional: print the same fields from a shell script in your lab folder:\n\n```bash\nworkspace=\"$HOME/asv-learn-kali-linux/stage-01\"\nauthorized_target=\"lab.local\"\ntool_purpose=\"document safe discovery workflow for an authorized lab target\"\ncleanup_note=\"remove temporary lab notes from /tmp after practice; keep lab_note.txt\"\nout_of_scope=\"any host not labeled lab.local\"\n\nmkdir -p \"$workspace\"\nprintf '%s\\n' \\\n  \"workspace=$workspace\" \\\n  \"target=$authorized_target\" \\\n  \"purpose=$tool_purpose\" \\\n  \"cleanup=$cleanup_note\" \\\n  \"out_of_scope=$out_of_scope\"\n```\n\n### Step 3 — Self-review\n\nRead the note as if you are the next reviewer. Ask:\n\n- Can I see what is allowed without guessing?\n- Is the target a lab label, not a random public system?\n- Would cleanup leave durable notes and remove scratch?\n\n### Step 4 — One change you can explain\n\nChange **one** field (purpose or cleanup) and say out loud why the new wording makes the next session safer or clearer.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Workstation | Where you run tools (often a Kali VM) |\n| Authorized target | The only system you may actively test |\n| Scope | Written boundary of what is in / out |\n| Lab note | Pre-run record of workspace, target, purpose, cleanup |\n| Evidence | Saved output tied to a stated purpose |\n\n## Proof checklist\n\n- [ ] Course notes folder exists for stage-01\n- [ ] `lab_note.txt` lists workspace, authorized target, purpose, cleanup, out of scope\n- [ ] Target is a lab label, not a random public host\n- [ ] You can explain the note in under one minute\n- [ ] You know practice is local / authorized lab only (no automatic grading inside the lesson)\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse only systems you own, systems in your isolated lab, or systems you are explicitly authorized to test. Do not scan, probe, or collect from real third-party systems without written permission.\n\nWhen those items are true, continue to **Information Gathering Tools**.\n"
+    },
+    {
+      "slug": "stage-02",
+      "title": "Information Gathering Tools",
+      "hours": "2-3",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What separates passive reconnaissance from active reconnaissance?",
+          "options": [
+            "Whether the target system is contacted",
+            "Whether the notes are short",
+            "Whether Kali is installed",
+            "Whether the result looks interesting"
+          ],
+          "correct": 0,
+          "explanation": "Active reconnaissance sends traffic or queries to a target, so it must stay inside scope."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "A useful recon clue automatically means you may scan any related host. True or false?",
+          "options": [
+            "True — discovery equals permission",
+            "False — the next action must stay on the authorized target",
+            "True — if confidence is high",
+            "False — unless the tool name is famous"
+          ],
+          "correct": 1,
+          "explanation": "Evidence supports a hypothesis; authorization and written scope decide contact."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why record confidence in a recon log?",
+          "options": [
+            "To make the log longer for grading",
+            "To justify scanning out-of-scope networks",
+            "To keep weak clues from becoming overstated claims",
+            "To replace the evidence note"
+          ],
+          "correct": 2,
+          "explanation": "Honest confidence prevents turning thin sources into certainty."
+        }
+      ],
+      "content": "# Information Gathering Tools\n\n## Why this lesson exists\n\nInformation gathering is not a tool list. It is a plan for collecting evidence while separating **passive observation** from **active target contact**.\n\nIn this lesson you will write a recon log entry that names source, authorized target, evidence, confidence, and the next action that stays inside scope.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-02\ncd ~/asv-learn-kali-linux/stage-02\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-02\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-02\"\n```\n\nYou will write `recon_log.txt` in that folder. Keep any active checks limited to the authorized lab target named in Stage 01.\n\n## Start here: evidence before contact\n\nDo not treat a discovered clue as permission to touch a system. First answer:\n\n1. Where did the clue come from (passive source)?\n2. What authorized target may be checked actively?\n3. What does the evidence actually prove?\n4. How confident should you be?\n5. What next action stays inside scope?\n\nGood reconnaissance keeps the line visible between what was observed and what may be contacted.\n\n## Passive versus active\n\n| Mode | What it means | Example (lab only) | Scope note |\n| --- | --- | --- | --- |\n| Passive | No direct contact with the target | Reading public docs you already control, lab DNS notes, prior engagement records | Still respect privacy and legality |\n| Active | Sends traffic or queries to the target | Authorized `nmap` against `lab.local` | Requires explicit authorization |\n\nA useful clue is not automatically permission to scan, browse, or test. The next action must be tied to the approved lab target and the evidence already collected.\n\n## Recon evidence model\n\n| Field | Why it matters | Honest limit |\n| --- | --- | --- |\n| Passive source | Shows where the clue came from | Source quality varies |\n| Active target | Keeps follow-up inside authorization | Must match the written scope |\n| Evidence note | Records what the source actually proves | Do not exaggerate |\n| Confidence | Prevents weak clues from becoming claims | Medium is often honest |\n| Next action | Connects evidence to an allowed step | Action must stay in scope |\n\nFirst say the recon boundary in one sentence: *this clue came from a named source, applies to a named authorized target, and only supports the next scoped action.*\n\n## Tool mindset (not a shopping list)\n\nCommon Kali recon families include DNS helpers, web discovery utilities, and OSINT-style collectors. Names change; the professional habit does not:\n\n1. Name the question before the tool.\n2. Prefer passive notes when they answer the question.\n3. Escalate to active checks only against the authorized target.\n4. Log confidence and next action before chasing more noise.\n\nIf a tool returns dozens of hostnames, your job is not to chase all of them. Your job is to keep the log tied to `lab.local` (or your written label) and discard out-of-scope noise.\n\n## Confidence language\n\n| Level | When to use it | What to avoid |\n| --- | --- | --- |\n| Low | Single weak clue, unverified | “Confirmed host” |\n| Medium | Two consistent clues, still unverified | Claiming vulnerability |\n| High | Verified against the authorized target with repeatable evidence | Skipping the verification step |\n\n## Common beginner mistakes\n\n- Treating discovery as permission\n- Running active checks against anything “interesting”\n- Logging tool names instead of what was proven\n- Setting confidence to high because the output looked cool\n- Skipping the next-action field so the log becomes a dead pile of text\n- Assuming ASV Learn will auto-grade your recon log\n\n## Your local task\n\n### Step 1 — Capture a sample clue\n\nUse this authorized practice scenario (synthetic lab data):\n\n```text\nPassive source: lab DNS notes and internal engagement brief\nClue: lab.local is the approved training target for web service discovery\nActive target allowed: lab.local only\nNot allowed: neighbor hosts, public internet targets, unrelated SSIDs\n```\n\n### Step 2 — Write the recon log\n\nCreate `recon_log.txt`:\n\n```text\npassive_source=lab DNS notes and engagement brief\nactive_target=lab.local\nevidence_note=records name lab.local as the approved training target for discovery\nconfidence=medium\nnext_authorized_action=run active checks only against lab.local on the isolated lab network\nout_of_scope=any host not labeled lab.local\n```\n\nOptional shell print:\n\n```bash\npassive_source=\"lab DNS notes and engagement brief\"\nactive_target=\"lab.local\"\nevidence_note=\"records name lab.local as the approved training target for discovery\"\nconfidence=\"medium\"\nnext_authorized_action=\"run active checks only against lab.local on the isolated lab network\"\n\nprintf '%s\\n' \\\n  \"passive_source=$passive_source\" \\\n  \"active_target=$active_target\" \\\n  \"evidence=$evidence_note\" \\\n  \"confidence=$confidence\" \\\n  \"next_action=$next_authorized_action\"\n```\n\n### Step 3 — Self-review\n\n- Does the next action contact only the authorized target?\n- Is confidence honest about what the source proves?\n- Would a second person know what is out of scope?\n\n### Step 4 — One change you can explain\n\nLower or raise confidence by one step and rewrite one sentence so the next action still matches the evidence.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Passive recon | Observation without contacting the target |\n| Active recon | Checks that contact the target |\n| Evidence note | What the source actually shows |\n| Confidence | How strongly you trust the clue |\n| Next action | The allowed follow-up inside scope |\n\n## Proof checklist\n\n- [ ] `recon_log.txt` lists source, target, evidence, confidence, next action, out of scope\n- [ ] Passive and active are separated in your wording\n- [ ] Next action stays on the authorized lab target\n- [ ] Confidence is not inflated\n- [ ] Practice stays on local / authorized lab only\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not gather information against real organizations, people, or networks without written authorization. Lab practice uses synthetic data and systems you control or are approved to test.\n\nWhen those items are true, continue to **Scanning & Enumeration Tools**.\n"
+    },
+    {
+      "slug": "stage-03",
+      "title": "Scanning & Enumeration Tools",
+      "hours": "2-3",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does an open port prove by itself?",
+          "options": [
+            "The host is compromised",
+            "A reachable service may exist",
+            "A critical vulnerability exists",
+            "The report is complete"
+          ],
+          "correct": 1,
+          "explanation": "Open ports are inventory clues. Vulnerability claims require more evidence."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What belongs in a professional service inventory row?",
+          "options": [
+            "Host, port, likely service, confidence, and a safe verification step",
+            "Only the tool command that produced the loudest output",
+            "A list of every host on the local broadcast domain",
+            "An exploit name before verification"
+          ],
+          "correct": 0,
+          "explanation": "Inventory rows preserve what was observed and what still needs verification."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Where may you run active scanners for this course?",
+          "options": [
+            "Against any host that answers ping",
+            "Against public websites that load slowly",
+            "Only against authorized lab hosts you control or have written permission to test",
+            "Against any host that answers on your local Wi‑Fi"
+          ],
+          "correct": 2,
+          "explanation": "Unauthorized scanning can be illegal and harmful; practice stays in authorized labs."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why prefer a focused port list on one labeled lab host while learning?",
+          "options": [
+            "Wide subnet sweeps always produce better findings",
+            "Focused scans create clearer inventory and less accidental out-of-scope contact",
+            "Focused scans remove the need for notes",
+            "Tool defaults already guarantee authorization"
+          ],
+          "correct": 1,
+          "explanation": "Beginners learn faster and safer by mapping one authorized host carefully."
+        }
+      ],
+      "content": "# Scanning & Enumeration Tools\n\n## Why this lesson exists\n\nScanning produces **inventory evidence**. It does not automatically prove a vulnerability. A professional service note separates host, port, likely service, confidence, and the next safe verification step.\n\nIn this lesson you will build a small **service inventory** for an authorized lab host: at least two rows that treat scan output as a map, not a verdict.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-03\ncd ~/asv-learn-kali-linux/stage-03\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-03\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-03\"\n```\n\nYou will write `service_inventory.txt`. Any real scanner practice must stay on `lab.local` (or your written authorized label) on an isolated lab network. Keep Stage 01’s lab note nearby.\n\n## Start here: inventory before conclusions\n\nDo not turn scan output into a finding. First name:\n\n1. Authorized host\n2. Port\n3. Likely service\n4. Confidence\n5. One safe verification step\n\nA port, banner, or service guess is inventory. It becomes useful when you can explain what it proves, what it does not prove, and what still needs verification.\n\n## Networking facts that keep scans honest\n\nYou do not need a full networking textbook for this stage, but you do need these distinctions when reading Kali scan tools:\n\n| Idea | Why it matters in the lab |\n| --- | --- |\n| Host discovery | “Is this address worth scanning?” is different from “what ports are open?” |\n| TCP vs UDP | Open UDP is harder to interpret; silence is not always “closed” |\n| Port states | Open, closed, filtered, and unknown are different evidence qualities |\n| Banner / version clues | Helpful hypotheses; often wrong, incomplete, or intentionally misleading |\n| Timing and noise | Faster scans are louder; lab timing still belongs in your notes |\n\nIf your lab uses host-only networking, write that down. Bridged adapters make accidental contact with non-lab hosts much easier.\n\n## Inventory row model\n\n| Field | Example | Honest limit |\n| --- | --- | --- |\n| Host | lab.local | Must be in scope |\n| Port | 443 | Open ≠ vulnerable |\n| Likely service | https | Banner can lie or be incomplete |\n| Confidence | medium | Guessed services stay medium/low |\n| Next safe check | verify TLS cert / banner on authorized host | Check must stay scoped |\n\nOne sentence check: *host, port, likely service, confidence, and one safe verification step.*\n\n## Reading scan output professionally\n\nTypical Kali scanning tools (Nmap-family workflows and similar) can show ports, states, and guessed services. Treat the columns like this:\n\n| Output piece | What it is | What it is not |\n| --- | --- | --- |\n| Open port | Reachability clue | Proof of exploitability |\n| Service guess | Hypothesis | Confirmed software + version |\n| Banner | Hint | Guaranteed truth |\n| Many open ports | Wider inventory | Automatic critical finding |\n| Script title mentioning a CVE | A clue to review later | A confirmed finding for Stage 04 |\n\nPrefer a small, explained inventory over a huge dump nobody will reread. Save raw tool output under an `evidence/` folder if you keep it, and keep the human rows in `service_inventory.txt`.\n\n## Scan choices that stay reviewable\n\n| Approach | Typical lab use | What it proves | What it does not prove |\n| --- | --- | --- | --- |\n| Host discovery | Confirm `lab.local` is up | Reachability clue | Softness of the host |\n| Focused TCP ports | Map likely service entry points | Possible listeners | Exploitability |\n| Version detection | Guess product/version | Stronger service hypothesis | Confirmed CVE |\n| Manual banner grab | Read one service carefully | Exact observed text | That the text is trustworthy |\n\nPrefer a narrow authorized scan over a wide “everything” run while you are still learning the inventory habit.\n\n## Safe verification steps\n\nGood next checks stay narrow and authorized:\n\n- Confirm the service banner on the same authorized host\n- Note whether the service matches the engagement purpose\n- Record version only when the tool actually returns it\n- Avoid exploitation language in this stage\n\nBad next checks:\n\n- “Try exploits”\n- “Scan the whole subnet I can see”\n- “Test the neighbor’s printer”\n\n## Common beginner mistakes\n\n- Calling an open port a vulnerability\n- Trusting version-detection guesses as facts\n- Expanding scope because more hosts answered\n- Pasting raw scanner walls into a report without a human row\n- Skipping confidence so every line looks equally certain\n- Expecting ASV Learn to run Nmap inside the lesson page\n\n## Your local task\n\n### Step 1 — Name the authorized scan target\n\nWrite the top of `service_inventory.txt`:\n\n```text\nauthorized_target=lab.local\nscan_purpose=build service inventory for authorized lab host\nout_of_scope=any host not labeled lab.local\nnetwork=host-only / isolated lab\n```\n\n### Step 2 — Run one scoped inventory action\n\nIf nmap is available in your Kali/lab VM and scope allows it, prefer a focused command against the labeled host:\n\n```bash\nmkdir -p evidence\nnmap -sV -p 22,80,443 lab.local -oN evidence/nmap-lab-local.txt\n```\n\nIf nmap is not available, use an authorized manual check you can explain:\n\n```bash\nnc -vz lab.local 80\n```\n\nReplace host and ports with your labeled lab values. Do not invent a public target.\n\n### Step 3 — Write at least two inventory rows\n\nAppend durable rows to `service_inventory.txt` (edit for your real output):\n\n```text\nhost=lab.local\nport=22\nlikely_service=ssh\nconfidence=medium\nevidence=port open; SSH-style banner observed; version not confirmed\nnext_safe_check=record banner text; do not attempt credential guessing yet\n\nhost=lab.local\nport=443\nlikely_service=https\nconfidence=medium\nevidence=port open; service guess https; version not confirmed\nnext_safe_check=verify the service banner and certificate subject on lab.local only\n```\n\nOptional shell print for one row:\n\n```bash\nhost=\"lab.local\"\nport=\"443\"\nlikely_service=\"https\"\nconfidence=\"medium\"\nnext_safe_check=\"verify the service banner against the authorized lab host\"\n\nprintf '%s\\n' \\\n  \"host=$host\" \\\n  \"port=$port\" \\\n  \"service=$likely_service\" \\\n  \"confidence=$confidence\" \\\n  \"next_check=$next_safe_check\"\n```\n\n### Step 4 — Self-review\n\n- Did you avoid calling either row a vulnerability?\n- Is each next check safe and in scope?\n- Could a defender use these rows as a starting inventory?\n\n### Step 5 — One change you can explain\n\nChange confidence or `next_safe_check` on one row and say why the new wording better matches the evidence.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Scan | Active check that maps reachable services |\n| Enumeration | Gathering more detail about a service |\n| Inventory | Structured list of observed services |\n| Banner | Text a service returns that may hint identity |\n| Verification | Narrow follow-up that confirms or weakens a guess |\n\n## Proof checklist\n\n- [ ] `service_inventory.txt` names authorized target and out-of-scope line\n- [ ] At least two ports/services are recorded with evidence\n- [ ] Each row has confidence and a safe next step\n- [ ] Open ports are treated as inventory, not compromise\n- [ ] Scan commands stayed on the labeled lab host\n- [ ] Practice is local / authorized lab only\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not scan networks or hosts you do not own or have written permission to test. Unauthorized scanning can be illegal and harmful.\n\nWhen those items are true, continue to **Vulnerability Assessment**.\n"
+    },
+    {
+      "slug": "stage-04",
+      "title": "Vulnerability Assessment",
+      "hours": "2-3",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes a vulnerability finding useful?",
+          "options": [
+            "Evidence, impact, and remediation",
+            "Only the scanner title",
+            "A dramatic label",
+            "A list of unrelated tools"
+          ],
+          "correct": 0,
+          "explanation": "Defenders need proof, impact, and a practical remediation path."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is pasting scanner language into a report a beginner mistake?",
+          "options": [
+            "Scanners are never useful",
+            "Reports should never mention versions",
+            "Scanner titles still need human review against a specific asset and evidence",
+            "Remediation should be hidden from defenders"
+          ],
+          "correct": 2,
+          "explanation": "Assessment turns signals into defender-facing findings with asset, evidence, and fix path."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "When evidence only shows an old banner without package confirmation, what confidence fits best?",
+          "options": [
+            "Critical certainty",
+            "Medium or low until version is verified",
+            "No confidence field is needed",
+            "High, because banners never lie"
+          ],
+          "correct": 1,
+          "explanation": "Unverified version matches stay medium/low so impact is not overstated."
+        }
+      ],
+      "content": "# Vulnerability Assessment\n\n## Why this lesson exists\n\nVulnerability assessment turns signals into actionable findings. A useful finding connects **asset**, **evidence**, **impact**, **confidence**, and **remediation** — not scanner marketing language.\n\nIn this lesson you will write one vulnerability triage row a defender could verify and fix.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-04\ncd ~/asv-learn-kali-linux/stage-04\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-04\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-04\"\n```\n\nYou will write `vuln_triage.txt`. Keep any scanner practice on the authorized lab asset only.\n\n## Start here: review before finding\n\nDo not paste scanner language into a report. First name:\n\n1. Affected asset\n2. Signal\n3. Supporting evidence\n4. Impact (honest)\n5. Remediation or verification path\n6. Confidence\n\nThe useful skill is turning a signal into something a defender can check and fix. Specific enough to act on; careful enough not to overstate.\n\n## From signal to finding\n\n| Field | Reviewer question | Honest limit |\n| --- | --- | --- |\n| Asset | What system or service is affected? | Must be in scope |\n| Signal | What suggested the issue? | Signal ≠ confirmed flaw |\n| Evidence | What supports the finding? | Need more than a title |\n| Impact | Why should a defender care? | Avoid drama |\n| Remediation | What practical fix or verify step exists? | Must be actionable |\n| Confidence | How sure are you? | Unverified stays medium/low |\n\nFirst say the triage row in one sentence: *asset, signal, evidence, impact, and remediation or verification path.*\n\n## Scanner output needs a human\n\nTools such as OpenVAS, Nessus-style reports, or Nikto-class web scanners can produce long result lists. Your job in this card:\n\n1. Pick **one** signal worth review.\n2. Tie it to one asset in the authorized lab.\n3. Write evidence in defender language.\n4. Offer a fix or verify step.\n5. Leave unrelated noise out of the triage row.\n\n| Trap | Better move |\n| --- | --- |\n| “Critical” because the scanner said so | Re-check evidence and version match |\n| Copying CVE titles with no asset | Name host/service first |\n| Impact as “total compromise” for every item | Match impact to what evidence supports |\n| No remediation | Give update, config, or verify steps |\n\n## Impact without exaggeration\n\n| Evidence quality | Impact wording style |\n| --- | --- |\n| Banner suggests old version, CVE not confirmed | “Possible exposure if version matches a known weakness — verify package version” |\n| Confirmed outdated package with known issue in lab | “Lab service runs version X associated with issue Y — patch and retest” |\n| Theoretical only | Keep in review; do not promote to confirmed finding |\n\n## Common beginner mistakes\n\n- Pasting scanner titles as findings\n- Skipping asset identity\n- Inflating impact for attention\n- Offering no remediation path\n- Mixing many unrelated signals into one row\n- Treating this lesson as an auto-graded exploit exercise instead of writing a triage row\n\n## Your local task\n\n### Step 1 — Sample signal\n\nAuthorized synthetic sample:\n\n```text\nAsset: lab-web on lab.local\nSignal: outdated server banner\nEvidence: scanner result and service banner both point to an old version string\nMissing: package inventory confirmation on the host\n```\n\n### Step 2 — Gather one verification clue (authorized lab only)\n\nIf your Stage 03 inventory already has a version or banner for `lab.local`, copy that evidence into this stage. Optional focused check:\n\n```bash\nmkdir -p evidence\n# Example only — replace with your labeled service/port\ncurl -sI https://lab.local/ | tee evidence/lab-local-headers.txt\n```\n\nIf the lab app is HTTP-only, use `http://lab.local/` instead. Do not point this at a public third-party host.\n\n### Step 3 — Write the triage row\n\nCreate `vuln_triage.txt`:\n\n```text\nasset=lab-web on lab.local\nvulnerability_signal=outdated server banner\nevidence=scanner result and service banner both point to an old version string\nimpact=possible exposure if the version matches a confirmed weakness\nconfidence=medium\nremediation=confirm package version on the lab host; update the package; re-check the banner after patching\nverification=defender can compare pre/post banner and package version\n```\n\nOptional shell print:\n\n```bash\nasset=\"lab-web\"\nvulnerability_signal=\"outdated server banner\"\nevidence=\"scanner result and service banner both point to an old version\"\nimpact=\"possible exposure if the version has a matching confirmed weakness\"\nremediation=\"update the package and verify the service after patching\"\n\nprintf '%s\\n' \\\n  \"asset=$asset\" \\\n  \"signal=$vulnerability_signal\" \\\n  \"evidence=$evidence\" \\\n  \"impact=$impact\" \\\n  \"remediation=$remediation\"\n```\n\n### Step 4 — Self-review\n\n- Could a defender verify this without guessing which host you meant?\n- Is impact matched to evidence?\n- Is remediation practical in a lab?\n\n### Step 5 — One change you can explain\n\nAdjust confidence or impact wording so it better matches what is actually proven.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Signal | Something that suggests a possible issue |\n| Finding | Reviewed claim with evidence and impact |\n| Triage | Choosing what matters and what stays in review |\n| Remediation | Fix or verify path a defender can take |\n| False positive | Signal that does not hold after review |\n\n## Proof checklist\n\n- [ ] `vuln_triage.txt` includes asset, signal, evidence, impact, remediation, confidence\n- [ ] Wording is defender-facing, not scanner marketing\n- [ ] Impact is not exaggerated past the evidence\n- [ ] One signal per row\n- [ ] Practice stays on authorized lab assets only\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nRun vulnerability scanners only against systems you own or are explicitly authorized to assess. Unauthorized scanning can disrupt services and violate law or policy.\n\nWhen those items are true, continue to **Web Application Testing**.\n"
+    },
+    {
+      "slug": "stage-05",
+      "title": "Web Application Testing",
+      "hours": "2-3",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why record expected behavior before changing input?",
+          "options": [
+            "So the request can be ignored",
+            "So cookies can be collected",
+            "So test results can be compared against a baseline",
+            "So scope can be skipped"
+          ],
+          "correct": 2,
+          "explanation": "Expected behavior gives the learner a baseline for safe comparison."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which target is appropriate for Stage 05 practice?",
+          "options": [
+            "An intentionally vulnerable lab app you host or are authorized to test",
+            "Any public login page that looks interesting",
+            "A neighbor router admin panel",
+            "A random SaaS tenant without permission"
+          ],
+          "correct": 0,
+          "explanation": "Web testing without authorization is illegal; use lab apps you are allowed to test."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a web test note include before proposing a follow-up?",
+          "options": [
+            "Only a payload list",
+            "Method, path, parameter, expected response, and observed response",
+            "Only the proxy brand name",
+            "A persistence plan"
+          ],
+          "correct": 1,
+          "explanation": "Request shape and baseline comparison keep web testing reviewable and scoped."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "When should you write expected behavior in a web test note?",
+          "options": [
+            "After spraying payloads until something looks interesting",
+            "Only if the proxy brand requires it",
+            "Before proposing unusual input, so you have a baseline",
+            "Never — observed response is enough"
+          ],
+          "correct": 2,
+          "explanation": "Expected behavior written first makes later anomalies comparable and honest."
+        }
+      ],
+      "content": "# Web Application Testing\n\n## Why this lesson exists\n\nWeb testing starts by understanding how the application communicates. The request **method**, **path**, **parameter**, **expected response**, and **observed response** become the basis for safe test cases.\n\nIn this lesson you will write a web test note that records normal behavior before proposing a scoped follow-up test.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-05\ncd ~/asv-learn-kali-linux/stage-05\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-05\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-05\"\n```\n\nYou will write `web_test_note.txt`. Point any proxy or browser tools only at your authorized lab application URL.\n\n## Start here: baseline before tests\n\nDo not change input until normal behavior is clear. First name:\n\n1. HTTP method\n2. Request path\n3. User-controlled parameter\n4. Expected response\n5. Observed response\n6. Next safe test\n\nWhen you know what normal looks like, unusual behavior can be compared without drifting outside the lab application.\n\n## Request shape\n\n| Field | Purpose | Honest limit |\n| --- | --- | --- |\n| HTTP method | Shows the request action | Method alone is not a bug |\n| Request path | Names the endpoint | Path must be in-scope lab app |\n| User parameter | Identifies controllable input | Not every parameter is sensitive |\n| Expected response | Defines normal behavior | Expectation must be written first |\n| Observed response | Captures what happened | Observation ≠ exploit proof |\n| Next safe test | Keeps follow-up tied to evidence | Must stay inside the lab app |\n\nFirst say the baseline in one sentence: *method, path, parameter, expected response, observed response, and next safe test.*\n\n## Baseline workflow\n\n1. Load the lab page with a normal request.\n2. Note status code, redirect target, or page purpose.\n3. Identify one parameter you control (query, form, header if in scope).\n4. Write expected vs observed before any payload thinking.\n5. Propose one safe follow-up that answers a single question.\n\n| Safe follow-up examples | Unsafe drift |\n| --- | --- |\n| Confirm redirect stays on lab host | Jump to arbitrary external redirects on live sites |\n| Compare response when parameter is empty vs present | Blast large payload lists with no baseline |\n| Note whether error messages leak stack traces in lab | Attack third-party production apps |\n\nTools such as browser DevTools, an intercepting proxy, or curl help you **see** requests. Seeing is not permission to hammer. Keep the note small and reviewable.\n\n## Open redirect style example (lab only)\n\nSynthetic authorized scenario:\n\n```text\nMethod: GET\nPath: /login\nParameter: redirect\nExpected: login page or safe local redirect inside the lab app\nObserved: 302 to the requested local path\nNext safe test: validate the redirect target stays on the lab application host\n```\n\nThis stage teaches the note, not a full exploit chain. Do not escalate into persistence or data theft narratives here.\n\n## Common beginner mistakes\n\n- Changing inputs before writing expected behavior\n- Testing the wrong host because a bookmark pointed elsewhere\n- Treating every anomaly as critical\n- Skipping the parameter name so nobody can reproduce\n- Using public websites as “practice targets”\n- Expecting ASV Learn to proxy traffic for you\n\n## Your local task\n\n### Step 1 — Confirm lab app target\n\nWrite the authorized URL in a one-line file `target_url.txt`:\n\n```text\nhttps://lab.local/login\n```\n\nIf that is not a lab you control or are authorized to test, stop.\n\n### Step 2 — Capture a normal baseline request\n\nAgainst your authorized lab app only, capture one normal response (edit the URL to match `target_url.txt`):\n\n```bash\nmkdir -p evidence\ncurl -sI \"https://lab.local/login\" | tee evidence/baseline-login-headers.txt\n```\n\nWrite expected behavior **before** you propose any unusual parameter values.\n\n### Step 3 — Write the web test note\n\nCreate `web_test_note.txt`:\n\n```text\nhttp_method=GET\nrequest_path=/login\nuser_parameter=redirect\nexpected_response=login page or safe local redirect inside the lab application\nobserved_response=302 redirect to the requested local path\nnext_safe_test=validate the redirect stays inside the lab application host\nscope=lab.local web app only\n```\n\nOptional shell print:\n\n```bash\nhttp_method=\"GET\"\nrequest_path=\"/login\"\nuser_parameter=\"redirect\"\nexpected_response=\"login page or safe local redirect\"\nobserved_response=\"302 redirect to the requested local path\"\nnext_safe_test=\"validate the redirect stays inside the lab application\"\n\nprintf '%s\\n' \\\n  \"method=$http_method\" \\\n  \"path=$request_path\" \\\n  \"parameter=$user_parameter\" \\\n  \"expected=$expected_response\" \\\n  \"observed=$observed_response\" \\\n  \"next_test=$next_safe_test\"\n```\n\n### Step 4 — Self-review\n\n- Is expected written clearly enough to compare?\n- Does the next test stay on the lab app?\n- Could another tester reproduce from the note alone?\n\n### Step 5 — One change you can explain\n\nChange one field (parameter or next_safe_test) and explain how the comparison still works.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Baseline | Documented normal behavior |\n| Parameter | User-controlled input in the request |\n| Observed response | What the server actually returned |\n| Safe test | Narrow, authorized follow-up |\n| Scope | Lab application boundary |\n\n## Proof checklist\n\n- [ ] `target_url.txt` names an authorized lab app\n- [ ] `web_test_note.txt` has method, path, parameter, expected, observed, next safe test\n- [ ] Expected was written before proposing unusual input\n- [ ] Next test stays inside the lab application\n- [ ] No public third-party targets were used\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nPractice only against intentionally vulnerable lab apps you host (for example DVWA, Juice Shop, or a course lab VM) — never against random public sites.\n\nWeb application testing without authorization is illegal. Use intentionally vulnerable labs you host or platforms that explicitly authorize your account for practice.\n\nWhen those items are true, continue to **Exploitation Techniques**.\n"
+    },
+    {
+      "slug": "stage-06",
+      "title": "Exploitation Techniques",
+      "hours": "3-4",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the purpose of a controlled proof in an authorized lab?",
+          "options": [
+            "Validate a confirmed finding with limited impact",
+            "Explore unrelated systems",
+            "Continue after the goal is met",
+            "Collect unnecessary sensitive data"
+          ],
+          "correct": 0,
+          "explanation": "Controlled proof validates a specific finding while limiting impact and documenting stop conditions."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which fields belong on a controlled proof card?",
+          "options": [
+            "Tool logo, music playlist, and unlimited scope",
+            "Finding, precondition, proof goal, impact limit, stop condition, cleanup",
+            "Only the exploit module name",
+            "A plan to skip authorization"
+          ],
+          "correct": 1,
+          "explanation": "The card makes validation bounded, reviewable, and stoppable."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should you do when the proof goal is met?",
+          "options": [
+            "Pivot to other hosts for practice",
+            "Install persistence so the lab stays owned",
+            "Delete the proof card so nobody can review it",
+            "Stop, save evidence, and run cleanup or rollback as planned"
+          ],
+          "correct": 3,
+          "explanation": "Professional validation ends at the stated goal and leaves a clean, reviewable lab."
+        }
+      ],
+      "content": "# Exploitation Techniques\n\n## Why this lesson exists\n\nIn a professional lab, exploitation is **controlled validation** of a confirmed weakness. It is not exploration, persistence, or unnecessary impact.\n\nIn this lesson you will write a controlled proof card: finding, precondition, proof goal, impact limit, stop condition, and cleanup.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-06\ncd ~/asv-learn-kali-linux/stage-06\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-06\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-06\"\n```\n\nYou will write `controlled_proof_card.txt`. Take a VM snapshot before any validation attempt that might change the lab.\n\n## Start here: proof boundary before validation\n\nDo not treat validation as open-ended exploration. First name:\n\n1. Confirmed finding\n2. Precondition (authorization + confirmation)\n3. Proof goal (minimum useful evidence)\n4. Impact limit (what will not happen)\n5. Stop condition\n6. Cleanup note\n\nControlled proof work answers one narrow question and stops. The plan should say what will **not** happen as clearly as what evidence will be captured.\n\n## Controlled proof card\n\n| Field | Boundary | Example wording |\n| --- | --- | --- |\n| Finding | Confirmed issue being validated | “Outdated lab service with verified weak config” |\n| Precondition | Authorization and confirmation | “Authorized lab target; signal already triaged” |\n| Proof goal | Minimum evidence needed | “Show controlled validation without persistence” |\n| Impact limit | What the proof will not do | “No lateral movement, no data theft, no persistence” |\n| Stop condition | When activity ends | “Stop after proof output is captured” |\n| Cleanup note | Temporary artifacts removed | “Remove proof files; revert snapshot if needed” |\n\nFirst say the proof boundary in one sentence: *finding, precondition, proof goal, impact limit, stop condition, and cleanup.*\n\n## What “proof” means here\n\n| Acceptable proof goal | Out of bounds for this card |\n| --- | --- |\n| Demonstrate the weakness exists with minimal impact | Dump databases “for fun” |\n| Capture a screenshot or short log proving the issue | Install backdoors |\n| Show a safe lab command output tied to the finding | Pivot to other hosts |\n| Stop and document | Keep going after the goal is met |\n\nFramework names (Metasploit and similar) are secondary. The professional skill is the boundary card. If you cannot write the card, you are not ready to run a proof.\n\n## Precondition checklist\n\nBefore any validation attempt:\n\n- [ ] Written authorization / ownership of the lab target\n- [ ] Finding already reviewed (Stage 04 style), not a random guess\n- [ ] Snapshot or rollback plan exists\n- [ ] Proof goal is one sentence\n- [ ] Impact limits are explicit\n- [ ] Cleanup owner is you, with a time box\n\n## Common beginner mistakes\n\n- Treating exploitation as exploration\n- Continuing after the proof goal is met\n- Collecting unnecessary sensitive data in a lab “because you can”\n- Skipping cleanup so the next session inherits a dirty lab\n- Skipping the precondition of confirmed signal + authorization\n- Looking for an in-lesson exploit button that does not exist here\n\n## Your local task\n\n### Step 1 — Name the finding\n\nUse this authorized synthetic scenario (or your real lab finding if already confirmed):\n\n```text\nFinding: outdated lab service with weak configuration\nTarget: lab.local\nAuthorization: own lab VM / written lab brief\n```\n\n### Step 2 — Snapshot gate\n\nBefore any validation that might change lab state, write one line you can prove later:\n\n```text\nsnapshot_taken=yes\nsnapshot_label=pre-stage-06-proof\nrollback_owner=me\n```\n\nIf you cannot take a snapshot, keep this stage as a **dry-run proof card** and do not run validation commands.\n\n### Step 3 — Write the controlled proof card\n\nCreate `controlled_proof_card.txt`:\n\n```text\nfinding=outdated lab service with weak configuration\nprecondition=authorized lab target and confirmed vulnerability signal\nproof_goal=show controlled validation without persistence or data access\nimpact_limit=no persistence, no sensitive data access, no lateral movement\nstop_condition=stop after proof output is captured\ncleanup_note=remove temporary proof files from the lab workspace; restore snapshot if lab state changed\nrollback_plan=revert to pre-proof VM snapshot if needed\n```\n\nOptional shell print:\n\n```bash\nfinding=\"outdated lab service\"\nprecondition=\"authorized lab target and confirmed vulnerability signal\"\nproof_goal=\"show controlled validation without persistence or data access\"\nimpact_limit=\"no persistence, no sensitive data access, no lateral movement\"\nstop_condition=\"stop after proof output is captured\"\ncleanup_note=\"remove temporary proof files from the lab workspace\"\n\nprintf '%s\\n' \\\n  \"finding=$finding\" \\\n  \"precondition=$precondition\" \\\n  \"proof_goal=$proof_goal\" \\\n  \"impact_limit=$impact_limit\" \\\n  \"stop_condition=$stop_condition\" \\\n  \"cleanup=$cleanup_note\"\n```\n\n### Step 4 — Self-review\n\n- Is the proof goal the smallest useful evidence?\n- Are impact limits explicit enough that a teammate could stop you?\n- Is cleanup / rollback real?\n\n### Step 5 — One change you can explain\n\nTighten the proof goal or impact limit by one clause and say why that reduces risk.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Controlled proof | Minimal validation of a confirmed issue |\n| Precondition | What must be true before proof work |\n| Impact limit | Actions that are forbidden during proof |\n| Stop condition | When validation ends |\n| Cleanup | Removing temporary artifacts after evidence is saved |\n\n## Proof checklist\n\n- [ ] `controlled_proof_card.txt` includes all six core fields plus rollback\n- [ ] Proof goal is narrow\n- [ ] Impact limits forbid persistence and lateral movement\n- [ ] Stop condition is explicit\n- [ ] Practice stays on authorized lab targets only\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nKeep impact minimal and stop when the proof goal is met. This path does not host exploits.\n\nExploitation against systems without authorization is illegal. Use only lab systems you own or are explicitly permitted to validate. Prefer snapshots and minimal impact.\n\nWhen those items are true, continue to **Wireless Testing Tools**.\n"
+    },
+    {
+      "slug": "stage-07",
+      "title": "Wireless Testing Tools",
+      "hours": "2-3",
+      "sortOrder": 7,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes a nearby wireless network a valid target?",
+          "options": [
+            "Explicit authorization",
+            "Strong signal",
+            "A familiar name",
+            "Appearing in a tool list"
+          ],
+          "correct": 0,
+          "explanation": "Wireless work requires explicit authorization for the specific network."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "If you have no authorized lab SSID, what should you do in this course?",
+          "options": [
+            "Capture all nearby networks for homework",
+            "Use café Wi‑Fi because it is convenient",
+            "Complete a documentation-only card and do not capture traffic",
+            "Skip the privacy rule"
+          ],
+          "correct": 2,
+          "explanation": "No authorization means no capture; the lesson still teaches the scope card."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why does a wireless test card need a privacy rule?",
+          "options": [
+            "Privacy rules make captures larger",
+            "Radio output can include unrelated people and networks that must stay out of scope",
+            "Tool output grants permission automatically",
+            "Cleanup is optional on shared spectrum"
+          ],
+          "correct": 1,
+          "explanation": "Shared radio space requires explicit exclusion of non-lab networks and clients."
+        }
+      ],
+      "content": "# Wireless Testing Tools\n\n## Why this lesson exists\n\nWireless testing uses shared radio space, so scope must be explicit. Nearby networks and unrelated clients are **not** targets just because they appear in tool output.\n\nIn this lesson you will write a wireless test card that names authorized SSID, channel, approved hardware, capture purpose, privacy rule, and cleanup.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-07\ncd ~/asv-learn-kali-linux/stage-07\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-07\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-07\"\n```\n\nYou will write `wireless_test_card.txt`. If you lack an authorized lab SSID and compatible adapter, complete this stage as a **documentation-only** lab using the sample fields — do not capture neighbor traffic.\n\n## Start here: authorization before wireless capture\n\nDo not treat visible networks as targets. First name:\n\n1. Authorized SSID\n2. Channel\n3. Approved hardware\n4. Capture purpose\n5. Privacy rule\n6. Cleanup note\n\nWireless work needs extra care because unrelated people and devices may be nearby. The lab card should make non-lab networks and clients explicitly out of scope.\n\n## Radio scope card\n\n| Field | Reason | Honest limit |\n| --- | --- | --- |\n| Authorized SSID | Names the target network | Visibility ≠ authorization |\n| Channel | Limits radio context | Other channels may still show noise |\n| Approved hardware | Confirms the lab adapter | Wrong adapter → skip capture |\n| Capture purpose | Explains why data is recorded | Purpose must be narrow |\n| Privacy rule | Excludes unrelated networks/users | Must be enforced in practice |\n| Cleanup note | Handles temporary capture files | Captures can contain sensitive data |\n\nFirst say the radio scope in one sentence: *authorized SSID, channel, hardware, purpose, privacy rule, and cleanup.*\n\n## Privacy and shared spectrum\n\n| Situation | Correct response |\n| --- | --- |\n| Neighbor SSIDs appear in a scan | Ignore; do not record as targets |\n| Client devices you do not own associate nearby | Do not target them |\n| You only have a home guest SSID you administer | Document that SSID as authorized; keep purpose minimal |\n| No authorized SSID available | Documentation-only practice; no capture |\n\nCaptures can include personal data. Prefer the minimum metadata needed for the lesson note. Delete temporary capture files after notes are saved unless you have a clear evidence retention reason in an authorized engagement.\n\n## Tool mindset\n\nWireless tooling in Kali can list networks, set monitor mode, or capture handshakes in advanced labs. For this card:\n\n1. Authorization text comes before adapter commands.\n2. Purpose stays educational and minimal.\n3. Privacy rule is written and followed.\n4. Cleanup is mandatory.\n\nIf you are not sure the SSID is yours to test, you are done — stop.\n\n## Common beginner mistakes\n\n- Treating strong signal as permission\n- Capturing “everything on the air” for practice\n- Leaving capture files on shared disks\n- Skipping hardware approval (broken or unauthorized adapters)\n- Practicing on café / apartment / employer Wi‑Fi without written leave\n- Expecting ASV Learn to provide a radio lab\n\n## Your local task\n\n### Step 1 — Authorization gate\n\nAnswer yes/no in `authorization_gate.txt`:\n\n```text\ni_own_or_have_written_permission_for_the_ssid=yes\nssid_label=ASV-LAB (replace with your authorized SSID or write NONE)\nif_none=documentation_only_no_capture\n```\n\nIf the answer is no / NONE, still complete Step 2 with the sample lab SSID as a **template only** and do not capture.\n\n### Step 2 — Write the wireless test card\n\nCreate `wireless_test_card.txt`:\n\n```text\nauthorized_ssid=ASV-LAB\nchannel=6\napproved_hardware=lab wireless adapter\ncapture_purpose=document authorized lab handshake metadata only\nprivacy_rule=ignore non-lab networks and unrelated clients; do not store foreign SSIDs as targets\ncleanup_note=delete temporary capture files after evidence notes are saved\nout_of_scope=all SSIDs and clients not named ASV-LAB\n```\n\nOptional shell print:\n\n```bash\nauthorized_ssid=\"ASV-LAB\"\nchannel=\"6\"\napproved_hardware=\"lab wireless adapter\"\ncapture_purpose=\"document authorized lab handshake metadata\"\nprivacy_rule=\"ignore non-lab networks and unrelated clients\"\ncleanup_note=\"delete temporary capture files after evidence notes are saved\"\n\nprintf '%s\\n' \\\n  \"ssid=$authorized_ssid\" \\\n  \"channel=$channel\" \\\n  \"hardware=$approved_hardware\" \\\n  \"purpose=$capture_purpose\" \\\n  \"privacy=$privacy_rule\" \\\n  \"cleanup=$cleanup_note\"\n```\n\n### Step 3 — Self-review\n\n- Is non-lab traffic explicitly excluded?\n- Is cleanup concrete?\n- If you lack authorization, did you stay documentation-only?\n\n### Step 4 — One change you can explain\n\nTighten the privacy rule or capture purpose by one clause and say how that reduces risk to unrelated people.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| SSID | Network name broadcast by an access point |\n| Channel | Radio channel used for the lab network |\n| Capture | Recording wireless frames for analysis |\n| Privacy rule | Written exclusion of unrelated networks/clients |\n| Monitor mode | Adapter mode used in advanced wireless labs |\n\n## Proof checklist\n\n- [ ] Authorization gate answered honestly\n- [ ] `wireless_test_card.txt` includes SSID, channel, hardware, purpose, privacy, cleanup\n- [ ] Out-of-scope networks are excluded in writing\n- [ ] No capture performed without authorization\n- [ ] Temporary capture files (if any) deleted after notes\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nIntercepting or attacking wireless networks without authorization can be illegal and invasive. Only practice on networks you own or have explicit written permission to test.\n\nWhen those items are true, continue to **Forensics & Analysis**.\n"
+    },
+    {
+      "slug": "stage-08",
+      "title": "Forensics & Analysis",
+      "hours": "2-3",
+      "sortOrder": 8,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why separate observation from interpretation?",
+          "options": [
+            "So uncertainty disappears",
+            "So evidence and conclusions stay defensible",
+            "So the original artifact can be changed",
+            "So the report can skip context"
+          ],
+          "correct": 1,
+          "explanation": "Defensible analysis shows what was directly observed and what was inferred."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the safer place to analyze a lab log?",
+          "options": [
+            "A working copy, while keeping any original unchanged",
+            "The only original file, editing it in place",
+            "A public paste site with no notes",
+            "Memory only, with no written card"
+          ],
+          "correct": 0,
+          "explanation": "Preservation protects originals; analysis belongs on copies with notes."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why must an evidence card include uncertainty?",
+          "options": [
+            "So the case can close with false certainty",
+            "So observations can be deleted",
+            "So assumptions stay visible for the next analyst",
+            "So authorization is no longer required"
+          ],
+          "correct": 2,
+          "explanation": "Visible uncertainty keeps analysis honest and reviewable."
+        }
+      ],
+      "content": "# Forensics & Analysis\n\n## Why this lesson exists\n\nForensic work depends on **preservation** and careful language. Record what you observed, how you preserved the artifact, what you think it means, and what remains uncertain.\n\nIn this lesson you will write an evidence analysis card that separates observation from interpretation.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/stage-08/{notes,evidence-copies}\ncd ~/asv-learn-kali-linux/stage-08\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-08\\notes\"\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\stage-08\\evidence-copies\"\nSet-Location \"$HOME\\asv-learn-kali-linux\\stage-08\"\n```\n\nYou will write `evidence_analysis_card.txt` under `notes/`. Work from **copies** in `evidence-copies/`, not from unique originals when originals must stay unchanged.\n\n## Start here: preservation before interpretation\n\nDo not explain evidence before protecting it. First name:\n\n1. Evidence item / artifact identifier\n2. Preservation step\n3. Direct observation\n4. Interpretation\n5. Uncertainty\n6. Next question\n\nForensic language should keep facts and conclusions separate so another reviewer can test your reasoning.\n\n## Evidence discipline\n\n| Field | Purpose | Honest limit |\n| --- | --- | --- |\n| Artifact identifier | Names the evidence item | Labels must be stable |\n| Preservation step | Protects the original from accidental change | Working on the only copy is risky |\n| Observation | What you can directly see | No hidden guesses |\n| Interpretation | What the observation may mean | Marked as interpretation |\n| Uncertainty | Assumptions kept visible | Required, not optional |\n| Next question | Guides further analysis | Prevents false closure |\n\nFirst say the evidence chain in one sentence: *artifact, preservation step, observation, interpretation, uncertainty, and next question.*\n\n## Observation versus interpretation\n\n| Type | Example | Where it goes |\n| --- | --- | --- |\n| Observation | “Login failure events appear at 14:02–14:06 for user alex” | Observation |\n| Interpretation | “Possible unauthorized access attempt in the training scenario” | Interpretation |\n| Uncertainty | “Needs corroborating timestamps from another log source” | Uncertainty |\n| Next question | “Which account and source generated the event?” | Next question |\n\nIf you cannot point to the bytes, line, or screenshot that supports a sentence, it is not yet an observation.\n\n## Preservation habits for a small lab\n\n| Habit | Why |\n| --- | --- |\n| Copy before analysis | Original stays unchanged |\n| Note hash or size when practical | Detect accidental modification |\n| Keep analysis notes separate from evidence copies | Avoid mixing commentary into artifacts |\n| Record tool + version used for viewing | Reviewers can reproduce viewing conditions |\n| Do not “clean up” the only copy | Cleanup belongs to scratch, not evidence |\n\nKali includes many analysis utilities. The tool name matters less than whether you can defend the chain: what you touched, what you saw, what you inferred.\n\n## Common beginner mistakes\n\n- Explaining before preserving\n- Writing interpretation as fact\n- Hiding uncertainty to sound confident\n- Editing the only copy of a log or image\n- Skipping the next question so analysis stops early\n- Expecting ASV Learn to mount disk images for you in the lesson page\n\n## Your local task\n\n### Step 1 — Create a synthetic artifact\n\nWrite a tiny lab log copy (this is practice data, not a real incident):\n\n`evidence-copies/lab-auth.log`\n\n```text\n2026-08-07T14:02:11Z FAIL user=alex src=10.0.3.44\n2026-08-07T14:02:40Z FAIL user=alex src=10.0.3.44\n2026-08-07T14:03:05Z FAIL user=alex src=10.0.3.44\n2026-08-07T14:06:12Z SUCCESS user=alex src=10.0.3.44\n```\n\nTreat this file as the working copy. Imagine an original remains read-only elsewhere.\n\n### Step 2 — Write the evidence analysis card\n\nCreate `notes/evidence_analysis_card.txt`:\n\n```text\nartifact_id=lab-image-001 / lab-auth.log working copy\npreservation_step=work from evidence-copies/lab-auth.log; keep any original unchanged\nobservation=four auth events for user alex from 10.0.3.44 including three failures then one success\ninterpretation=possible unauthorized access attempt in the training scenario\nuncertainty=needs corroborating timestamps from another log source; MFA status unknown\nnext_question=which account recovery or MFA signals exist around the same window\n```\n\nOptional shell print:\n\n```bash\nartifact_id=\"lab-image-001\"\npreservation_step=\"work from a copied artifact and keep the original unchanged\"\nobservation=\"suspicious login event appears in the lab log\"\ninterpretation=\"possible unauthorized access attempt in the training scenario\"\nuncertainty=\"needs corroborating timestamps from another log source\"\nnext_question=\"which account and source generated the event\"\n\nprintf '%s\\n' \\\n  \"artifact=$artifact_id\" \\\n  \"preservation=$preservation_step\" \\\n  \"observation=$observation\" \\\n  \"interpretation=$interpretation\" \\\n  \"uncertainty=$uncertainty\" \\\n  \"next_question=$next_question\"\n```\n\n### Step 3 — Self-review\n\n- Can a second analyst see what was directly observed?\n- Is uncertainty visible?\n- Did you avoid modifying the only imagined original?\n\n### Step 4 — One change you can explain\n\nMove one overconfident phrase from interpretation into uncertainty (or the reverse if you understated) and justify the edit.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Artifact | Evidence item under analysis |\n| Preservation | Protecting originals from change |\n| Observation | Directly seen fact |\n| Interpretation | Possible meaning of the observation |\n| Chain of custody | Record of who handled evidence and how |\n\n## Proof checklist\n\n- [ ] Working copy exists under `evidence-copies/`\n- [ ] Analysis card separates observation and interpretation\n- [ ] Uncertainty and next question are present\n- [ ] Preservation step is written\n- [ ] Only authorized / synthetic lab artifacts were used\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nAnalyze only artifacts you are authorized to handle. Do not acquire or inspect other people’s private data without legal authority and a clear case need.\n\nWhen those items are true, continue to **Customizing Kali for Your Workflow**.\n"
+    },
+    {
+      "slug": "stage-09",
+      "title": "Customizing Kali for Your Workflow",
+      "hours": "2-3",
+      "sortOrder": 9,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should Kali customization improve?",
+          "options": [
+            "Repeatability and evidence quality",
+            "Hidden shortcuts",
+            "Unreviewed tool use",
+            "Untracked files"
+          ],
+          "correct": 0,
+          "explanation": "Professional customization supports reproducible notes, evidence, and reporting."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should exist before clever shell aliases?",
+          "options": [
+            "A default that scans every discovered host",
+            "A plan to skip backups",
+            "A note template and clear workspace layout",
+            "An automatic grade for aliases inside the lesson"
+          ],
+          "correct": 2,
+          "explanation": "Repeatability and reviewability come before personal speed hacks."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How should this ASV Learn Kali card treat longer external curricula?",
+          "options": [
+            "Quietly claim 300+ hours on this same course card",
+            "Note that a longer path exists without inflating this card beyond about 20–25 hours",
+            "Ignore lab notes because the longer path will cover them",
+            "Replace authorization rules with certification logos"
+          ],
+          "correct": 1,
+          "explanation": "This card stays an honest 20–25h lab-hygiene path; deeper curricula are optional later."
+        }
+      ],
+      "content": "# Customizing Kali for Your Workflow\n\n## Why this lesson exists\n\nCustomization should make lab work **repeatable**, easier to review, and easier to explain. A personal setup that hides evidence or depends on memory is not a professional workflow.\n\nIn this lesson you will write a workflow checklist: workspace layout, note template, tool profile, update habit, backup rule, and reviewer-ready summary.\n\nA longer zero-to-job-ready Kali path exists outside this **20–25 hour** card; finish this checklist before expanding into that longer curriculum.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-kali-linux/{notes,evidence,reports,scratch}\ncd ~/asv-learn-kali-linux\n```\n\nWindows (PowerShell on the host if notes live there):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\notes\"\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\evidence\"\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\reports\"\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-kali-linux\\scratch\"\nSet-Location \"$HOME\\asv-learn-kali-linux\"\n```\n\nYou will write `workflow_checklist.txt` in the course root folder.\n\n## Start here: repeatability before shortcuts\n\nDo not optimize for private shortcuts first. Name:\n\n1. Workspace layout\n2. Note template\n3. Tool profile (defaults and boundaries)\n4. Update habit\n5. Backup rule\n6. Reviewer-ready summary\n\nCustomization is useful when another reviewer can understand the setup. The goal is a repeatable lab workflow, not hidden convenience that only works from memory.\n\n## Workflow checklist model\n\n| Field | Professional reason | Failure mode if missing |\n| --- | --- | --- |\n| Workspace layout | Separates notes, evidence, reports, scratch | Scratch mistaken for proof |\n| Note template | Makes every run reproducible | Runs cannot be explained later |\n| Tool profile | Documents defaults and scope boundaries | Accidental out-of-scope targets |\n| Update habit | Keeps the lab snapshot current | Broken tools mid-engagement |\n| Backup rule | Protects evidence and notes | Lost work after VM crash |\n| Reviewer-ready summary | Turns practice into useful proof | Nobody can hand off findings |\n\nFirst say the checklist in one sentence: *layout, note template, tool profile, update habit, backup rule, and reviewer summary.*\n\n## Suggested layout\n\n```text\n~/asv-learn-kali-linux/\n  notes/       # lab notes per stage\n  evidence/    # saved tool output tied to notes\n  reports/     # short findings for handoff\n  scratch/     # disposable files; never the only copy of proof\n```\n\nLink each evidence file back to a note that states target, purpose, and time. A pile of screenshots without notes is not a workflow.\n\n## Note template (minimum fields)\n\nUse this for every future tool run:\n\n```text\ndate=\nauthorized_target=\npurpose=\ncommand_or_action=\nresult_summary=\nevidence_path=\nnext_action=\ncleanup=\n```\n\nAliases and shell functions are fine **after** this template exists. An alias that hides the target or skips the note is a downgrade.\n\n## Tool profile boundaries\n\n| Default | Boundary |\n| --- | --- |\n| Lab target variable | Always set to authorized label before scans |\n| Output directory | Under `evidence/` with date prefix |\n| Aggressive timing profiles | Off unless the note says why |\n| Update commands | Run on a snapshot-friendly schedule |\n| Wireless / exploit tools | Disabled or unused until their stage cards are complete |\n\nWrite the profile in plain language first. Implement aliases second.\n\n## Update and backup\n\n| Habit | Practical cadence for a learning lab |\n| --- | --- |\n| Snapshot before major package updates | Before `apt` big changes |\n| Export notes/evidence after each practice block | End of session |\n| Keep one offline or host-side backup of notes | Weekly or after each stage |\n| Re-read scope note after restore | Snapshots can revive old assumptions |\n\n## Common beginner mistakes\n\n- Building clever aliases before a note template\n- Saving everything in `/tmp` or Desktop clutter\n- No backup until a VM disk fills\n- Tool defaults that quietly expand scope\n- Reviewer summary that lists tools instead of findings\n- Treating this short card as the full multi-hundred-hour career path\n\n## Your local task\n\n### Step 1 — Create the folders\n\nEnsure `notes`, `evidence`, `reports`, and `scratch` exist (commands above).\n\n### Step 2 — Write the workflow checklist\n\nCreate `workflow_checklist.txt`:\n\n```text\nworkspace_layout=~/asv-learn-kali-linux/{notes,evidence,reports,scratch}\nnote_template=date target purpose action result evidence_path next_action cleanup\ntool_profile=safe defaults for authorized lab targets only; no aggressive profiles without a note\nupdate_habit=snapshot then update lab packages before a new practice block\nbackup_rule=export notes and evidence to host storage after each lab session\nreviewer_summary=finding summary with evidence path, impact, and remediation\nlonger_path_note=optional deeper curriculum exists beyond this 20-25h ASV Learn card; do not inflate this card hours\n```\n\nOptional shell setup print:\n\n```bash\nworkspace_layout=\"$HOME/asv-learn-kali-linux/notes-evidence-reports-scratch\"\nnote_template=\"target purpose output next-action\"\ntool_profile=\"safe aliases and defaults for authorized lab targets only\"\nupdate_habit=\"update the lab snapshot before a new practice block\"\nbackup_rule=\"export notes and evidence after each lab\"\nreviewer_summary=\"finding summary with evidence, impact, and remediation\"\n\nmkdir -p \"$HOME/asv-learn-kali-linux\"/{notes,evidence,reports,scratch}\nprintf '%s\\n' \\\n  \"workspace_layout=$workspace_layout\" \\\n  \"note_template=$note_template\" \\\n  \"tool_profile=$tool_profile\" \\\n  \"update_habit=$update_habit\" \\\n  \"backup_rule=$backup_rule\" \\\n  \"reviewer_summary=$reviewer_summary\"\n```\n\n### Step 3 — Self-review\n\n- Could another person follow this without watching you type?\n- Are scratch and evidence separated?\n- Does the reviewer summary talk about findings, not ego?\n\n### Step 4 — One change you can explain\n\nAdd one concrete alias or folder naming rule, then explain how it improves reviewability rather than speed alone.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Workspace layout | Where notes, evidence, reports, and scratch live |\n| Note template | Required fields for every run |\n| Tool profile | Intentional defaults and boundaries |\n| Reviewer-ready summary | Handoff a second person can use |\n| Repeatability | Same steps produce understandable results later |\n\n## Proof checklist\n\n- [ ] Folders for notes, evidence, reports, scratch exist\n- [ ] `workflow_checklist.txt` covers all six fields\n- [ ] Note template is copy-paste ready\n- [ ] Backup rule is practical\n- [ ] You can explain the setup in under two minutes\n- [ ] You know this card is 20–25h, with a longer path available later\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nA customized Kali workflow does not grant permission. Keep every alias, script, and default pointed at authorized lab targets only.\n\nWhen those items are true, you have finished this ASV Learn Kali card. Continue into deeper authorized labs or a longer curriculum when you are ready — without claiming those hours on this course card.\n"
+    }
+  ],
+  "learnings": [
+    "Set up Kali as a controlled lab workstation with safe defaults",
+    "Use recon, scanning, and enumeration tools with scoped targets",
+    "Run vulnerability and web checks while preserving evidence trails",
+    "Document tool output so another analyst can reproduce your steps",
+    "Keep lab practice separate from production systems and live targets"
+  ],
+  "tags": "Cyber, cybersecurity, security"
+}

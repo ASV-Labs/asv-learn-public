@@ -1,0 +1,1 @@
+Later chapters open forensics and threat hunting — so you can chase what the alert only hinted at.

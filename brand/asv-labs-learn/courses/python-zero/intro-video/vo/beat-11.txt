@@ -1,0 +1,2 @@
+In industry, Python shows up in websites, data work, automation, and a lot of modern AI tools.
+Start with Module Zero. Take your time.

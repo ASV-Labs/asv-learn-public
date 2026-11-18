@@ -1,0 +1,54 @@
+DEVOPS & INFRASTRUCTURE — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is DevOps and Infrastructure, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+Your app works on your laptop.
+Then someone else tries to run it — and three a.m. finds you reading a red dashboard.
+
+========== BEAT 03 → beat-03 ==========
+
+This course follows one application on a journey:
+from a messy local project, into a container story, onto a cluster rollout, through a pipeline, under watch.
+
+========== BEAT 04 → beat-04 ==========
+
+DevOps is the craft of making that journey boring — in the best way.
+Repeatable builds. Clear deploys. Alerts that mean something.
+
+========== BEAT 05 → beat-05 ==========
+
+You will write release cards for Docker, Kubernetes, CI/CD, Terraform, and observability —
+naming gates, rollback, and owners before you claim “it is in production.”
+
+========== BEAT 06 → beat-06 ==========
+
+Optional local installs come later if you want hands on a real daemon.
+The lessons themselves train judgment with artifacts you can show a reviewer.
+
+========== BEAT 07 → beat-07 ==========
+
+We start with Linux and shell foundations, then Docker, Kubernetes,
+GitHub Actions pipelines, Terraform, and observability.
+
+========== BEAT 08 → beat-08 ==========
+
+Practice is your machine and authorized lab only. ASV Learn does not host a cluster or pipeline sandbox inside the lesson.
+
+========== BEAT 09 → beat-09 ==========
+
+Bring curiosity and patience. You do not need to be a kernel expert on day one.
+
+========== BEAT 10 → beat-10 ==========
+
+Your proof is one honest artifact from each stage — a chain that shows how that app would build, ship, and page a human when it breaks.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that journey is how teams ship without heroic weekends.
+Start with Linux and shell foundations. Take your time.

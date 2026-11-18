@@ -1,0 +1,1 @@
+Every exercise ends in a local artifact you can re-run: scripts, plans, and checklists in your own folder.

@@ -1,0 +1,2 @@
+This course turns Python into a defensive amplifier:
+safe network checks, HTTP evidence collection, hashing decisions, and small tools that fail closed.

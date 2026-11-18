@@ -1,0 +1,297 @@
+{
+  "slug": "fullstack",
+  "title": "Full Stack Development",
+  "description": "JavaScript path: HTML/CSS/JS → React → Node/Express → Prisma → deploy. Pick this for browser-to-API in JS (vs Python Full Stack or frontend-only React).",
+  "difficulty": "Intermediate",
+  "hours": "60-70",
+  "topics": [
+    "Frontend",
+    "React",
+    "APIs",
+    "Databases",
+    "Deployment",
+    "Portfolio"
+  ],
+  "certBadges": [
+    "Full Stack Developer"
+  ],
+  "runtime": "javascript",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/fullstack.ts",
+    "live": "https://technodex.io/courses/fullstack"
+  },
+  "stages": [
+    {
+      "slug": "html-css-js",
+      "title": "HTML, CSS & JavaScript Foundations",
+      "hours": "8-10",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "In the status card exercise, which layer makes success visually readable?",
+          "options": [
+            "The terminal only",
+            "package.json",
+            "A database migration",
+            "CSS"
+          ],
+          "correct": 3,
+          "explanation": "CSS communicates state with color, spacing, and contrast the user can see."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice Stage 01 in ASV Learn house style?",
+          "options": [
+            "Skip the browser and only edit package.json",
+            "Edit index.html, styles.css, and app.js locally and test in a browser",
+            "Memorize React hooks before HTML",
+            "Skip JavaScript until deployment"
+          ],
+          "correct": 1,
+          "explanation": "Lessons are read in ASV Learn; practice is edit → save → run on your computer."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why can a button click feel broken to users?",
+          "options": [
+            "HTML cannot contain buttons",
+            "CSS removes all text from the page",
+            "The page shows no visible state change after the action",
+            "JavaScript always runs on the server only"
+          ],
+          "correct": 2,
+          "explanation": "Behavior needs readable evidence — updated text or styling — not only console output."
+        }
+      ],
+      "content": "# HTML, CSS & JavaScript Foundations\n\n## Why this lesson exists\n\nFull-stack development is a chain of decisions that start in the browser. Before React, Express, or a database enter the picture, you need to read a small feature as **structure**, **presentation**, and **behavior** working together.\n\nIn this stage you will build a tiny **status card** on your computer: HTML names the content and controls, CSS makes states readable, and JavaScript changes what the user sees after a click. You are not building a production app yet. You are learning the rhythm every later layer depends on: **name the user flow → edit local files → open in a browser or run a small Node script → prove the state change is visible**.\n\nThere is no in-lesson code box on this platform yet. Same rhythm as Python Zero: **read concept → create/edit local files → run → one small change you can explain → checklist**.\n\n## Reminder: where you work\n\nCreate a dedicated folder for this course:\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-01\ncd ~/asv-learn-fullstack/stage-01\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-01\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-01\"\n```\n\nYou will create `index.html`, `styles.css`, and `app.js` in that folder.\n\n## Start here: user flow before code\n\nAt the start, do not jump into frameworks or folder scaffolding. Name what the user sees, what they can do, what state changes, and how another person would know the feature worked.\n\nFor a status card, read the flow as one sentence: *the user sees a card with a heading and button, clicks the button, the card moves from idle to success, and the page makes that change obvious with text and color.*\n\n### Three browser layers\n\n| Layer | Job | Evidence on the page |\n| --- | --- | --- |\n| **HTML** | Names content and controls | heading, status text, button |\n| **CSS** | Makes state readable | spacing, contrast, success color |\n| **JavaScript** | Changes behavior after input | click handler updates status |\n\nHTML is not decoration. CSS is not paint for its own sake. JavaScript is not magic. Together they answer: *what is on the page, what changed, and can the user tell?*\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand the feature as structure, readable state, and behavior\n- **Inspect:** point to which HTML element, CSS class, and JS line owns each part of the flow\n- **Build:** complete the starter files — not a whole website\n- **Prove:** explain how a tester would know idle became success\n\nPractice after reading means you should understand the user flow before editing files. If the code looks like a wall, read one element or one function at a time and ask: *what would the user see or do here?*\n\n## One clean pass through this lesson\n\nBefore the editor, read the feature as a chain:\n\n1. The user sees a card with a heading, status line, and action button.\n2. The page starts in an **idle** state the user can read.\n3. The user clicks the button.\n4. JavaScript updates the status text and CSS class.\n5. The page shows **success** clearly enough that another person could test it without guessing.\n\nThat chain is the lesson. Frameworks come later. A strong first feature is small enough to explain and clear enough to demo in thirty seconds.\n\n## Planning before typing: component plan\n\nMany teams sketch a plan object before writing markup. You can do the same in Node:\n\n```js\nconst componentPlan = {\n  html: \"card with heading, status text, and action button\",\n  cssState: \"success uses green text and clear spacing\",\n  behavior: \"clicking the button changes idle to success\",\n  states: [\"idle\", \"success\"],\n};\n```\n\nRun a planning-only check with Node if you want:\n\n```bash\nnode -e 'console.log({ html: \"status card\", states: [\"idle\", \"success\"] })'\n```\n\nThe plan is not the app. It is the checklist your HTML, CSS, and JS should satisfy.\n\n## Reading the starter shape\n\nYour HTML should expose three things: a title, a status element the script can update, and a button the script can listen to.\n\nYour CSS should include at least two visual states — for example `.idle` and `.success` — so the change is not only in JavaScript memory.\n\nYour JavaScript should:\n\n1. Find the status element and button in the document\n2. Listen for a click\n3. Update text and class when the user acts\n\n## Common beginner mistakes\n\n**A button with no visible state change.** If the click runs but the page looks the same, the user cannot tell anything happened. Fix the status text or CSS class, not just the console.\n\n**Putting all logic inline in HTML.** `onclick=\"...\"` on every element gets hard to read fast. A small `app.js` file is easier to test and explain.\n\n**Using IDs everywhere.** One status element and one button is fine with IDs. Larger pages need classes and consistent naming.\n\n**Forgetting semantic structure.** A real `<button>` is keyboard-accessible. A `<div>` styled like a button is not, unless you add a lot of extra work.\n\n## Your local task\n\n### Step 1 — Create the HTML starter\n\nCreate `index.html`:\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>Status Card — Stage 01</title>\n    <link rel=\"stylesheet\" href=\"styles.css\" />\n  </head>\n  <body>\n    <main class=\"card idle\" id=\"card\">\n      <h1>Lesson progress</h1>\n      <p id=\"status\">Status: idle</p>\n      <button id=\"action\" type=\"button\">Mark complete</button>\n    </main>\n    <script src=\"app.js\"></script>\n  </body>\n</html>\n```\n\n### Step 2 — Create the CSS starter\n\nCreate `styles.css`:\n\n```css\n.card {\n  max-width: 320px;\n  margin: 2rem auto;\n  padding: 1.25rem;\n  border: 1px solid #ccc;\n  border-radius: 8px;\n  font-family: system-ui, sans-serif;\n}\n\n.idle #status {\n  color: #555;\n}\n\n.success #status {\n  color: #0a7a2f;\n  font-weight: 600;\n}\n\nbutton {\n  margin-top: 1rem;\n  padding: 0.5rem 1rem;\n}\n```\n\n### Step 3 — Create the JavaScript starter\n\nCreate `app.js`:\n\n```js\n// app.js — Stage 01: HTML, CSS & JavaScript Foundations\n// TODO: on button click, change status text and card class to success.\n\nconst statusEl = document.getElementById(\"status\");\nconst cardEl = document.getElementById(\"card\");\nconst actionBtn = document.getElementById(\"action\");\n\n// TODO: add a click listener that sets status to \"Status: success\"\n// and adds the \"success\" class to the card (remove \"idle\" if you prefer one class).\n```\n\nFill in the TODO. A finished version might look like:\n\n```js\nactionBtn.addEventListener(\"click\", () => {\n  statusEl.textContent = \"Status: success\";\n  cardEl.classList.remove(\"idle\");\n  cardEl.classList.add(\"success\");\n});\n```\n\n### Step 4 — Open and test\n\nOpen the file in a browser:\n\n```bash\nopen index.html\n```\n\nOn Linux, try `xdg-open index.html`. On Windows, double-click the file in Explorer or run `start index.html`.\n\nClick **Mark complete**. Confirm the text and color change.\n\n### Step 5 — One small change you can explain\n\nChange **one** thing after the original flow works. Examples:\n\n- Add an **error** state with a different color\n- Disable the button after success\n- Update the heading text when the state changes\n\nSave, refresh the browser, and confirm the new behavior.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| HTML | Structure and meaning of page content |\n| CSS | Rules that control layout, color, and readability |\n| JavaScript | Code that runs in the browser and responds to events |\n| State | What the user sees now (idle, success, error) |\n| Event listener | Function that runs when the user clicks or types |\n| DOM | The live tree of elements the browser builds from HTML |\n\n## Proof checklist\n\n- [ ] `index.html`, `styles.css`, and `app.js` exist in `~/asv-learn-fullstack/stage-01`\n- [ ] Opening `index.html` shows a card with heading, status, and button\n- [ ] Clicking the button changes visible status text\n- [ ] CSS makes success visually distinct from idle\n- [ ] You changed one behavior, refreshed, and saw the difference\n- [ ] You can explain which layer owns structure, presentation, and behavior\n\nWhen those are true, continue to **React Frontend Development**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or open HTML in your browser). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "react-frontend",
+      "title": "React Frontend Development",
+      "hours": "10-12",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Which item usually comes from a parent component?",
+          "options": [
+            "A database migration",
+            "A prop",
+            "A server port",
+            "A rollback image"
+          ],
+          "correct": 1,
+          "explanation": "Props are values passed into a component from outside."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What file do you run locally in Stage 02 before installing React?",
+          "options": [
+            "A Dockerfile with no component plan",
+            "A Prisma schema only",
+            "An nginx config template",
+            "view_plan.js with node"
+          ],
+          "correct": 3,
+          "explanation": "House style proves the component contract in plain Node.js first."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does an empty render state describe?",
+          "options": [
+            "A server 500 error",
+            "What the user sees when expected data is not available yet",
+            "A completed migration",
+            "A CSS file missing from disk"
+          ],
+          "correct": 1,
+          "explanation": "Empty states are normal UI cases — zero progress is not necessarily an error."
+        }
+      ],
+      "content": "# React Frontend Development\n\n## Why this lesson exists\n\nReact is one way to turn **data** and **state** into reusable interface pieces. Teams use it because large pages become easier to reason about when each screen area has a clear contract: what data comes in, what can change locally, what the user can do, and what should appear in each situation.\n\nIn this stage you will not install a full React toolchain yet unless you already have one. You **will** write a **React view plan** in local JavaScript and a tiny state machine that simulates how a component behaves. That honest step matches how senior developers review UI work before JSX fills the screen.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a local `.js` file → run with Node → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-02\ncd ~/asv-learn-fullstack/stage-02\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-02\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-02\"\n```\n\nYou will create `view_plan.js` in that folder.\n\n## Start here: component contract before hooks\n\nBefore hooks or JSX syntax, name the **component contract**:\n\n| Question | React term |\n| --- | --- |\n| What data comes in from outside? | **props** |\n| What can change inside this piece? | **state** |\n| What does the user do? | **event** |\n| What should appear on screen? | **render output** |\n| What happens when data is missing? | **empty state** |\n\nA useful component is small enough that you can answer those five questions out loud before writing code.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand React as props + state + events → visible output\n- **Inspect:** match each view-plan field to a user-visible behavior\n- **Build:** complete the view plan and the render simulation\n- **Prove:** explain what the user sees for empty, ready, and complete states\n\nPractice after reading means you should understand the contract before editing the JavaScript object. If the object looks technical, read one property at a time and ask: *what would the user see after this event?*\n\n## One clean pass through this lesson\n\nRead React work as a component chain:\n\n1. The component name says which piece of the interface you are planning.\n2. Props describe data passed in from a parent (title, progress, callbacks).\n3. Local state describes what can change inside the component (expanded, saving).\n4. Events describe user actions (click start, toggle details).\n5. Render states describe what appears for empty, ready, and complete work.\n\nDo not start with hooks vocabulary. First say the plan in one sentence: *LessonStatusCard receives title and progress, toggles expanded locally, and shows different copy for empty vs ready vs complete.*\n\n## Component thinking with a concrete example\n\nImagine a course dashboard card:\n\n```js\nconst reactViewPlan = {\n  component: \"LessonStatusCard\",\n  props: [\"title\", \"progress\", \"onStart\"],\n  state: [\"expanded\"],\n  events: [\"click start\", \"toggle details\"],\n  renderStates: [\"empty\", \"ready\", \"complete\"],\n  accessibility: \"button label names the action, not just 'click here'\",\n};\n```\n\nProps are inputs you do not own. State is memory this component owns. Events connect user actions to state updates. Render states are what a tester should be able to see.\n\n## Simulating render output without JSX\n\nYou can practice the contract with plain functions:\n\n```js\nfunction renderLessonStatusCard(props, state) {\n  if (props.progress === 0) {\n    return { view: \"empty\", message: `No progress on ${props.title}` };\n  }\n  if (props.progress >= 100) {\n    return { view: \"complete\", message: `${props.title} complete` };\n  }\n  const details = state.expanded ? \" (details open)\" : \"\";\n  return { view: \"ready\", message: `${props.title}: ${props.progress}%${details}` };\n}\n```\n\nThis is not React. It is the **behavior** React would later encode in JSX. If you cannot explain this function, adding `useState` will not help yet.\n\n## Common beginner mistakes\n\n**Putting everything in one giant component.** If the plan needs twelve props and eight events, split the UI mentally before coding.\n\n**Using state for data that should be a prop.** If the parent already knows the lesson title, the child should receive it — not fetch or duplicate it silently.\n\n**Empty states that look like errors.** Zero progress is normal. Say \"No progress yet\" instead of red error styling unless something failed.\n\n**Accessibility as an afterthought.** If the only control is a icon with no label, keyboard and screen-reader users cannot tell what it does.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `view_plan.js`:\n\n```js\n// view_plan.js — Stage 02: React Frontend Development\n// Run unchanged first, then extend one render state.\n\nconst reactViewPlan = {\n  component: \"LessonStatusCard\",\n  props: [\"title\", \"progress\", \"onStart\"],\n  state: [\"expanded\"],\n  events: [\"click start\", \"toggle details\"],\n  renderStates: [\"empty\", \"ready\", \"complete\"],\n  accessibility: \"button label names the action\",\n};\n\nfunction renderLessonStatusCard(props, state) {\n  if (props.progress === 0) {\n    return { view: \"empty\", message: `No progress on ${props.title}` };\n  }\n  if (props.progress >= 100) {\n    return { view: \"complete\", message: `${props.title} complete` };\n  }\n  const details = state.expanded ? \" (details open)\" : \"\";\n  return {\n    view: \"ready\",\n    message: `${props.title}: ${props.progress}%${details}`,\n  };\n}\n\nfunction demo() {\n  console.log(\"=== View plan ===\");\n  console.log(reactViewPlan);\n  console.log(\"\\n=== Render samples ===\");\n  console.log(renderLessonStatusCard({ title: \"HTML basics\", progress: 0 }, { expanded: false }));\n  console.log(renderLessonStatusCard({ title: \"HTML basics\", progress: 40 }, { expanded: false }));\n  console.log(renderLessonStatusCard({ title: \"HTML basics\", progress: 40 }, { expanded: true }));\n  console.log(renderLessonStatusCard({ title: \"HTML basics\", progress: 100 }, { expanded: false }));\n}\n\nif (require.main === module) {\n  demo();\n}\n\nmodule.exports = { reactViewPlan, renderLessonStatusCard };\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode view_plan.js\n```\n\nMatch each printed render sample to `empty`, `ready`, or `complete`.\n\n### Step 3 — Extend one render state\n\nChange **one** thing after the output makes sense. Examples:\n\n- Add a `\"saving\"` render state when progress is between 99 and 100\n- Improve the accessibility string to mention progress\n- Add a `error` render state when `progress` is negative (validation)\n\nSave and run again.\n\n### Step 4 — Explain props vs state\n\nIn a comment at the bottom of the file, answer:\n\n1. Which values in your demo are **props**?\n2. Which value is **state** inside the component?\n3. What event would flip `expanded` in a real React component?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Component | Reusable UI piece with its own contract |\n| Props | Inputs passed into a component from outside |\n| State | Values a component manages internally |\n| Event | User action that may update state |\n| Render | What appears on screen for the current props and state |\n| Empty state | What the user sees when there is no data yet |\n\n## Proof checklist\n\n- [ ] `view_plan.js` exists in `~/asv-learn-fullstack/stage-02`\n- [ ] Running it prints the view plan and at least three render samples\n- [ ] You can point to props, state, events, and render states\n- [ ] You extended one render behavior and re-ran successfully\n- [ ] You explained props vs state in a comment or note\n\nWhen those are true, continue to **Node.js & Express Backend**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "nodejs-backend",
+      "title": "Node.js & Express Backend",
+      "hours": "10-12",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should input validation do on POST /api/lessons?",
+          "options": [
+            "Hide every server error as 200",
+            "Skip status codes entirely",
+            "Reject missing or blank title before returning success",
+            "Return 201 for every request"
+          ],
+          "correct": 2,
+          "explanation": "Validation protects the route by rejecting input that does not match the contract."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which status should a successful create usually return?",
+          "options": [
+            "404",
+            "201",
+            "301",
+            "418"
+          ],
+          "correct": 1,
+          "explanation": "201 Created tells the client a new resource was added."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why write api_contract.js before installing Express?",
+          "options": [
+            "Because Node cannot run without Express",
+            "To replace HTTP entirely",
+            "To avoid learning status codes",
+            "So method, path, validation, and responses are explicit and testable"
+          ],
+          "correct": 3,
+          "explanation": "Plain handlers make the frontend-backend agreement reviewable in the terminal."
+        }
+      ],
+      "content": "# Node.js & Express Backend\n\n## Why this lesson exists\n\nThe frontend shows state. The backend **performs work** and **returns truth** the frontend can rely on. An API route is a contract: which method and path are allowed, what input is valid, what success looks like, and what error the client should handle.\n\nIn this stage you will write a small **API contract** in JavaScript and implement it with Node's built-in `http` module — no Express install required yet. You will send a fake request object through your handler and print status codes and JSON bodies in the terminal. That is honest local practice: prove the contract before adding framework sugar.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit local files → run with Node → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-03\ncd ~/asv-learn-fullstack/stage-03\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-03\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-03\"\n```\n\nYou will create `api_contract.js` in that folder.\n\n## Start here: request contract before server code\n\nBefore Express routes or middleware stacks, name the contract:\n\n| Part | Plain meaning |\n| --- | --- |\n| **Method** | The action — GET reads, POST creates |\n| **Path** | The address — `/api/lessons` |\n| **Validation** | Rule for acceptable input |\n| **Success status** | Truth code when the work succeeded — often 201 for create |\n| **Error status** | Truth code when input is rejected — often 400 |\n| **Response shape** | Fields the frontend can rely on |\n\nExpress is popular because it makes this contract explicit. Your job is to understand the contract first.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand a route as a promise between caller and server\n- **Inspect:** trace method, path, validation, status, and body for one request\n- **Build:** implement the contract in a plain handler function\n- **Prove:** show success and failure responses a frontend could branch on\n\nPractice after reading means the contract comes before route code. Read one field at a time and ask: *what should the client do when this status appears?*\n\n## One clean pass through this lesson\n\nRead backend work as a chain:\n\n1. The client sends a method, path, and optional body.\n2. The server checks whether the method and path match a known route.\n3. Validation runs before any pretend \"save\" happens.\n4. Good input returns success status and a predictable JSON shape.\n5. Bad input returns an error status the frontend can display.\n\nDo not start with `npm install express`. First say the contract: *POST /api/lessons requires title; success is 201 with id, title, createdAt; missing title is 400.*\n\n## Route contract example\n\n```js\nconst apiContract = {\n  method: \"POST\",\n  path: \"/api/lessons\",\n  inputValidation: \"title is required before saving\",\n  successStatus: 201,\n  errorStatus: 400,\n  responseShape: [\"id\", \"title\", \"createdAt\"],\n};\n```\n\nThe contract is what both teams review before anyone writes React forms or database code.\n\n## Handler shape in plain Node\n\n```js\nfunction handleCreateLesson(request) {\n  if (request.method !== \"POST\" || request.path !== \"/api/lessons\") {\n    return { status: 404, body: { error: \"not found\" } };\n  }\n  const title = request.body?.title?.trim();\n  if (!title) {\n    return { status: 400, body: { error: \"title is required\" } };\n  }\n  return {\n    status: 201,\n    body: {\n      id: \"lesson-001\",\n      title,\n      createdAt: new Date().toISOString(),\n    },\n  };\n}\n```\n\nNotice the order: route match → validate → success. Returning 201 with a fake id is fine for learning. Returning 200 for a create or 500 for bad input is not fine — status codes communicate meaning.\n\n## Common beginner mistakes\n\n**Skipping validation.** If the handler saves empty titles, the frontend will inherit garbage data.\n\n**Wrong status codes.** Treating every failure as 500 hides whether the client sent bad input (400) or the server broke (500).\n\n**Leaking stack traces in JSON.** Error bodies should be helpful and safe, not raw exception dumps.\n\n**Letting the route file become the whole app.** Routing chooses the handler. Business rules live in functions you can test.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `api_contract.js`:\n\n```js\n// api_contract.js — Stage 03: Node.js & Express Backend\n// Run unchanged first, then tighten validation or add one route.\n\nconst apiContract = {\n  method: \"POST\",\n  path: \"/api/lessons\",\n  inputValidation: \"title is required before saving\",\n  successStatus: 201,\n  errorStatus: 400,\n  responseShape: [\"id\", \"title\", \"createdAt\"],\n};\n\nfunction handleCreateLesson(request) {\n  if (request.method !== \"POST\" || request.path !== \"/api/lessons\") {\n    return { status: 404, body: { error: \"not found\" } };\n  }\n\n  const title = request.body?.title?.trim();\n  // TODO: return apiContract.errorStatus when title is missing\n  // TODO: return apiContract.successStatus with id, title, createdAt when valid\n\n  return { status: 500, body: { error: \"not implemented\" } };\n}\n\nfunction demo() {\n  console.log(\"=== API contract ===\");\n  console.log(apiContract);\n\n  const samples = [\n    { method: \"POST\", path: \"/api/lessons\", body: { title: \"React basics\" } },\n    { method: \"POST\", path: \"/api/lessons\", body: { title: \"   \" } },\n    { method: \"GET\", path: \"/api/lessons\", body: {} },\n  ];\n\n  console.log(\"\\n=== Handler results ===\");\n  for (const req of samples) {\n    const result = handleCreateLesson(req);\n    console.log(req.method, req.path, req.body, \"->\", result.status, result.body);\n  }\n}\n\nif (require.main === module) {\n  demo();\n}\n\nmodule.exports = { apiContract, handleCreateLesson };\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode api_contract.js\n```\n\nConfirm the stub returns `500 not implemented` for now.\n\n### Step 3 — Implement the TODOs\n\nReturn **400** when `title` is missing or blank. Return **201** with `id`, `title`, and `createdAt` when valid. Re-run until:\n\n- Valid POST → 201 with the three fields\n- Blank title → 400\n- GET on the same path → 404\n\n### Step 4 — One small change you can explain\n\nAfter the contract works, change **one** thing. Examples:\n\n- Reject titles shorter than three characters\n- Add `GET /api/lessons/:id` that returns 404 for unknown ids\n- Log a one-line audit message on successful create\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| API | Interface programs use to request work from a server |\n| Route | Method + path pair handled by one function |\n| Request body | JSON data the client sends on POST or PUT |\n| Status code | Number that tells the client what happened |\n| Validation | Checking input before performing work |\n| Contract | Shared agreement on methods, paths, and responses |\n\n## Proof checklist\n\n- [ ] `api_contract.js` exists in `~/asv-learn-fullstack/stage-03`\n- [ ] Running it prints the contract and handler results\n- [ ] Valid POST returns 201 with id, title, createdAt\n- [ ] Missing title returns 400, wrong method/path returns 404\n- [ ] You added one validation or route improvement and re-ran\n- [ ] You can explain why status codes matter to frontend error handling\n\nWhen those are true, continue to **Databases & Prisma ORM**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "databases-prisma",
+      "title": "Databases & Prisma ORM",
+      "hours": "8-10",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why should a query purpose be named before building a model?",
+          "options": [
+            "It removes the need for fields",
+            "It ties the schema to a user-facing question",
+            "It replaces migrations",
+            "It hides relations"
+          ],
+          "correct": 1,
+          "explanation": "A query purpose keeps the model connected to behavior the application needs."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does \"add fields before requiring them\" protect against?",
+          "options": [
+            "Removing all indexes automatically",
+            "Disabling seed data",
+            "Breaking existing rows when a new column becomes NOT NULL",
+            "Preventing any future migrations"
+          ],
+          "correct": 2,
+          "explanation": "Safe migrations backfill or default data before constraints tighten."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "In data_plan.js, listPublishedLessons simulates what?",
+          "options": [
+            "A CSS animation library",
+            "Production connection pooling",
+            "The product query before Prisma generates SQL",
+            "Automatic schema deletion"
+          ],
+          "correct": 2,
+          "explanation": "In-memory lists practice query design honestly without pretending infra exists."
+        }
+      ],
+      "content": "# Databases & Prisma ORM\n\n## Why this lesson exists\n\nA database is a promise about information your application can **safely store and retrieve** after the request finishes. Prisma is one way to express that promise in typed JavaScript. Before ORM syntax, you need the product question: *what user-facing query must this model support, and what happens when data is missing?*\n\nIn this stage you will write a **data plan** and simulate a tiny in-memory \"table\" in Node.js. You are not running PostgreSQL or Prisma CLI yet. You are proving you can name models, fields, relations, query purpose, and safe migration habits before tools hide the design.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit local files → run with Node → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-04\ncd ~/asv-learn-fullstack/stage-04\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-04\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-04\"\n```\n\nYou will create `data_plan.js` in that folder.\n\n## Start here: query purpose before schema\n\nBefore tables and migrations, name the user-facing question:\n\n| Question | Why it matters |\n| --- | --- |\n| What entity exists? | Names the record type — Lesson, User, Order |\n| Which fields are required? | Prevents half-empty rows |\n| What relates to what? | Connects lessons to courses, notes to users |\n| Which query proves value? | \"List published lessons in course order\" |\n| How does migration stay safe? | Add fields before requiring them |\n\nPrisma helps teams keep queries typed. The model still needs product judgment.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** connect models, fields, relations, and queries to behavior\n- **Inspect:** decide what each field proves on screen or in an API response\n- **Build:** implement the query against an in-memory list\n- **Prove:** show published lessons in order and explain a safe migration rule\n\nPractice after reading means you understand the data promise before editing code. Ask: *what row does the user need, and what if zero rows match?*\n\n## One clean pass through this lesson\n\nRead database work as a chain:\n\n1. The query purpose says what the app must answer for the user.\n2. The model name says what record type exists.\n3. Required fields say what must be present on every row.\n4. The relation says how this record connects to others.\n5. Migration safety and seed data say how to change schema without breaking review.\n\nDo not start with `npx prisma init`. First say the plan: *Lesson belongs to Course; list published lessons sorted by sortOrder; add nullable fields before making them required.*\n\n## Data plan shape\n\n```js\nconst dataPlan = {\n  model: \"Lesson\",\n  fields: [\"id\", \"title\", \"status\", \"sortOrder\", \"createdAt\"],\n  relation: \"Lesson belongs to one Course\",\n  queryPurpose: \"list published lessons in course order\",\n  migrationSafety: \"add fields before requiring them\",\n  seedData: \"include one published lesson for review\",\n};\n```\n\n## Simulating a table without Prisma\n\n```js\nconst lessons = [\n  { id: \"1\", title: \"Intro\", status: \"draft\", sortOrder: 2, courseId: \"c1\" },\n  { id: \"2\", title: \"Setup\", status: \"published\", sortOrder: 1, courseId: \"c1\" },\n  { id: \"3\", title: \"APIs\", status: \"published\", sortOrder: 3, courseId: \"c1\" },\n];\n\nfunction listPublishedLessons(rows, courseId) {\n  return rows\n    .filter((row) => row.courseId === courseId && row.status === \"published\")\n    .sort((a, b) => a.sortOrder - b.sortOrder)\n    .map(({ id, title, sortOrder }) => ({ id, title, sortOrder }));\n}\n```\n\nThis is the query purpose in code. Prisma would generate SQL; you are practicing the **design**.\n\n## Common beginner mistakes\n\n**Schema with no query purpose.** Tables that \"might be useful someday\" become hard to migrate and hard to test.\n\n**Required fields on day one.** Adding `NOT NULL` to existing tables without a backfill breaks production data.\n\n**Relations that do not match product language.** If the UI says \"course contains lessons,\" the model should say that too.\n\n**Returning every column by default.** APIs and views should return fields the client needs, not `SELECT *` habits.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `data_plan.js`:\n\n```js\n// data_plan.js — Stage 04: Databases & Prisma ORM\n// Run unchanged first, then extend the query or seed data.\n\nconst dataPlan = {\n  model: \"Lesson\",\n  fields: [\"id\", \"title\", \"status\", \"sortOrder\", \"courseId\", \"createdAt\"],\n  relation: \"Lesson belongs to one Course\",\n  queryPurpose: \"list published lessons in course order\",\n  migrationSafety: \"add fields before requiring them\",\n  seedData: \"include one published lesson for review\",\n};\n\nconst lessons = [\n  { id: \"1\", title: \"Intro\", status: \"draft\", sortOrder: 2, courseId: \"c1\", createdAt: \"2026-01-01\" },\n  { id: \"2\", title: \"Setup\", status: \"published\", sortOrder: 1, courseId: \"c1\", createdAt: \"2026-01-02\" },\n  { id: \"3\", title: \"APIs\", status: \"published\", sortOrder: 3, courseId: \"c1\", createdAt: \"2026-01-03\" },\n  { id: \"4\", title: \"Other course\", status: \"published\", sortOrder: 1, courseId: \"c2\", createdAt: \"2026-01-04\" },\n];\n\nfunction listPublishedLessons(rows, courseId) {\n  // TODO: filter by courseId and status === \"published\", sort by sortOrder\n  return [];\n}\n\nfunction demo() {\n  console.log(\"=== Data plan ===\");\n  console.log(dataPlan);\n  console.log(\"\\n=== Query result for course c1 ===\");\n  console.log(listPublishedLessons(lessons, \"c1\"));\n}\n\nif (require.main === module) {\n  demo();\n}\n\nmodule.exports = { dataPlan, listPublishedLessons };\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode data_plan.js\n```\n\nConfirm the query returns an empty array until you implement it.\n\n### Step 3 — Implement the query\n\nReturn published lessons for the requested `courseId`, sorted by `sortOrder`, projecting `id`, `title`, and `sortOrder`. Expected order for `c1`: Setup, APIs.\n\n### Step 4 — One small change you can explain\n\nChange **one** thing after the query works. Examples:\n\n- Add a `limit` parameter\n- Include `createdAt` in the projection and explain why\n- Add a seed row and describe the migration step you would run first in Prisma\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Model | Structured type representing a table or collection |\n| Field | Named attribute on a record |\n| Relation | How two models link (Lesson belongs to Course) |\n| Migration | Controlled change to database schema |\n| Seed data | Sample rows for development and review |\n| Query purpose | User-facing question the schema must answer |\n\n## Proof checklist\n\n- [ ] `data_plan.js` exists in `~/asv-learn-fullstack/stage-04`\n- [ ] Running it prints the data plan and query results\n- [ ] Published lessons for `c1` appear in sortOrder\n- [ ] Draft lessons and other courses are excluded\n- [ ] You extended the query or seed story and re-ran\n- [ ] You can explain \"add fields before requiring them\"\n\nWhen those are true, continue to **Deployment & DevOps Basics**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "deployment-devops",
+      "title": "Deployment & DevOps Basics",
+      "hours": "6-8",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should a rollback step explain?",
+          "options": [
+            "How to delete all logs permanently",
+            "How to skip builds forever",
+            "How to hide configuration from the team",
+            "How to recover when health fails"
+          ],
+          "correct": 3,
+          "explanation": "Rollback planning names the recovery path when the release does not stay healthy."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is a successful build not enough evidence of a healthy deploy?",
+          "options": [
+            "Build commands delete source code",
+            "Health routes are only for local HTML files",
+            "Rollback is automatic without planning",
+            "The public health route and logs still need to pass after restart"
+          ],
+          "correct": 3,
+          "explanation": "User-facing proof comes after the new process is serving traffic."
+        },
+        {
+          "type": "true_false",
+          "question": "Environment secrets should live in source code for easier deploys.",
+          "correct": false,
+          "explanation": "Required variables belong outside the repository so keys can rotate safely."
+        }
+      ],
+      "content": "# Deployment & DevOps Basics\n\n## Why this lesson exists\n\nDeployment is a **repeatable release path**, not a single command you run once and hope. A full-stack developer should know what proves a release is ready, healthy, and reversible — before customers discover a broken route.\n\nIn this stage you will write a **release plan** as JavaScript data and a small script that checks whether required evidence is present. You are not configuring AWS, Docker, or CI yet. You are learning the proof chain senior teams expect: build, configuration, health, rollback, logs, owner.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit local files → run with Node → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-05\ncd ~/asv-learn-fullstack/stage-05\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-05\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-05\"\n```\n\nYou will create `release_plan.js` in that folder.\n\n## Start here: health evidence before release\n\nBefore release commands, name the proof chain:\n\n| Evidence | Question answered |\n| --- | --- |\n| **Build command** | Can the app compile? |\n| **Environment rule** | Are secrets and config outside source code? |\n| **Health route** | Can a user-facing route answer? |\n| **Rollback step** | How do we recover if health fails? |\n| **Log check** | What changed after release? |\n| **Owner** | Who responds when the release needs action? |\n\nA green build is only one link. Production is safer when readiness, health, recovery, and ownership are visible **before** the deploy button.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand deployment as evidence, not a status label\n- **Inspect:** connect each release-plan field to a question the release must answer\n- **Build:** model the plan and validate required keys locally\n- **Prove:** explain what happens if health fails after restart\n\nPractice after reading means the release proof comes before command syntax. Ask: *what would a user still be unable to do if we stopped checking after \"build passed\"?*\n\n## One clean pass through this lesson\n\nRead deployment as a chain:\n\n1. Tests and build show the change is safe enough to try.\n2. Environment rules show configuration is supplied correctly.\n3. Restart shows the new process is running.\n4. A **public** health route shows the app can answer requests.\n5. Logs and rollback notes show the team can respond if something breaks.\n\nDo not stop at \"the build passed.\" User-facing proof comes after the app is running.\n\n## Release plan example\n\n```js\nconst releasePlan = {\n  buildCommand: \"npm run build\",\n  environmentRule: \"required variables are set outside source code\",\n  healthRoute: \"/health\",\n  rollbackStep: \"restore the previous release if health fails\",\n  logCheck: \"inspect application errors after deploy\",\n  owner: \"full-stack developer on release duty\",\n};\n```\n\n## Checking the plan locally\n\n```js\nfunction validateReleasePlan(plan) {\n  const required = [\n    \"buildCommand\",\n    \"environmentRule\",\n    \"healthRoute\",\n    \"rollbackStep\",\n    \"logCheck\",\n    \"owner\",\n  ];\n  const missing = required.filter((key) => !plan[key]);\n  return { ok: missing.length === 0, missing };\n}\n```\n\nThis is not production DevOps. It is the habit of making release readiness **reviewable** before scripts hide the checklist.\n\n## Common beginner mistakes\n\n**Deploying without a health route.** Process managers say \"online\" while the public site still returns 502.\n\n**Secrets in the repository.** Environment rules exist so keys rotate without rewriting git history.\n\n**No rollback story.** If recovery is improvised during an incident, downtime grows.\n\n**Skipping logs because the deploy \"felt fine.\"** New errors often appear in logs before users file tickets.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `release_plan.js`:\n\n```js\n// release_plan.js — Stage 05: Deployment & DevOps Basics\n// Run unchanged first, then add one post-deploy check.\n\nconst releasePlan = {\n  buildCommand: \"npm run build\",\n  environmentRule: \"required variables are set outside source code\",\n  healthRoute: \"/health\",\n  rollbackStep: \"restore the previous release if health fails\",\n  logCheck: \"inspect application errors after deploy\",\n  owner: \"full-stack developer on release duty\",\n};\n\nfunction validateReleasePlan(plan) {\n  const required = [\n    \"buildCommand\",\n    \"environmentRule\",\n    \"healthRoute\",\n    \"rollbackStep\",\n    \"logCheck\",\n    \"owner\",\n  ];\n  const missing = required.filter((key) => !plan[key]);\n  return { ok: missing.length === 0, missing };\n}\n\nfunction simulatePostDeployChecks(evidence) {\n  // Pretend these are results from your terminal after a deploy\n  return {\n    buildPassed: evidence.buildPassed,\n    healthStatus: evidence.healthStatus,\n    logsClean: evidence.logsClean,\n  };\n}\n\nfunction demo() {\n  console.log(\"=== Release plan ===\");\n  console.log(releasePlan);\n  console.log(\"\\n=== Plan validation ===\");\n  console.log(validateReleasePlan(releasePlan));\n\n  const evidence = {\n    buildPassed: true,\n    healthStatus: 200,\n    logsClean: true,\n  };\n  console.log(\"\\n=== Post-deploy evidence ===\");\n  console.log(simulatePostDeployChecks(evidence));\n\n  // TODO: return \"RELEASE OK\" only when build passed, health is 200, and logs are clean\n  // TODO: otherwise return \"ROLLBACK\" and print releasePlan.rollbackStep\n}\n\nif (require.main === module) {\n  demo();\n}\n\nmodule.exports = { releasePlan, validateReleasePlan, simulatePostDeployChecks };\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode release_plan.js\n```\n\nRead the printed plan and validation output.\n\n### Step 3 — Implement release decision logic\n\nComplete the TODOs so the script prints `RELEASE OK` when all evidence passes, and `ROLLBACK` plus the rollback step when health is not 200 or logs are not clean.\n\nTest with a failing case by setting `healthStatus: 503` in `evidence`.\n\n### Step 4 — One small change you can explain\n\nAdd **one** extra check you would want before shipping to paying users. Examples:\n\n- `protectedRouteRequiresLogin: true`\n- `databaseMigrationApplied: true`\n- `ownerNotified: true`\n\nDocument it in the release plan object and in your decision function.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Deploy | Moving a tested build to an environment users can reach |\n| Health route | Simple endpoint that proves the app can respond |\n| Rollback | Returning to the last known good release |\n| Environment variable | Config value supplied outside source code |\n| CI | Automated build and test pipeline |\n| Owner | Person responsible for acting on release evidence |\n\n## Proof checklist\n\n- [ ] `release_plan.js` exists in `~/asv-learn-fullstack/stage-05`\n- [ ] Running it prints the plan and validation result\n- [ ] Your script chooses RELEASE OK vs ROLLBACK based on evidence\n- [ ] You tested a failing health status and saw ROLLBACK\n- [ ] You added one extra post-deploy check\n- [ ] You can explain why build success alone is not enough\n\nWhen those are true, continue to **Capstone Projects & Portfolio**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "projects-portfolio",
+      "title": "Capstone Projects & Portfolio",
+      "hours": "12-14",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does a proof metric do in a portfolio proof card?",
+          "options": [
+            "Replaces the user flow",
+            "Shows how you know the feature works",
+            "Hides the API endpoint",
+            "Deletes the data model"
+          ],
+          "correct": 1,
+          "explanation": "A proof metric makes project evidence specific and reviewable."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a capstone README emphasize first?",
+          "options": [
+            "Only screenshots with no run instructions",
+            "Every technology you have ever heard of",
+            "Problem, local setup, demo steps, and verifiable proof",
+            "Marketing adjectives instead of behavior"
+          ],
+          "correct": 2,
+          "explanation": "Reviewers need behavior they can verify, not polish alone."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which local file summarizes the full-stack loop in Stage 06?",
+          "options": [
+            "A minified bundle with no README",
+            "portfolio_proof.js",
+            "An automatic CI badge only",
+            "A minified bundle with no comments"
+          ],
+          "correct": 1,
+          "explanation": "The proof card connects problem, flow, API, data, metric, and next iteration."
+        }
+      ],
+      "content": "# Capstone Projects & Portfolio\n\n## Why this lesson exists\n\nA portfolio project should prove a **full loop**: user need, frontend state, backend route, stored data, deployment evidence, and a plan for what you will improve next. Screenshots help only after a reviewer can see **behavior** — what the app does and how you know it works.\n\nIn this final stage you will write a **portfolio proof card** in JavaScript and a short README outline you could attach to a GitHub repo. You are not submitting a production app to ASV Learn. You are practicing the evidence story hiring managers and teammates actually read.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit local files → run with Node → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-fullstack/stage-06\ncd ~/asv-learn-fullstack/stage-06\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-fullstack\\stage-06\"\nSet-Location \"$HOME\\asv-learn-fullstack\\stage-06\"\n```\n\nYou will create `portfolio_proof.js` and optionally `README-outline.md`.\n\n## Start here: behavior evidence before polish\n\nBefore screenshots or visual design, name the proof:\n\n| Proof item | What it shows |\n| --- | --- |\n| **Problem** | Why the project exists |\n| **User flow** | Task a person can complete |\n| **Frontend state** | How the interface responds |\n| **API endpoint** | Server work the app performs |\n| **Data model** | What the app remembers |\n| **Proof metric** | How you know it works |\n| **Iteration plan** | What you improve next |\n\nPolish matters after behavior is clear. A reviewer should understand the project in two minutes without opening every file.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand the portfolio as a product loop, not a repo dump\n- **Inspect:** connect each proof field to something a reviewer could verify\n- **Build:** complete the proof card for a project you could realistically build\n- **Prove:** explain the metric that shows the core feature works\n\nPractice after reading means the proof card comes before portfolio polish. Ask: *what would I demo live if someone gave me five minutes?*\n\n## One clean pass through this lesson\n\nRead a capstone as a chain:\n\n1. The problem says why the project exists.\n2. The user flow says what task completes successfully.\n3. Frontend states show how the UI responds while the task runs.\n4. The API endpoint and data model show how work is performed and remembered.\n5. The proof metric and iteration plan show judgment and next steps.\n\nDo not start with logo design. First say the card in one sentence: *learners need saved lesson notes; they write, save, reload, and see the note; POST /api/notes persists Note linked to User and Course; proof is saved note after reload; next is search.*\n\n## Portfolio proof card example\n\n```js\nconst portfolioProof = {\n  problem: \"learners need to save lesson notes\",\n  userFlow: \"open lesson, write note, save, return later\",\n  frontendState: [\"editing\", \"saving\", \"saved\", \"error\"],\n  apiEndpoint: \"POST /api/notes\",\n  dataModel: \"Note belongs to User and Course\",\n  proofMetric: \"saved note appears after reload\",\n  iterationPlan: \"add search after save flow is reliable\",\n};\n```\n\n## Turning the card into a README outline\n\nA strong repo README for a capstone often includes:\n\n1. One-paragraph problem statement\n2. Demo steps a reviewer can follow locally\n3. Stack list (HTML/CSS/JS, React, Node, database — honest about what you built)\n4. Proof metric and how you tested it\n5. Known limits and next iteration\n\nYou are not writing marketing copy. You are writing **verifiable claims**.\n\n## Common beginner mistakes\n\n**Screenshot with no test steps.** Pretty UI without \"how to run\" and \"how to verify\" leaves reviewers guessing.\n\n**Listing every technology you ever touched.** Name the stack you actually used in this project.\n\n**No error state in the story.** Real apps fail; showing `error` state proves you thought about users.\n\n**Proof metric that cannot be checked.** \"It works well\" is not a metric. \"Saved note appears after reload\" is.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `portfolio_proof.js`:\n\n```js\n// portfolio_proof.js — Stage 06: Capstone Projects & Portfolio\n// Run unchanged first, then customize for your project idea.\n\nconst portfolioProof = {\n  problem: \"learners need to save lesson notes\",\n  userFlow: \"open lesson, write note, save, return later\",\n  frontendState: [\"editing\", \"saving\", \"saved\", \"error\"],\n  apiEndpoint: \"POST /api/notes\",\n  dataModel: \"Note belongs to User and Course\",\n  proofMetric: \"saved note appears after reload\",\n  iterationPlan: \"add search after save flow is reliable\",\n};\n\nfunction validateProofCard(card) {\n  const required = [\n    \"problem\",\n    \"userFlow\",\n    \"frontendState\",\n    \"apiEndpoint\",\n    \"dataModel\",\n    \"proofMetric\",\n    \"iterationPlan\",\n  ];\n  const missing = required.filter((key) => !card[key] || (Array.isArray(card[key]) && card[key].length === 0));\n  return { ok: missing.length === 0, missing };\n}\n\nfunction printReviewerSummary(card) {\n  console.log(\"=== Portfolio proof card ===\");\n  console.log(card);\n  console.log(\"\\n=== Two-minute reviewer story ===\");\n  console.log(`Problem: ${card.problem}`);\n  console.log(`Flow: ${card.userFlow}`);\n  console.log(`Proof: ${card.proofMetric}`);\n  console.log(`Next: ${card.iterationPlan}`);\n}\n\nfunction demo() {\n  printReviewerSummary(portfolioProof);\n  console.log(\"\\n=== Validation ===\");\n  console.log(validateProofCard(portfolioProof));\n}\n\nif (require.main === module) {\n  demo();\n}\n\nmodule.exports = { portfolioProof, validateProofCard, printReviewerSummary };\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode portfolio_proof.js\n```\n\nRead the two-minute reviewer story. Could a stranger follow it?\n\n### Step 3 — Customize for your idea\n\nReplace the sample content with a project you could build using skills from stages 1–5. Keep all seven fields. Run again and confirm validation passes.\n\n### Step 4 — Write README outline\n\nCreate `README-outline.md` with five sections:\n\n1. Problem\n2. Local setup (honest — what folder, what commands)\n3. Demo steps that prove the proof metric\n4. Stack used\n5. Next iteration from your proof card\n\n### Step 5 — One small change you can explain\n\nAdd **one** field to strengthen reviewability. Examples:\n\n- `demoCredentials: \"local test user only\"`\n- `deploymentEvidence: \"health route returns 200 on staging\"`\n- `accessibilityNote: \"save button has visible label and focus state\"`\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Capstone | Project that combines multiple course skills |\n| User flow | Steps a person takes to complete the core task |\n| Proof metric | Observable check that the feature works |\n| Iteration plan | Next improvement after the core loop is reliable |\n| Portfolio | Curated evidence of what you can build and explain |\n| Demo | Live or recorded walkthrough a reviewer can follow |\n\n## Proof checklist\n\n- [ ] `portfolio_proof.js` exists in `~/asv-learn-fullstack/stage-06`\n- [ ] All seven proof fields are filled for your project idea\n- [ ] Running the script prints a coherent two-minute story\n- [ ] `README-outline.md` lists setup, demo, stack, and next steps\n- [ ] You added one extra reviewability field\n- [ ] You can explain why behavior evidence beats screenshots alone\n\nWhen those are true, you have completed the **Full Stack Development** course path. Ship a real capstone when you are ready — this stage is the blueprint.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    }
+  ],
+  "tags": "Software, web, frontend, fullstack, devops",
+  "learnings": [
+    "Build frontend foundations with HTML, CSS, and JavaScript",
+    "Create React UIs and connect them to Node/Express APIs",
+    "Persist data with databases and Prisma-style data access",
+    "Deploy full-stack apps with basic DevOps hygiene",
+    "Finish portfolio-ready projects you can walk through end to end"
+  ]
+}

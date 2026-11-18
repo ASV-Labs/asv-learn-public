@@ -1,0 +1,2 @@
+You are not required to call a live model for these lessons.
+When the simulated agent goes off-script, you interrupt, inspect, and recover — on purpose.

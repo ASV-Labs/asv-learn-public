@@ -1,0 +1,158 @@
+{
+  "module-11": [
+    {
+      "type": "multiple_choice",
+      "question": "In a method, what does self refer to?",
+      "options": [
+        "The current object the method was called on",
+        "The class name as a string",
+        "Every Student object in the program at once",
+        "The return value of __init__"
+      ],
+      "correct": 0,
+      "explanation": "Inside methods, self is the instance you called the method on — for example the specific Student whose summary you want."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "What is the difference between a class and an object?",
+      "options": [
+        "A class is the blueprint; an object is one concrete instance made from that blueprint",
+        "A class stores data; an object can only store functions",
+        "An object is written in the file; a class exists only at runtime",
+        "They are two names for the same Student value"
+      ],
+      "correct": 0,
+      "explanation": "Student is the class (blueprint). Student(\"Alex\", 92) creates one object with its own name and score."
+    }
+  ],
+  "module-12": [
+    {
+      "type": "multiple_choice",
+      "question": "When is a dataclass usually the better first choice?",
+      "options": [
+        "When the type mainly stores fields and needs little custom setup",
+        "Whenever you want the deepest inheritance tree possible",
+        "Only when you refuse to print field values",
+        "Only for functions that never hold data"
+      ],
+      "correct": 0,
+      "explanation": "@dataclass is built for record-style classes — title, points, status — so you skip hand-writing a basic __init__."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Which relationship is the clearest reason to use inheritance?",
+      "options": [
+        "GradedTask is a CourseTask that adds a score field",
+        "A report file has many tasks, so Report must inherit from CourseTask",
+        "Any two classes that share a print statement should inherit",
+        "Inheritance is required before you can use a dictionary"
+      ],
+      "correct": 0,
+      "explanation": "Inheritance fits an “is a” relationship. A report that has tasks should usually compose (hold) tasks, not inherit from them."
+    }
+  ],
+  "module-13": [
+    {
+      "type": "multiple_choice",
+      "question": "What do strip() and title() do to the string \" ada \"?",
+      "options": [
+        "Remove edge spaces, then capitalize it to Ada",
+        "Delete all letters and leave only spaces",
+        "Convert it to an integer score",
+        "Search for digits with a regular expression"
+      ],
+      "correct": 0,
+      "explanation": "strip() clears leading/trailing whitespace; title() capitalizes each word — \" ada \" becomes \"Ada\"."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "In this lesson, what does re.search(r\"\\d\", name) check?",
+      "options": [
+        "Whether the name contains at least one digit",
+        "Whether the name is exactly three words long",
+        "Whether the file path exists on disk",
+        "Whether the average score is above 90"
+      ],
+      "correct": 0,
+      "explanation": "The pattern \\d means a digit. search looks for that pattern anywhere in the string, which is how User42 is flagged."
+    }
+  ],
+  "module-14": [
+    {
+      "type": "multiple_choice",
+      "question": "Why must you check for an empty scores list before computing an average?",
+      "options": [
+        "Dividing by len(scores) when the list is empty causes a ZeroDivisionError",
+        "Empty lists automatically average to 100",
+        "sum() refuses to run on any list of integers",
+        "round() only works when the list is empty"
+      ],
+      "correct": 0,
+      "explanation": "average = total / count needs a non-zero count. Guard empty data so the summary skips or reports clearly instead of crashing."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Which set of values best describes a useful score summary?",
+      "options": [
+        "count, total, average, minimum, and maximum",
+        "only the average, with no count",
+        "only the first score in the list",
+        "the class name and the file path"
+      ],
+      "correct": 0,
+      "explanation": "Those five numbers let a reader understand both the center (average) and the spread (min/max), plus how much data (count/total) supports the claim."
+    }
+  ],
+  "module-15": [
+    {
+      "type": "multiple_choice",
+      "question": "Why should you convert due and today into date objects before subtracting?",
+      "options": [
+        "Date objects support subtraction and expose a .days count; plain date strings do not",
+        "Strings automatically know calendar math in Python",
+        "isoformat() deletes the due date so subtraction is unnecessary",
+        "strftime always returns the number of days left"
+      ],
+      "correct": 0,
+      "explanation": "due - today works on date values and yields a timedelta. Subtracting \"2026-06-15\" - \"2026-05-29\" as strings fails."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "While learning days-left math, why use a fixed sample today?",
+      "options": [
+        "So the printed day count stays stable and easy to verify across runs",
+        "Because date.today() is illegal in Python",
+        "Because ISO dates only work with year 2026",
+        "Because negative day counts are impossible otherwise"
+      ],
+      "correct": 0,
+      "explanation": "A fixed today makes expected output checkable. After the math is clear, you can switch to date.today() for live schedules."
+    }
+  ],
+  "module-16": [
+    {
+      "type": "multiple_choice",
+      "question": "What is the main purpose of comparing expected and actual in a small test?",
+      "options": [
+        "To prove whether the function’s result matches the rule you stated",
+        "To replace print() forever with silent programs",
+        "To convert syntax errors into dataclasses",
+        "To hide logic errors by setting expected = actual"
+      ],
+      "correct": 0,
+      "explanation": "A test freezes the expected answer from the rule, runs the function for actual, and shows PASS/FAIL so mismatches are obvious."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Which situation is a logic error rather than a crash?",
+      "options": [
+        "add_points subtracts instead of adds, so the program prints Pass: False",
+        "Python refuses to run because a parenthesis is missing",
+        "The program crashes with ZeroDivisionError on an empty list",
+        "The file name is wrong so python3 cannot open it"
+      ],
+      "correct": 0,
+      "explanation": "Logic errors run to completion but return the wrong result. Syntax problems and many runtime exceptions stop the program before you get a quiet wrong answer."
+    }
+  ]
+}

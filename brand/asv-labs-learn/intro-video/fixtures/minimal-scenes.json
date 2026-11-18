@@ -1,0 +1,85 @@
+{
+  "slug": "minimal-fixture",
+  "title": "Minimal Fixture",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "MINIMAL",
+      "line2": "Fixture → Useful",
+      "brand": "ASV LEARN",
+      "tag": "compile smoke"
+    },
+    {
+      "type": "audience",
+      "question": "testing the sketcher?",
+      "answer": "good. this is for you."
+    },
+    {
+      "type": "timeline",
+      "heading": "a short history",
+      "points": [
+        { "top": "1991", "bottom": "beginnings" },
+        { "top": "readable", "bottom": "closer to English" },
+        { "top": "today", "bottom": "everywhere" }
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "what it is",
+      "items": ["1. write steps", "2. run them", "3. see results"],
+      "footer": "follows the steps"
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "input.py",
+      "leftLines": ["print(\"Hello\")", "print(\"world\")"],
+      "rightTitle": "output",
+      "rightLines": ["Hello", "world"]
+    },
+    {
+      "type": "chips",
+      "heading": "why people use it",
+      "leftLabel": "messy",
+      "rightLabel": "clean",
+      "chips": ["automate", "data", "websites", "AI tools"]
+    },
+    {
+      "type": "ladder",
+      "heading": "what you will learn",
+      "steps": [
+        "print & variables",
+        "decisions & loops",
+        "lists & dictionaries",
+        "functions & files",
+        "fix what breaks"
+      ],
+      "footer": "on your own computer"
+    },
+    {
+      "type": "terminal",
+      "heading": "Module Zero",
+      "sub": "is the toolchain ready?",
+      "prompt": "$ python3 --version",
+      "result": "Python 3.12"
+    },
+    {
+      "type": "cards",
+      "heading": "Mac · Windows · Linux",
+      "cards": ["Mac", "Windows", "Linux"]
+    },
+    {
+      "type": "panel",
+      "heading": "you will build",
+      "subheading": "a progress tracker",
+      "windowTitle": "progress_tracker.py",
+      "lines": ["task one", "task two", "task three"],
+      "bars": 3
+    },
+    {
+      "type": "outro",
+      "headline": "Start with Module Zero",
+      "sub": "text editor · terminal · patience",
+      "industry": "take your time"
+    }
+  ]
+}

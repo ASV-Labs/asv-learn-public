@@ -1,0 +1,2 @@
+This intro is that countdown.
+You will learn how analysts triage, enrich, decide, and write a case file someone can continue at sunrise.

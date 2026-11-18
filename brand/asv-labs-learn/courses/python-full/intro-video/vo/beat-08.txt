@@ -1,0 +1,1 @@
+Develop locally. Use files and a database only when a stage asks for it. Deploy thinking comes after the contracts are honest.

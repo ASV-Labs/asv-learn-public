@@ -1,0 +1,2 @@
+In industry, that fluency is how analysts and testers move fast without guessing which binary to open.
+Start with Kali setup and basics. Take your time.

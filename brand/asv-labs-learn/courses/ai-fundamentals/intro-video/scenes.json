@@ -1,0 +1,104 @@
+{
+  "slug": "ai-fundamentals",
+  "title": "AI FUNDAMENTALS FOR BUILDERS — INTRO v4.1 VO",
+  "catalogTitle": "AI Fundamentals for Builders",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "AI FUNDAMENTALS",
+      "line2": "for builders",
+      "brand": "ASV LEARN",
+      "tag": "beginner → builder"
+    },
+    {
+      "type": "audience",
+      "question": "confident… and wrong?",
+      "answer": "that is the problem we fix."
+    },
+    {
+      "type": "definition",
+      "heading": "useful AI",
+      "items": [
+        "clear job",
+        "checkable output",
+        "not just charm"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "model",
+      "leftLines": [
+        "instructions",
+        "weird answers"
+      ],
+      "rightTitle": "you",
+      "rightLines": [
+        "test",
+        "map the pieces"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "builder moves",
+      "chips": [
+        "instruction design",
+        "structured output",
+        "debug behavior"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "guessing",
+      "leftLines": [
+        "no sources"
+      ],
+      "rightTitle": "grounded",
+      "rightLines": [
+        "named sources",
+        "simulated practice"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "the path",
+      "steps": [
+        "orientation",
+        "system parts",
+        "prompting",
+        "APIs",
+        "retrieval",
+        "grounded patterns"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "local artifacts",
+      "sub": "re-run on your machine",
+      "prompt": "python practice.py",
+      "result": "plan + checklist"
+    },
+    {
+      "type": "audience",
+      "question": "chat user or total beginner?",
+      "answer": "same bridge. visible steps."
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "grounded-helper plan",
+      "windowTitle": "ask → retrieve → answer",
+      "lines": [
+        "named sources",
+        "evidence only",
+        "local practice pack"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with orientation",
+      "sub": "take your time",
+      "industry": "support · search · honest product features"
+    }
+  ]
+}

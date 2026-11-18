@@ -1,0 +1,54 @@
+KALI LINUX & PENETRATION TESTING TOOLS — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Kali Linux and Penetration Testing Tools, from ASV Learn.
+Your course for building a controlled security workbench.
+
+========== BEAT 02 → beat-02 ==========
+
+Imagine opening a toolkit where every wrench has a purpose —
+and learning which one to reach for before you swing.
+
+========== BEAT 03 → beat-03 ==========
+
+Kali is that workbench: a Linux environment packed with security tools.
+This course teaches you to set it up cleanly, navigate it confidently, and use tools with intent.
+
+========== BEAT 04 → beat-04 ==========
+
+You will practice information gathering, scanning, vulnerability assessment,
+web testing tools, and careful exploitation technique — always in authorized labs.
+
+========== BEAT 05 → beat-05 ==========
+
+You also touch wireless tooling and forensics basics, so the bench covers more than one kind of day.
+
+========== BEAT 06 → beat-06 ==========
+
+The habit we want: name the question, pick the tool, capture the output, write what it means.
+
+========== BEAT 07 → beat-07 ==========
+
+Chapters move from setup and basics, through gathering and scanning,
+into assessment, web tools, exploitation technique, then wireless and forensics on the same bench.
+
+========== BEAT 08 → beat-08 ==========
+
+Install Kali in a VM you control. Keep targets synthetic or explicitly allowed.
+
+========== BEAT 09 → beat-09 ==========
+
+Ethical Hacking and Penetration Testing is the sister course — case method and reporting.
+Kali is where your hands learn the tools those cases depend on.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a documented workbench: notes, tool runs, and a short playbook you could reuse on the next lab.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that fluency is how analysts and testers move fast without guessing which binary to open.
+Start with Kali setup and basics. Take your time.

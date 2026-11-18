@@ -1,0 +1,2 @@
+You move from orientation, to models and system parts, to prompting and debugging,
+then APIs, structured outputs, retrieval, and grounded answer patterns.

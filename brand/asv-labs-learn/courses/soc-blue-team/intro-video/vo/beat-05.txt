@@ -1,0 +1,2 @@
+You will practice SIEM thinking and log analysis,
+map activity with MITRE ATT&CK, and walk incident response from detection to containment.

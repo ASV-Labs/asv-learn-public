@@ -1,0 +1,2 @@
+This is Python for Cybersecurity, from ASV Learn.
+Defensive Python — quiet, precise, useful.

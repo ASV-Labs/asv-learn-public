@@ -1,0 +1,2 @@
+We begin with JavaScript prerequisites, then React core,
+routing and data, state and performance, testing and accessibility, and a project proof capstone.

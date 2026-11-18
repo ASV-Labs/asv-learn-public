@@ -1,0 +1,113 @@
+{
+  "slug": "soc-blue-team",
+  "title": "SOC & BLUE TEAM — INTRO v4.1 VO",
+  "catalogTitle": "SOC & Blue Team",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "SOC & BLUE TEAM",
+      "line2": "operations",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · the night desk"
+    },
+    {
+      "type": "audience",
+      "question": "2:13 a.m. alert",
+      "answer": "noise — or incident?"
+    },
+    {
+      "type": "timeline",
+      "heading": "countdown",
+      "points": [
+        {
+          "top": "triage",
+          "bottom": "what is it?"
+        },
+        {
+          "top": "enrich",
+          "bottom": "context"
+        },
+        {
+          "top": "decide",
+          "bottom": "act / watch"
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "blue team craft",
+      "items": [
+        "patterns under pressure",
+        "calm over drama",
+        "proof in the ticket"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "you will practice",
+      "chips": [
+        "SIEM thinking",
+        "ATT&CK mapping",
+        "containment"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "alert",
+      "leftLines": [
+        "hint only"
+      ],
+      "rightTitle": "hunt",
+      "rightLines": [
+        "forensics",
+        "deeper signal"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "SOC role",
+        "SIEM & logs",
+        "intel & ATT&CK",
+        "incident response",
+        "forensics",
+        "hunting"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "lab datasets",
+      "sub": "local notes",
+      "prompt": "case open",
+      "result": "timeline started"
+    },
+    {
+      "type": "cards",
+      "heading": "attacker vs defender",
+      "cards": [
+        "Ethical Hacking",
+        "this course",
+        "tickets + proof"
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "case file",
+      "windowTitle": "INC-0213",
+      "lines": [
+        "timeline",
+        "hypothesis",
+        "next watch"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with SOC fundamentals",
+      "sub": "take your time",
+      "industry": "contain harm — not just close tickets"
+    }
+  ]
+}

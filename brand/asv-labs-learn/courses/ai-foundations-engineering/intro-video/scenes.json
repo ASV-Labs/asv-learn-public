@@ -1,0 +1,117 @@
+{
+  "slug": "ai-foundations-engineering",
+  "title": "AI FOUNDATIONS ENGINEERING — INTRO v4.1 VO",
+  "catalogTitle": "AI Foundations Engineering",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "AI FOUNDATIONS",
+      "line2": "engineering",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · production habits"
+    },
+    {
+      "type": "audience",
+      "question": "brilliant Monday…",
+      "answer": "quietly wrong by Friday."
+    },
+    {
+      "type": "timeline",
+      "heading": "drift happens",
+      "points": [
+        {
+          "top": "demo",
+          "bottom": "looks great"
+        },
+        {
+          "top": "data shifts",
+          "bottom": "silent fail"
+        },
+        {
+          "top": "watch",
+          "bottom": "catch it"
+        }
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "loop",
+      "leftLines": [
+        "data",
+        "features",
+        "train"
+      ],
+      "rightTitle": "trust",
+      "rightLines": [
+        "validate",
+        "deploy",
+        "monitor"
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "what you build here",
+      "items": [
+        "pipeline cards",
+        "validation story",
+        "monitoring plan"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "you will practice",
+      "chips": [
+        "pipelines",
+        "features",
+        "validation",
+        "monitoring"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "ML fundamentals",
+        "data pipelines",
+        "features",
+        "train & validate",
+        "deploy & watch",
+        "scale"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "local lab",
+      "sub": "re-runnable notes",
+      "prompt": "python review_packet.py",
+      "result": "metrics story ready"
+    },
+    {
+      "type": "cards",
+      "heading": "sister courses",
+      "cards": [
+        "AI Fundamentals",
+        "this reliability spine",
+        "Applied Agentic AI"
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "teammate-ready packet",
+      "windowTitle": "system card",
+      "lines": [
+        "validation story",
+        "monitoring plan",
+        "handoff notes"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with ML fundamentals",
+      "sub": "take your time",
+      "industry": "forecasting · quality · recommendations"
+    }
+  ]
+}

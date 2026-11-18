@@ -1,0 +1,2 @@
+Ethical Hacking and Penetration Testing is the sister course — case method and reporting.
+Kali is where your hands learn the tools those cases depend on.

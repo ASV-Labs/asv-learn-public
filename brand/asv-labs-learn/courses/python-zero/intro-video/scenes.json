@@ -1,0 +1,107 @@
+{
+  "slug": "python-zero",
+  "title": "PYTHON ZERO TO USEFUL — INTRO v4.1 VO",
+  "catalogTitle": "Python Zero to Useful",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "PYTHON ZERO",
+      "line2": "to useful",
+      "brand": "ASV LEARN",
+      "tag": "beginner · first code"
+    },
+    {
+      "type": "audience",
+      "question": "not sure how to spell Python?",
+      "answer": "you are in the right place."
+    },
+    {
+      "type": "timeline",
+      "heading": "a readable language",
+      "points": [
+        {
+          "top": "1990s",
+          "bottom": "Guido"
+        },
+        {
+          "top": "named for",
+          "bottom": "Monty Python"
+        },
+        {
+          "top": "goal",
+          "bottom": "clear English"
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "what Python is",
+      "items": [
+        "write instructions",
+        "computer follows them",
+        "that is the trick"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "first win",
+      "sub": "tiny and funny",
+      "prompt": "python hello.py",
+      "result": "Congrats, Alex — you made the machine obey."
+    },
+    {
+      "type": "chips",
+      "heading": "same idea, real work",
+      "chips": [
+        "spreadsheet cleanup",
+        "weekly report",
+        "automation"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "what you will learn",
+      "steps": [
+        "print & variables",
+        "decisions & loops",
+        "lists & dicts",
+        "functions & files",
+        "fixing breaks"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "Module Zero",
+      "sub": "is Python here?",
+      "prompt": "python3 --version",
+      "result": "Python 3.x.x"
+    },
+    {
+      "type": "cards",
+      "heading": "your computer",
+      "cards": [
+        "Mac",
+        "Windows",
+        "Linux"
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "show someone",
+      "windowTitle": "progress tracker",
+      "lines": [
+        "log a session",
+        "print a report",
+        "yours to keep"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with Module Zero",
+      "sub": "take your time",
+      "industry": "websites · data · automation · AI tools"
+    }
+  ]
+}

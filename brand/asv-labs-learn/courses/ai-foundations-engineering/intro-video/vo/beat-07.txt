@@ -1,0 +1,2 @@
+The path runs from ML fundamentals, through pipelines and features,
+into training and validation, then deployment, monitoring, and scale.

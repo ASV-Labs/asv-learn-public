@@ -1,0 +1,2 @@
+Agents are not magic coworkers.
+They are systems that plan, call tools, and try again — until you teach them when to stop.

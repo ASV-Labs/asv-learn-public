@@ -1,0 +1,2 @@
+You start with HTML, CSS, and JavaScript foundations,
+then practice React interfaces, Node API contracts, and data plans — including a simulated in-memory table before a real database.

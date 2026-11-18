@@ -1,0 +1,3 @@
+Your first win can be tiny and funny.
+A program that asks your name, then prints a ridiculous congratulations message just for you.
+When that appears on your screen, something clicks: the machine did what you said.

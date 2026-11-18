@@ -1,0 +1,2 @@
+You will write release cards for Docker, Kubernetes, CI/CD, Terraform, and observability —
+naming gates, rollback, and owners before you claim “it is in production.”

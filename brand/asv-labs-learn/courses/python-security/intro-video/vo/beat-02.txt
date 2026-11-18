@@ -1,0 +1,2 @@
+Thousands of log lines scroll past.
+Somewhere in that noise is one useful clue. Python is how you find it without going blind.

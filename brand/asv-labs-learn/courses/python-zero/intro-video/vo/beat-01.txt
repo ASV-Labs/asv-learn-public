@@ -1,0 +1,2 @@
+This is Python Zero to Useful, from ASV Learn.
+A first course for people who have never written code.

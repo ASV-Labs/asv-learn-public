@@ -1,0 +1,2 @@
+In industry, React skills power dashboards, product UIs, and design systems teams ship every week.
+Start with JavaScript prerequisites. Take your time.

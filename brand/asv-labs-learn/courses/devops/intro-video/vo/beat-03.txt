@@ -1,0 +1,2 @@
+This course follows one application on a journey:
+from a messy local project, into a container story, onto a cluster rollout, through a pipeline, under watch.

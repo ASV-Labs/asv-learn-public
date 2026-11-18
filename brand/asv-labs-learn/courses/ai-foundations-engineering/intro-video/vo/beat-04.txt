@@ -1,0 +1,2 @@
+You are not training a production model in these lessons.
+You are building the cards, pipelines, and monitoring plans a team could trust before anyone hits train at scale.

@@ -1,0 +1,304 @@
+{
+  "slug": "react",
+  "title": "React & Modern Frontend",
+  "description": "Frontend-only depth: JS foundations, components/hooks, routing/data, state/perf, a11y/testing, and projects—pick this when your API lives elsewhere.",
+  "icon": "RX",
+  "difficulty": "Beginner",
+  "hours": "30-40",
+  "topics": [
+    "JavaScript",
+    "React",
+    "Routing",
+    "State",
+    "Testing",
+    "Accessibility"
+  ],
+  "certBadges": [
+    "React Developer"
+  ],
+  "runtime": "javascript",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/react.ts",
+    "live": "https://technodex.io/courses/react"
+  },
+  "stages": [
+    {
+      "slug": "js-prerequisites",
+      "title": "JavaScript Prerequisites",
+      "hours": "6-8",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why does React rely so much on arrays?",
+          "options": [
+            "Arrays replace all components",
+            "Arrays store deployment secrets",
+            "Lists of data often become lists of UI",
+            "Arrays remove the need for state"
+          ],
+          "correct": 2,
+          "explanation": "React frequently maps arrays of data into arrays of rendered UI items."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice Stage 01 in ASV Learn house style?",
+          "options": [
+            "Skip writing any file and only read the lesson once",
+            "Memorize JSX before running any JavaScript",
+            "Edit component_checklist.js locally and run node in a terminal",
+            "Skip empty-state planning until React is installed"
+          ],
+          "correct": 2,
+          "explanation": "Lessons are read in ASV Learn; practice is edit → save → run on your computer."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should you name before writing JSX?",
+          "options": [
+            "Only CSS class names",
+            "Production API keys",
+            "Props, state-like values, and empty/ready screen behavior",
+            "Database migration order"
+          ],
+          "correct": 2,
+          "explanation": "Data shape and screen states make JSX predictable instead of magical."
+        }
+      ],
+      "content": "# JavaScript Prerequisites\n\n## Why this lesson exists\n\nReact is a JavaScript library. Before JSX, hooks, or build tools, you need to read **data shape** the way React does: lists of items, objects with fields, functions that transform values, and state-like values that change what the user sees.\n\nThis stage teaches you to write a **component readiness checklist** in plain Node.js — a small file you run with `node` that names props, state, empty states, and what the screen should show. You are not building a React app yet. You are proving you can trace data from input to visible output.\n\nThere is no in-lesson code box on this platform yet. Same rhythm as Python Zero: **read concept → create/edit a `.js` file → run in terminal → one small change you can explain → checklist**.\n\nThis course card is a focused **30–40 hour** path at stage depth. Treat hour ranges as aspirational; solid stage practice matters more than padding.\n\n## Reminder: where you work\n\nCreate a dedicated folder and confirm Node.js is available:\n\n```bash\nmkdir -p ~/asv-learn-react\ncd ~/asv-learn-react\nnode --version\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-react\"\nSet-Location \"$HOME\\asv-learn-react\"\nnode --version\n```\n\nYou need Node.js 18+ (any recent LTS is fine). You will create `component_checklist.js` in that folder.\n\n## What React expects from JavaScript\n\n| JavaScript idea | How React uses it |\n| --- | --- |\n| **Array** | Render a list of items (`.map`) |\n| **Object** | Pass structured data as props |\n| **Function** | Transform data or handle events |\n| **Conditional** | Choose empty, loading, error, or ready output |\n| **State-like value** | Track what the user selected or changed |\n\nReact does not hide JavaScript. It gives JavaScript a component model. If you cannot name the data, JSX will feel like magic instead of a predictable translation.\n\n## Start here: data shape before JSX\n\nBefore any component syntax, answer five questions:\n\n1. What **list or object** does the component receive?\n2. What does **one item** look like?\n3. What **selected value** should the screen focus on?\n4. What should the user see when data is **empty**?\n5. What should change when the user **picks a different item**?\n\nSay the shape in one sentence: *the component receives items, tracks one selected item, handles empty data, and renders a clear ready state.*\n\n### Data-to-screen chain\n\n| Step | Question |\n| --- | --- |\n| Input | What data exists? |\n| Selection | What is focused or active? |\n| Empty | What protects the user when nothing is ready? |\n| Ready | What useful output appears when data exists? |\n| Changed | What proves the interface responds to the user? |\n\n## Arrays and objects in practice\n\nA lesson list is a common React pattern:\n\n```js\nconst items = [\n  { id: 1, title: \"Read props\" },\n  { id: 2, title: \"Render selected item\" },\n];\nconst selectedId = 1;\n```\n\n- `items` is an **array** of **objects**\n- Each object has `id` and `title` fields\n- `selectedId` is a **state-like value** — it can change and the screen should update\n\nFinding the selected item without React:\n\n```js\nconst selected = items.find((item) => item.id === selectedId);\nconsole.log(selected?.title ?? \"Nothing selected\");\n```\n\nThe `??` operator provides a fallback when nothing matches — the same idea as an empty state in UI.\n\n## Common beginner mistakes\n\n- Jumping to JSX before naming props and state\n- Storing duplicate data (keeping both `selectedId` and the full selected object when one derives from the other)\n- Forgetting the empty case (`items.length === 0`)\n- Treating every variable as state — some values are props passed from outside\n- Waiting for an in-lesson code runner instead of practicing with local Node.js\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `component_checklist.js`:\n\n```js\n// component_checklist.js — Stage 01: JavaScript Prerequisites\n// Run unchanged first, then change one field and re-run.\n\nconst items = [\n  { id: 1, title: \"Read props\" },\n  { id: 2, title: \"Render selected item\" },\n  { id: 3, title: \"Handle empty list\" },\n];\n\nconst selectedId = 1;\n\nconst componentChecklist = {\n  props: [\"items\", \"selectedId\"],\n  state: [\"selectedId\"],\n  emptyState: \"Show a useful empty message when no items exist.\",\n  readyState: \"Show list and highlight the selected item title.\",\n  rendersList: true,\n};\n\nfunction describeScreen(items, selectedId) {\n  if (items.length === 0) {\n    return componentChecklist.emptyState;\n  }\n  const selected = items.find((item) => item.id === selectedId);\n  return `Ready: ${items.length} items, selected=\"${selected?.title ?? \"none\"}\"`;\n}\n\nconsole.log(\"Checklist:\", componentChecklist);\nconsole.log(\"Screen:\", describeScreen(items, selectedId));\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode component_checklist.js\n```\n\nRead the output. Match each checklist field to a screen behavior.\n\n### Step 3 — Change one field\n\nChange **one** thing and re-run. Examples:\n\n- Set `selectedId` to `99` (missing item — what should the screen say?)\n- Set `items` to `[]` and confirm the empty state message appears\n- Add a fourth item and update `selectedId`\n\n### Step 4 — Explain it back\n\nIn a comment or separate note, answer:\n\n1. Why do arrays matter before JSX?\n2. What is the difference between a prop and state-like data in this starter?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| props | Data passed into a component from outside |\n| state | Data a component owns and may update |\n| empty state | What the user sees when there is nothing useful to show |\n| map | Array method that transforms each item (later: into UI) |\n| derived value | Computed from other data instead of stored twice |\n\n## Proof checklist\n\n- [ ] `~/asv-learn-react` folder exists and `node --version` works\n- [ ] `component_checklist.js` runs and prints checklist + screen description\n- [ ] You tested empty list and missing selection cases\n- [ ] You changed one field, re-ran, and can explain the new output\n- [ ] You can name props vs state-like values in the starter\n\nWhen those are true, continue to **React Core: Components & Hooks**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "react-core",
+      "title": "React Core: Components & Hooks",
+      "hours": "8-10",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Which value belongs in local state?",
+          "options": [
+            "Every prop",
+            "A package version",
+            "A database table",
+            "A value the component owns and can change"
+          ],
+          "correct": 3,
+          "explanation": "Local state is for values the component owns and updates over time."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why should buttonLabel be derived instead of stored as separate state?",
+          "options": [
+            "React forbids strings in state",
+            "Derived values cannot appear in the UI",
+            "Props cannot be read inside components",
+            "It can be computed from complete state and avoids duplicate sources of truth"
+          ],
+          "correct": 3,
+          "explanation": "Duplicate state for computed text causes sync bugs when values disagree."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What file captures the component contract in Stage 02?",
+          "options": [
+            "A package-lock.json with no component plan",
+            "package-lock.json",
+            "component_recipe.js with props, state, handlers, and render rule",
+            "An nginx configuration file"
+          ],
+          "correct": 2,
+          "explanation": "The recipe documents behavior before hooks and JSX implementation."
+        }
+      ],
+      "content": "# React Core: Components & Hooks\n\n## Why this lesson exists\n\nA React **component** is a reusable view decision: it receives props, keeps only the state it owns, and renders output from that data. Hooks like `useState` are useful only after the component has a clear **contract** — what it receives, what it may change, and what the user should see after an action.\n\nThis stage teaches you to write a **component recipe** in Node.js before JSX. The recipe names the component, props, local state, derived view, event handler, and render rule. Another engineer should understand the behavior from the recipe alone.\n\nThere is no in-lesson code box yet. Practice locally: edit → save → run with `node`.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-react\n```\n\nWindows (PowerShell):\n\n```powershell\nSet-Location \"$HOME\\asv-learn-react\"\n```\n\nYou will create `component_recipe.js` in that folder. If Stage 01 is not done, create the folder first.\n\n## Component contract\n\n| Part | Question |\n| --- | --- |\n| **Component** | What reusable UI unit are we building? |\n| **Props** | What data comes from outside? |\n| **State** | What can change inside? |\n| **Derived view** | What text or status is calculated from props/state? |\n| **Event handler** | What user action changes state? |\n| **Render rule** | What must appear on screen? |\n\nHooks come **after** these decisions. A hook should help the component remember or react to a value you can already name in plain language.\n\n## Props vs state vs derived values\n\n| Kind | Example | Rule of thumb |\n| --- | --- | --- |\n| Prop | `lessonTitle`, `initialComplete` | Passed in; this component does not own the source |\n| State | `complete` (toggle) | Owned here; user action may update it |\n| Derived | Button label \"Start\" vs \"Complete\" | Computed from state — do not store separately |\n\n**Not everything belongs in state.** If you can compute it from props or other state, keep it derived. Duplicate state causes bugs when the two copies disagree.\n\n## Start here: contract before hooks\n\nSay the contract in one sentence: *this component receives lesson data, owns one completion flag, toggles it on click, and shows the lesson title plus current status.*\n\nBefore `useState`, write the recipe. Before JSX, prove the recipe describes real user-visible behavior.\n\n## The recipe shape\n\n```js\nconst componentRecipe = {\n  component: \"ProgressToggle\",\n  props: [\"lessonTitle\", \"initialComplete\"],\n  state: [\"complete\"],\n  derivedView: \"button text changes from Start to Complete\",\n  eventHandler: \"click toggles complete state\",\n  renderRule: \"show lesson title and current completion state\",\n};\n```\n\nEach field is a decision React code must implement later.\n\n## Common beginner mistakes\n\n- Adding `useState` for values that should be props\n- Storing derived text in state (e.g. separate `buttonLabel` when it follows from `complete`)\n- Components that do too many jobs — split when the contract has unrelated state\n- Memorizing hook rules before naming the user action\n- Expecting in-lesson React rendering (this stage is recipe + Node.js proof only)\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `component_recipe.js`:\n\n```js\n// component_recipe.js — Stage 02: React Core\n// Simulate state without React; run with node.\n\nconst componentRecipe = {\n  component: \"ProgressToggle\",\n  props: [\"lessonTitle\", \"initialComplete\"],\n  state: [\"complete\"],\n  derivedView: \"button text changes from Start to Complete\",\n  eventHandler: \"click toggles complete state\",\n  renderRule: \"show lesson title and current completion state\",\n};\n\nfunction simulateToggle(props, state) {\n  const buttonLabel = state.complete ? \"Complete\" : \"Start\";\n  return {\n    title: props.lessonTitle,\n    status: state.complete ? \"done\" : \"in progress\",\n    buttonLabel,\n  };\n}\n\nlet state = { complete: false };\nconst props = { lessonTitle: \"Variables and Data Types\", initialComplete: false };\n\nconsole.log(\"Recipe:\", componentRecipe);\nconsole.log(\"Initial view:\", simulateToggle(props, state));\n\nstate = { complete: !state.complete };\nconsole.log(\"After click:\", simulateToggle(props, state));\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode component_recipe.js\n```\n\nConfirm initial view shows \"Start\" and after click shows \"Complete\".\n\n### Step 3 — Extend the recipe\n\nChange **one** aspect:\n\n- Add a prop `lessonId` and include it in the simulated output\n- Start from `initialComplete: true` and verify the first view\n- Add a forbidden pattern comment: why `buttonLabel` should not be its own state field\n\nRe-run and explain the change.\n\n### Step 4 — Second mini-recipe\n\nAdd a second recipe object in the same file for a `LessonList` component (props: `items`, state: none, render rule: list titles). Run again. Two small components beat one vague mega-component.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| component | Reusable UI unit with a named contract |\n| props | External inputs (read-only from the child’s perspective) |\n| state | Internal value the component may update |\n| derived view | Output computed from props/state |\n| hook | React function (e.g. `useState`) that adds state or side effects |\n| event handler | Function run when the user acts (click, submit, etc.) |\n\n## Proof checklist\n\n- [ ] `component_recipe.js` runs and shows before/after toggle output\n- [ ] Recipe lists all six contract fields\n- [ ] You can explain why `buttonLabel` is derived, not state\n- [ ] You added or adjusted one recipe field with a clear reason\n- [ ] You sketched a second small component recipe\n\nWhen those are true, continue to **Routing, Data Fetching & Forms**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "routing-data",
+      "title": "Routing, Data Fetching & Forms",
+      "hours": "8-10",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should a loader state communicate?",
+          "options": [
+            "That routing is disabled",
+            "That validation is unnecessary",
+            "What the app is doing while data is not ready",
+            "That all errors are hidden"
+          ],
+          "correct": 2,
+          "explanation": "A loader state keeps the user informed while the app waits for data."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why preserve typed form values after a failed submit?",
+          "options": [
+            "Browsers require it for all inputs",
+            "It removes the need for validation",
+            "Losing user input on network failure breaks trust",
+            "It disables error messages"
+          ],
+          "correct": 2,
+          "explanation": "Users should not re-type work because a save request failed."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "When should title validation run in the Stage 03 plan?",
+          "options": [
+            "Only after a successful server response",
+            "Before submit, on the client, with clear errors",
+            "Never — servers always validate",
+            "After the user navigates away"
+          ],
+          "correct": 1,
+          "explanation": "Client validation gives immediate feedback before a request is sent."
+        }
+      ],
+      "content": "# Routing, Data Fetching & Forms\n\n## Why this lesson exists\n\nFrontend apps connect **where the user is** (routes), **what data the screen needs** (fetching), and **what the user submits** (forms). React Router and `fetch` are tools; the professional habit is mapping the **user journey** first: loading, empty, ready, error — and never losing typed work on failure.\n\nThis stage teaches you to write a **route and form plan** as a Node.js object you inspect locally. You are not wiring a production API. You are proving the journey is understandable before components exist.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-react\n```\n\nWindows (PowerShell):\n\n```powershell\nSet-Location \"$HOME\\asv-learn-react\"\n```\n\nCreate `route_form_plan.js` in that folder.\n\n## Route-to-result journey\n\n| Surface | Evidence to name |\n| --- | --- |\n| Routes | Which paths exist? |\n| Loader states | loading, error, empty, ready |\n| Form fields | What input does the user provide? |\n| Validation | What is rejected before submit? |\n| Submit action | What happens when the form is sent? |\n| Error recovery | How typed input is preserved on failure |\n\nGood frontend code tells the truth while waiting, failing, and succeeding.\n\n## Loader states matter\n\nUsers should never stare at a blank screen wondering if anything happened.\n\n| State | User should see |\n| --- | --- |\n| loading | Honest progress (\"Loading lessons…\") |\n| error | Actionable message + retry path |\n| empty | Useful next step (\"No notes yet — add one\") |\n| ready | The actual content |\n\n## Forms and validation\n\nValidation protects the user **before** a request leaves the browser:\n\n- Required fields (e.g. title cannot be empty)\n- Format checks (email shape, max length)\n- Disable submit while invalid or while submitting\n\nOn failed submit, **preserve typed values**. Losing notes because the network failed is a trust bug.\n\n## Start here: journey before fetch\n\nSay the journey in one sentence: *the user opens a lesson route, waits for data, enters a valid note, submits it, and keeps their text if the save fails.*\n\nDo not start by copying `fetch` examples. Name routes and states first.\n\n## Common beginner mistakes\n\n- Fetching without loading or error UI plans\n- Clearing form fields on every error\n- Validation only on the server (user waits for a round trip to learn title is required)\n- Routes that do not match user mental model (`/lesson-detail?id=3` vs `/lessons/3`)\n- Assuming a live API exists in the lesson page (this stage uses a local mock)\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `route_form_plan.js`:\n\n```js\n// route_form_plan.js — Stage 03: Routing, Data & Forms\n\nconst routeDataPlan = {\n  routes: [\"/lessons\", \"/lessons/:id\"],\n  loaderStates: [\"loading\", \"error\", \"empty\", \"ready\"],\n  formFields: [\"title\", \"notes\"],\n  validationRule: \"title is required before submit\",\n  submitAction: \"POST /api/notes (local mock in this exercise)\",\n  errorState: \"show retry message without losing typed notes\",\n};\n\nfunction validateNoteForm(fields) {\n  const errors = [];\n  if (!fields.title || fields.title.trim() === \"\") {\n    errors.push(\"title is required\");\n  }\n  return errors;\n}\n\nfunction mockSubmit(fields) {\n  const errors = validateNoteForm(fields);\n  if (errors.length) return { ok: false, errors, fields };\n  // Simulate random failure for practice\n  if (fields.notes.includes(\"FAIL\")) {\n    return { ok: false, errors: [\"network error\"], fields };\n  }\n  return { ok: true, saved: fields };\n}\n\nconsole.log(\"Plan:\", routeDataPlan);\n\nconst attempt = mockSubmit({ title: \"\", notes: \"draft text\" });\nconsole.log(\"Invalid submit:\", attempt);\n\nconst retry = mockSubmit({ title: \"Module 2\", notes: \"variables FAIL\" });\nconsole.log(\"Failed save (notes preserved):\", retry);\n```\n\n### Step 2 — Run unchanged\n\n```bash\nnode route_form_plan.js\n```\n\nSee validation catch empty title and failed save keep `fields`.\n\nExpected shape (your text may differ):\n\n```text\nPlan: { ... }\nInvalid submit: { ok: false, errors: [ 'title is required' ], fields: { ... } }\nFailed save (notes preserved): { ok: false, errors: [ 'network error' ], fields: { title: 'Module 2', notes: '...' } }\n```\n\n\n### Step 3 — Add a loader simulator\n\nAdd a small function `describeLoader(state)` that returns user-facing copy for each loader state in the plan. Log one example per state.\n\n### Step 4 — One change you can explain\n\nAdjust `validationRule` (e.g. require notes min length) and update `validateNoteForm`. Re-run and confirm behavior matches the plan.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| route | URL path that selects which view to show |\n| loader state | UI while data is not ready |\n| controlled input | Form field value stored in state and synced to the input |\n| validation | Client-side checks before submit |\n| optimistic UI | Updating UI before server confirms (use carefully) |\n\n## Proof checklist\n\n- [ ] `route_form_plan.js` runs and prints plan + validation examples\n- [ ] Empty title is rejected with errors array\n- [ ] Simulated failure returns original `fields` intact\n- [ ] You added loader copy for all four states\n- [ ] You can explain why preserving typed notes on error matters\n\nWhen those are true, continue to **State Management & Performance**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "state-performance",
+      "title": "State Management & Performance",
+      "hours": "8-10",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "When should performance work begin?",
+          "options": [
+            "Before the feature behavior is known",
+            "When there is a named render risk or measurement",
+            "By memoizing every value",
+            "By removing all state"
+          ],
+          "correct": 1,
+          "explanation": "Performance work is stronger when tied to a specific risk and evidence."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Where should filterText live in the lesson list example?",
+          "options": [
+            "In global context on day one",
+            "Only in the database",
+            "In every child card as duplicate state",
+            "Local to the search component that owns typing"
+          ],
+          "correct": 3,
+          "explanation": "Filter text is owned by the search UI unless siblings truly need it."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does simulateRender cardRenders stand in for?",
+          "options": [
+            "Exact React DevTools profiler output",
+            "Number of npm packages installed",
+            "How much list UI work might repeat on each change",
+            "Git commit count"
+          ],
+          "correct": 2,
+          "explanation": "The exercise counts naive rerenders before deciding if memoization helps."
+        }
+      ],
+      "content": "# State Management & Performance\n\n## Why this lesson exists\n\nState should live **where it is needed** — not everywhere, not nowhere. Performance work should start with a **named risk** and **measurement**, not memoization by default. Premature optimization makes components harder to read and does not always help users.\n\nThis stage teaches you to write a **state and performance plan** locally. You will simulate filtering a lesson list in plain JavaScript and count how many \"cards\" would re-render — the same judgment React developers use before `useMemo` or context.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-react\n```\n\nWindows (PowerShell):\n\n```powershell\nSet-Location \"$HOME\\asv-learn-react\"\n```\n\nCreate `state_performance_plan.js`.\n\n## State placement\n\n| Decision | When |\n| --- | --- |\n| **Local state** | One component owns the value (filter text in a search box) |\n| **Shared state** | Multiple components need the same value (selected lesson id for list + detail) |\n| **Derived data** | Computed from source + filter (filtered list — do not store separately if cheap) |\n| **Server state** | Fetched data with its own cache/refetch rules (later libraries help) |\n\nLift state up when siblings must stay in sync. Do not lift everything to the root \"just in case.\"\n\n## Performance without guesswork\n\n| Step | Action |\n| --- | --- |\n| 1 | Name what changes (typing in search) |\n| 2 | Name what might re-render (every lesson card) |\n| 3 | Name repeated work (filtering the full list each keystroke) |\n| 4 | Decide if cost is real (10 items vs 10,000) |\n| 5 | Measure or count before adding memoization |\n\nOptimization is a follow-up to behavior, not a first move.\n\n## Start here: ownership before memo\n\nSay the plan in one sentence: *selected lesson id is shared; filter text stays local; filtering may repeat on each keystroke; measure render count before memoizing.*\n\n## When to reach for context or a store\n\nStart with local state and prop drilling for shallow trees. Consider **context** when many distant components need the same value (theme, authenticated user id, selected lesson). Consider a dedicated store (Zustand, Redux Toolkit) when update rules, middleware, or time-travel debugging justify the complexity — not on day one because a tutorial used it.\n\nFor this course card, the planning exercise matters more than picking a library. If you cannot draw where state lives on paper, a library will not fix the design.\n\n## Common beginner mistakes\n\n- Putting all state in context on day one\n- Memoizing every callback and value (noise, not engineering)\n- Storing filtered results in state when filter + source derive them\n- Optimizing without a user-visible problem\n- Confusing this planning exercise with needing Redux immediately\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `state_performance_plan.js`:\n\n```js\n// state_performance_plan.js — Stage 04: State & Performance\n\nconst statePerformancePlan = {\n  sharedState: \"selectedLessonId used by list and detail panel\",\n  localState: \"filterText stays inside the search box component\",\n  memoizedWork: \"filtered lessons list (only if list is large)\",\n  renderRisk: \"typing in search rerenders every lesson card\",\n  updateStrategy: \"derive filtered list from sourceLessons + filterText\",\n  measurement: \"count card renders before and after splitting memo\",\n};\n\nconst sourceLessons = [\n  { id: 1, title: \"Variables\" },\n  { id: 2, title: \"Input and Math\" },\n  { id: 3, title: \"Loops\" },\n  { id: 4, title: \"Functions\" },\n];\n\nfunction filterLessons(lessons, filterText) {\n  const q = filterText.toLowerCase();\n  return lessons.filter((l) => l.title.toLowerCase().includes(q));\n}\n\nfunction simulateRender(filterText, selectedId) {\n  const filtered = filterLessons(sourceLessons, filterText);\n  let cardRenders = filtered.length; // naive: every card on every keystroke\n  return { filtered, cardRenders, selectedId };\n}\n\nconsole.log(\"Plan:\", statePerformancePlan);\nconsole.log(\"Empty filter:\", simulateRender(\"\", 1));\nconsole.log(\"Filter 'io':\", simulateRender(\"io\", 1));\n```\n\n### Step 2 — Run and interpret\n\n```bash\nnode state_performance_plan.js\n```\n\nNote how `cardRenders` tracks filtered length — a stand-in for \"how much UI work repeats.\"\n\n### Step 3 — Add a cheap guard\n\nAdd a comment block describing when memoization **would** be worth it (e.g. 500+ items, expensive sort). For four lessons, deriving each time is fine — write that honestly.\n\n### Step 4 — Change shared selection\n\nLog two simulations with the same filter but different `selectedId`. Explain why selection is shared state but filter text is local.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| lift state | Move state to a common parent so siblings can read it |\n| derive | Compute from existing state instead of storing duplicate |\n| re-render | Component function runs again because inputs changed |\n| memoization | Cache expensive work or stable references when measured benefit exists |\n| context | React mechanism to pass shared state without prop drilling |\n\n## Proof checklist\n\n- [ ] Plan object includes all six fields\n- [ ] Filter simulation runs and `cardRenders` makes sense\n- [ ] You documented when memoization is *not* needed yet\n- [ ] You explained shared vs local state with this example\n- [ ] You can name one render risk and one measurement idea\n\nWhen those are true, continue to **Testing & Accessibility**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "testing-accessibility",
+      "title": "Testing & Accessibility",
+      "hours": "8-10",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why include a keyboard path?",
+          "options": [
+            "It replaces all tests",
+            "It hides form labels",
+            "It removes state",
+            "It proves the feature can be operated without a mouse"
+          ],
+          "correct": 3,
+          "explanation": "Keyboard operation is core accessibility evidence for interactive UI."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why can an accessible label help testing?",
+          "options": [
+            "It removes the need for assertions",
+            "It disables keyboard focus",
+            "It gives stable, meaningful names for assistive tech and selectors",
+            "It hides error messages"
+          ],
+          "correct": 2,
+          "explanation": "Good labels improve usability and give tests something specific to target."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What bug risk does the Stage 05 plan emphasize?",
+          "options": [
+            "Using too many CSS variables",
+            "Failed save erasing learner notes",
+            "Choosing the wrong Node version",
+            "Missing a favicon"
+          ],
+          "correct": 1,
+          "explanation": "Error-path behavior that loses user data is a high-impact frontend bug."
+        }
+      ],
+      "content": "# Testing & Accessibility\n\n## Why this lesson exists\n\nA frontend feature is not done when it **looks** correct on your laptop. It needs evidence that a user can **operate** it — including with a keyboard — and that important behavior stays protected when code changes.\n\nThis stage teaches you to write a **quality plan**: user journey, behavior checks, accessibility requirements, keyboard path, assertions, and bug risk. You will express assertions as plain JavaScript functions locally (no test runner required yet). The plan comes before test syntax.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-react\n```\n\nWindows (PowerShell):\n\n```powershell\nSet-Location \"$HOME\\asv-learn-react\"\n```\n\nCreate `quality_plan.js`.\n\n## Quality evidence\n\n| Evidence | What it proves |\n| --- | --- |\n| User journey | The feature supports a real task |\n| Behavior checks | Important outcomes stay working |\n| Accessibility | More users can perceive and operate the UI |\n| Keyboard path | Task works without a mouse |\n| Assertions | Expected results are specific |\n| Bug risk | Tests target likely failures |\n\nAccessibility is not decoration. Labels help screen readers **and** give tests stable selectors.\n\n## Behavior-first testing mindset\n\nTest what a **user can observe**: visible text, enabled/disabled buttons, error messages. Avoid locking tests to internal implementation (private state variable names, hook call order) that breaks during harmless refactors.\n\n| Prefer | Avoid |\n| --- | --- |\n| \"Save button shows Note saved\" | \"useState called twice\" |\n| \"Error keeps draft text visible\" | \"fetch mock third argument\" |\n| \"Title field has accessible name Notes\" | \"div.className includes flex\" |\n\nWhen you later adopt Vitest + React Testing Library or Playwright, the quality plan you write here becomes the test list you implement.\n\n## Keyboard path example\n\nFor \"save a note\": Tab to textarea → type → Tab to Save → Enter or Space to activate. If that path is impossible, the feature is not finished for many users.\n\n## Start here: operable before pretty\n\nSay the contract: *a learner opens a lesson, saves a note, sees confirmation, and keeps typed text if save fails — all reachable by keyboard.*\n\nDo not start with assertion syntax. Name the journey and the failure that would hurt users most.\n\n## Common beginner mistakes\n\n- Testing implementation details (internal state variable names) instead of visible behavior\n- Skipping labels because \"it looks fine\"\n- Assertions like \"renders correctly\" with no specific expected text\n- No test for error path (only happy path)\n- Expecting ASV Learn to run tests inside the lesson page\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `quality_plan.js`:\n\n```js\n// quality_plan.js — Stage 05: Testing & Accessibility\n\nconst qualityPlan = {\n  userJourney: \"learner opens lesson and saves a note\",\n  tests: [\n    \"renders lesson title\",\n    \"saves note after submit\",\n    \"shows error on failed save\",\n  ],\n  accessibilityChecks: [\n    \"button has accessible name\",\n    \"textarea has label\",\n    \"status message is readable\",\n  ],\n  keyboardPath: \"tab to textarea, type note, tab to save, activate with Enter\",\n  assertions: [\"saved message appears\", \"typed note remains on error\"],\n  bugRisk: \"failed save could erase learner notes\",\n};\n\nfunction assertContains(actual, expected, label) {\n  const pass = String(actual).includes(expected);\n  console.log(`${label}: ${pass ? \"PASS\" : \"FAIL\"} (expected \"${expected}\")`);\n  return pass;\n}\n\n// Mock UI outputs for local assertion practice\nconst successView = { title: \"Variables\", message: \"Note saved\", note: \"my draft\" };\nconst errorView = { title: \"Variables\", message: \"Save failed — try again\", note: \"my draft\" };\n\nconsole.log(\"Plan:\", qualityPlan);\nassertContains(successView.title, \"Variables\", \"renders lesson title\");\nassertContains(successView.message, \"saved\", \"saved message appears\");\nassertContains(errorView.note, \"my draft\", \"typed note remains on error\");\n```\n\n### Step 2 — Run\n\n```bash\nnode quality_plan.js\n```\n\nAll three assertions should PASS with the mock views.\n\n### Step 3 — Fail on purpose\n\nChange `errorView.note` to `\"\"` and re-run. See the failure message. That is the bug risk your plan protects.\n\n### Step 4 — Extend accessibility\n\nAdd one `accessibilityChecks` item to the plan (e.g. \"focus visible on Save button\") and a one-line comment on why it helps keyboard users.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| assertion | Check that output matches an expected condition |\n| accessible name | Text or aria label exposed to assistive tech |\n| keyboard path | Sequence of focusable controls to complete a task |\n| regression | Behavior that used to work and broke after a change |\n| bug risk | Likely failure mode worth testing first |\n\n## Proof checklist\n\n- [ ] `quality_plan.js` runs and prints plan + assertion results\n- [ ] You triggered at least one intentional FAIL\n- [ ] Keyboard path is written in plain language\n- [ ] Bug risk ties to a specific assertion\n- [ ] You added one accessibility check with rationale\n\nWhen those are true, continue to **Capstone: Four React Projects**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "react-projects",
+      "title": "Capstone: Four React Projects",
+      "hours": "12-16",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does a component tree show?",
+          "options": [
+            "Which server owns the database",
+            "How to bypass testing",
+            "Why accessibility can be skipped",
+            "How the UI is split into reviewable parts"
+          ],
+          "correct": 3,
+          "explanation": "A component tree shows how the interface is decomposed into meaningful parts."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What makes a portfolio project reviewable at this course depth?",
+          "options": [
+            "Screenshots only with no written plan",
+            "Behavior proof: data flow, states, tests, and accessibility evidence",
+            "Four empty repos with README templates",
+            "Claiming production traffic without metrics"
+          ],
+          "correct": 1,
+          "explanation": "Reviewers need to understand behavior and decisions, not only visuals."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should iterationPlan contain?",
+          "options": [
+            "A promise to finish all four apps this week",
+            "One deliberate next improvement, not vague polish-everything",
+            "Removal of all error states",
+            "Skipping accessibility until v2"
+          ],
+          "correct": 1,
+          "explanation": "Honest iteration names the next scoped step after core behavior works."
+        }
+      ],
+      "content": "# Capstone: React Project Proof\n\n## Why this lesson exists\n\nPortfolio work should prove **frontend judgment**, not only a polished screenshot. Reviewers want to see one user problem, a clear component tree, data flow, feature states, routing, test evidence, accessibility evidence, and a deliberate next iteration.\n\nThis capstone stage asks you to write a **React portfolio project card** locally. You are not required to finish four production apps inside this card — hour ranges are aspirational. The goal is one reviewable project documented well enough that behavior is visible before visual polish.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-react\n```\n\nWindows (PowerShell):\n\n```powershell\nSet-Location \"$HOME\\asv-learn-react\"\n```\n\nCreate `portfolio_project.js` (and optionally a `projects/` subfolder for future app code).\n\n## Project proof items\n\n| Proof item | What it shows |\n| --- | --- |\n| Problem | Why the project exists |\n| Component tree | UI split into reviewable parts |\n| Data flow | How information moves |\n| Feature states | loading, empty, ready, error |\n| Route | Navigable surface |\n| Test evidence | Protected behavior |\n| Accessibility evidence | Operable for more users |\n| Iteration plan | Next deliberate improvement |\n\n## Four project directions (pick one to document now)\n\n| Project | Core skill |\n| --- | --- |\n| Course progress dashboard | Lists, filters, shared selection |\n| Note-taking side panel | Forms, validation, error recovery |\n| Markdown lesson reader | Routing, loading states, typography |\n| Habit tracker | Local state, derived stats, simple charts |\n\nDocument **one** deeply in this stage. Build others over time outside the card if you want — honesty beats fake breadth.\n\n## What reviewers look for in junior frontend portfolios\n\n| Question | Strong answer shape |\n| --- | --- |\n| What problem? | One sentence user pain |\n| How is UI split? | Named components with jobs |\n| How does data move? | Props down, events up (or fetch at boundary) |\n| What if API fails? | Named error state + preserved input |\n| How would you test? | Three concrete behavior checks |\n| What is next? | One scoped iteration, not \"everything\" |\n\nYour `portfolio_project.js` card is the written answer. Optional Vite app code is bonus proof when you have time.\n\n## Start here: behavior before gallery\n\nSay the proof: *this project solves searchable course progress, with ProgressPage → Filter → List → Card, handles four states, lives at `/dashboard/progress`, and tests filter + empty + error messaging.*\n\n## Common beginner mistakes\n\n- Screenshot-only portfolios with no data-flow explanation\n- Mega-apps that never handle empty or error states\n- Claiming \"full test suite\" without naming three concrete checks\n- No iteration plan (\"it's done\" with known gaps)\n- Listing four repos with identical unfinished boilerplate\n\n## Your local task\n\n### Step 1 — Create the portfolio card\n\nCreate `portfolio_project.js`:\n\n```js\n// portfolio_project.js — Stage 06: Capstone proof card\n\nconst reactPortfolioProject = {\n  problem: \"learners need a searchable course progress view\",\n  componentTree: [\"ProgressPage\", \"CourseFilter\", \"CourseList\", \"ProgressCard\"],\n  dataFlow: \"progress data flows from page state to list to each card\",\n  featureStates: [\"loading\", \"empty\", \"ready\", \"error\"],\n  route: \"/dashboard/progress\",\n  testEvidence: [\n    \"filters courses by search text\",\n    \"shows empty state when no matches\",\n    \"keeps error banner visible on fetch failure\",\n  ],\n  accessibilityEvidence: [\n    \"filter input has label\",\n    \"progress cards use headings\",\n    \"status text is readable\",\n  ],\n  iterationPlan: \"add saved career-goal filter after search works\",\n};\n\nfunction reviewCard(project) {\n  const required = [\n    \"problem\",\n    \"componentTree\",\n    \"dataFlow\",\n    \"featureStates\",\n    \"route\",\n    \"testEvidence\",\n    \"accessibilityEvidence\",\n    \"iterationPlan\",\n  ];\n  const missing = required.filter((k) => !project[k] || project[k].length === 0);\n  return { complete: missing.length === 0, missing };\n}\n\nconsole.log(JSON.stringify(reactPortfolioProject, null, 2));\nconsole.log(\"Review:\", reviewCard(reactPortfolioProject));\n```\n\n### Step 2 — Run\n\n```bash\nnode portfolio_project.js\n```\n\nConfirm review reports `complete: true`.\n\n### Step 3 — Make it yours\n\nReplace problem, tree, and route with **your** chosen project direction. Keep all eight fields populated. Re-run until review passes.\n\n### Step 4 — Optional scaffold\n\nIf Node and a bundler (Vite) are already on your machine, init a minimal app in `~/asv-learn-react/projects/progress-dashboard` with one route and a static mock list. This is optional — the card is the required proof for this stage.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| component tree | Hierarchy of components from page to leaves |\n| data flow | Direction data travels (props down, events up) |\n| feature state | UI mode for loading/empty/ready/error |\n| iteration plan | Next scoped improvement, not vague \"v2\" |\n| portfolio proof | Behavior evidence a reviewer can inspect |\n\n## Proof checklist\n\n- [ ] Portfolio card has all eight proof fields filled with your project\n- [ ] `reviewCard` reports complete\n- [ ] You can explain data flow in one minute without opening code\n- [ ] Test and accessibility lists have at least three concrete items each\n- [ ] Iteration plan names one next feature, not \"polish everything\"\n\nWhen those are true, you have completed the **React & Modern Frontend** course card at stage depth. Keep building locally; hour totals grow with real projects, not checklist padding.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Node.js: edit → save → run in a terminal (or your local frontend tooling). Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    }
+  ],
+  "tags": "Software, web, frontend, fullstack, devops",
+  "learnings": [
+    "Strengthen JavaScript prerequisites needed for modern React",
+    "Build components with hooks, props, and clear UI state",
+    "Add routing, data fetching, and forms without spaghetti state",
+    "Improve performance, testing, and accessibility with deliberate tradeoffs",
+    "Ship multiple React projects that prove frontend craft"
+  ]
+}

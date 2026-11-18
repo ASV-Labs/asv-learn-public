@@ -1,0 +1,2 @@
+The path: SOC fundamentals, SIEM and logs, threat intel and MITRE ATT&CK,
+incident response, forensics, then hunting.

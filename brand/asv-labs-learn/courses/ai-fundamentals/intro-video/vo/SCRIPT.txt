@@ -1,0 +1,55 @@
+AI FUNDAMENTALS FOR BUILDERS — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is AI Fundamentals for Builders, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+Picture this: you ask a model for tomorrow’s meeting notes.
+It answers with total confidence — and invents three people who were never in the room.
+
+========== BEAT 03 → beat-03 ==========
+
+That is the interesting problem.
+Useful AI is not charm. It is getting a system to do a job you can check.
+
+========== BEAT 04 → beat-04 ==========
+
+In this course you learn to treat a model like a component.
+You practice clear instructions, catch weird answers, and map the pieces that make an AI feature real.
+
+========== BEAT 05 → beat-05 ==========
+
+You will practice prompting as instruction design.
+Then you shape structured outputs — so code could trust what comes back.
+
+========== BEAT 06 → beat-06 ==========
+
+Later, you practice grounding: choose sources, plan retrieval, and refuse a guess when evidence is missing.
+Lessons use simulated model outputs on your machine, so the skill is judgment — not a live API bill.
+
+========== BEAT 07 → beat-07 ==========
+
+You move from orientation, to models and system parts, to prompting and debugging,
+then APIs, structured outputs, retrieval, and grounded answer patterns.
+
+========== BEAT 08 → beat-08 ==========
+
+Every exercise ends in a local artifact you can re-run: scripts, plans, and checklists in your own folder.
+
+========== BEAT 09 → beat-09 ==========
+
+If you already live in chat apps, this course is the bridge into building habits.
+If you are new, we start from zero and keep every step visible.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a grounded-helper plan and practice pack — ask, retrieve from sources you name, answer only with evidence — built as local exercises you can show.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that habit shows up in support tools, internal search, and product features that must stay honest.
+Start with AI, ML, and LLM orientation. Take your time.

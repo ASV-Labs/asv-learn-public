@@ -1,0 +1,2 @@
+In industry, that is how product engineers own a change without losing the plot between layers.
+Start with HTML, CSS, and JavaScript foundations. Take your time.

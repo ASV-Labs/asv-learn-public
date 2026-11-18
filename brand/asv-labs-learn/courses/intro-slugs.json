@@ -1,0 +1,21 @@
+{
+  "generated_for": "ASV Learn course intro VO + scenes (v3 arc, 11 beats)",
+  "exclude": [
+    "python-zero"
+  ],
+  "note": "python-zero reference lives at brand/asv-labs-learn/intro-video/",
+  "slugs": [
+    "ai-foundations-engineering",
+    "ai-fundamentals",
+    "applied-agentic-ai",
+    "devops",
+    "ethical-hacking",
+    "fullstack",
+    "kali-linux",
+    "python-full",
+    "python-security",
+    "react",
+    "security-plus",
+    "soc-blue-team"
+  ]
+}

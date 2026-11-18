@@ -1,0 +1,291 @@
+{
+  "slug": "python-full",
+  "title": "Python Full Stack",
+  "description": "Python web path: fundamentals through Django, FastAPI, SQLAlchemy, auth, and deploy—pick this for Python backends, not a React-first stack.",
+  "difficulty": "Intermediate",
+  "hours": "50-60",
+  "topics": [
+    "Python",
+    "HTTP",
+    "Django",
+    "FastAPI",
+    "Databases",
+    "Deployment"
+  ],
+  "certBadges": [
+    "Python Developer"
+  ],
+  "runtime": "python",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/python-full-stack.ts",
+    "live": "https://technodex.io/courses/python-full"
+  },
+  "stages": [
+    {
+      "slug": "python-web-fundamentals",
+      "title": "Python Web Fundamentals",
+      "hours": "6-8",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the main job of a Python web handler?",
+          "options": [
+            "Write unrelated setup steps",
+            "Replace the browser",
+            "Store every secret in source code",
+            "Receive a request and return a response"
+          ],
+          "correct": 3,
+          "explanation": "A handler receives request information, decides what should happen, and returns a response."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does a 404 response mean?",
+          "options": [
+            "The requested resource was not found",
+            "The user is signed in",
+            "The server found the resource",
+            "The request created a new record"
+          ],
+          "correct": 0,
+          "explanation": "404 means the requested resource or route does not exist at that location."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice Stage 01 locally?",
+          "options": [
+            "Install Django before tracing a single route",
+            "Edit request_router.py and run python3 in a terminal",
+            "Install Django before tracing routes",
+            "Skip status codes until deployment"
+          ],
+          "correct": 1,
+          "explanation": "House style is honest local Python: edit → save → run on your machine."
+        }
+      ],
+      "content": "# Python Web Fundamentals\n\n## Why this lesson exists\n\nEvery Python web framework — Django, FastAPI, Flask — sits on the same loop:\n\n1. A client sends a **request** (method + path + optional body).\n2. Python code **matches** a route and runs a handler.\n3. The server sends a **response** (status + body) that tells the truth.\n\nBefore you install a framework, you need to trace that loop in plain Python. If you cannot explain why `/missing` returns 404, adding decorators will only hide the confusion.\n\nIn this stage you will build a tiny **request router** in one file and run sample requests in your terminal. There is no in-lesson code box on this platform yet. Same rhythm as Python Zero: **read concept → create/edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-01\ncd ~/asv-learn-python-full/stage-01\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full\\stage-01\"\nSet-Location \"$HOME\\asv-learn-python-full\\stage-01\"\n```\n\nYou will create `request_router.py` in that folder.\n\n## Start here: method, path, branch, status, body\n\nSlow the loop down to five words:\n\n| Piece | Example | Meaning |\n| --- | --- | --- |\n| **Method** | GET | Client wants to read |\n| **Path** | /health | Which route is asked for |\n| **Branch** | `if method == \"GET\" and path == \"/health\"` | Handler choice |\n| **Status** | 200 or 404 | Truth code for the client |\n| **Body** | `{\"ok\": True}` | Useful data returned |\n\nIf someone asks for `/profile`, Python should match the profile branch. If someone asks for `/missing`, the honest answer is **404**, not a guess.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** say the request → handler → response loop out loud\n- **Inspect:** trace one known route and one unknown route through the branches\n- **Build:** complete the handler and add one route\n- **Prove:** explain why each printed status happened\n\nPractice after reading means you understand the story before editing code. If the file looks noisy, return to: *what request came in, which branch answered, what went back?*\n\n## One clean pass through this lesson\n\nRead the whole stage as one small story:\n\n1. A request arrives with a method and path.\n2. Python checks whether that pair matches a known route.\n3. The matching branch returns status and body.\n4. The fallback branch returns 404 for unknown routes.\n5. Your terminal output proves you can explain each line.\n\nFrameworks later carry request details into your functions and carry responses back out. The first job is simpler: **follow the request in and follow the response out.**\n\n## Status codes you need first\n\n| Code | Meaning | Use when |\n| --- | --- | --- |\n| 200 | OK | Request worked |\n| 201 | Created | New record was created |\n| 400 | Bad Request | Malformed or missing required data |\n| 401 | Unauthorized | User is not signed in |\n| 403 | Forbidden | User is signed in but not allowed |\n| 404 | Not Found | Route or resource does not exist |\n| 500 | Server Error | Your code or infrastructure failed |\n\nStart with **200** and **404** in this stage. Add others as later stages need them.\n\n## Common beginner mistakes\n\n**One giant function with no fallback.** Unknown paths must return 404, not the last successful handler by accident.\n\n**Wrong status for the story.** Returning 200 with `{\"error\": \"not found\"}` confuses clients that trust status codes.\n\n**Mixing route matching and business logic.** Match the route first, then decide what data to return.\n\n**Printing debug output instead of returning a response.** Handlers return `(status, body)` tuples; callers print or send them.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `request_router.py`:\n\n```python\n# request_router.py — Stage 01: Python Web Fundamentals\n# Run unchanged first, then add one route branch.\n\ndef handle_request(method, path):\n    if method == \"GET\" and path == \"/health\":\n        return 200, {\"ok\": True}\n\n    if method == \"GET\" and path == \"/profile\":\n        return 200, {\"name\": \"Ada\", \"role\": \"developer\"}\n\n    # TODO: add GET /courses returning 200 and a list of two course names\n    # Unknown routes must fall through to 404 below.\n\n    return 404, {\"error\": \"not found\"}\n\n\ndef main():\n    samples = [\n        (\"GET\", \"/health\"),\n        (\"GET\", \"/profile\"),\n        (\"GET\", \"/courses\"),\n        (\"GET\", \"/missing\"),\n    ]\n    print(\"=== Request router ===\")\n    for method, path in samples:\n        status, body = handle_request(method, path)\n        print(f\"{method} {path} -> {status} {body}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 request_router.py\n```\n\nWindows:\n\n```bash\npython request_router.py\n```\n\nConfirm `/health` and `/profile` return 200, `/courses` returns 404 until you add it, and `/missing` returns 404.\n\n### Step 3 — Add the courses route\n\nImplement `GET /courses` returning 200 and a body like `{\"courses\": [\"Python Full Stack\", \"Security\"]}`.\n\nRe-run until all four sample lines match your expectations.\n\n### Step 4 — One small change you can explain\n\nChange **one** thing after the routes work. Examples:\n\n- Add `POST /courses` returning 201 with a fake id\n- Return 405 for `POST /health` with a clear error body\n- Include a `version` field on `/health`\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Request | What the client sends (method, path, headers, body) |\n| Route | Method + path pair your app recognizes |\n| Handler | Python function or branch that decides the response |\n| Status code | Number telling the client what happened |\n| Response body | Data returned with the status (often JSON) |\n| Fallback | Default branch when no route matches |\n\n## Proof checklist\n\n- [ ] `request_router.py` exists in `~/asv-learn-python-full/stage-01`\n- [ ] Running it prints status and body for each sample request\n- [ ] Known routes return 200 with sensible bodies\n- [ ] Unknown routes return 404\n- [ ] You added or changed one route and re-ran successfully\n- [ ] You can explain method, path, branch, status, and body for one request\n\nWhen those are true, continue to **Django Web Framework**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "django-framework",
+      "title": "Django Web Framework",
+      "hours": "10-12",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "In Django, what usually chooses which view handles a request?",
+          "options": [
+            "A random README heading",
+            "A button color",
+            "urls.py",
+            "A browser bookmark"
+          ],
+          "correct": 2,
+          "explanation": "Django URL patterns map request paths to views."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does django_routes.py simulate before Django is installed?",
+          "options": [
+            "Production PostgreSQL replication",
+            "Automatic admin CSS theming",
+            "Skip writing a plan file",
+            "A route table mapping paths to view responsibilities"
+          ],
+          "correct": 3,
+          "explanation": "Plain Python proves you understand urls.py shape without pretending infra exists."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Where should business logic live in a well-organized Django app?",
+          "options": [
+            "Only inside urlpatterns lists",
+            "Only in browser localStorage",
+            "In views and supporting modules, not inside the route table",
+            "In anonymous git commits"
+          ],
+          "correct": 2,
+          "explanation": "urls.py chooses the view; the view performs application work."
+        }
+      ],
+      "content": "# Django Web Framework\n\n## Why this lesson exists\n\nDjango is a **batteries-included** Python framework for complete web applications: routing, views, templates, forms, models, migrations, auth, and admin screens. It does not replace the request loop from Stage 01. It **organizes** it so teams can find routing, data, and permissions in predictable places.\n\nIn this stage you will model Django's **route table** in plain Python before installing Django. That honest step matches how you should read `urls.py` and views in a real project: path first, responsibility second, response third.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-02\ncd ~/asv-learn-python-full/stage-02\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full\\stage-02\"\nSet-Location \"$HOME\\asv-learn-python-full/stage-02\"\n```\n\nYou will create `django_routes.py` in that folder.\n\n## Start here: Django as labeled shelves\n\nImagine a small site with two pages:\n\n- `/health/` — is the app alive?\n- `/dashboard/` — show a signed-in user's work\n\nDjango assigns each concern a shelf:\n\n| Question | Django place | Plain meaning |\n| --- | --- | --- |\n| Which path did the browser ask for? | `urls.py` | Route table |\n| What should happen for that path? | **view** | Python function that handles the request |\n| What data do we store? | **model** | Database-backed shape |\n| What page should the user see? | **template** | HTML built from data |\n| Who can do this action? | **auth** | Access rules |\n\nRead Django as **organization first, syntax second**.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** name path → route table → view → response\n- **Inspect:** decide whether each term chooses a route, runs code, stores data, or renders output\n- **Build:** map paths to view names in plain Python\n- **Prove:** show known paths resolve and missing paths do not\n\nPractice after reading means you understand the shape before `django-admin startproject`. Ask: *which file would I open to add a new URL?*\n\n## One clean pass through this lesson\n\nRead Django work as a chain:\n\n1. A browser asks for a path.\n2. `urls.py` (or your route dict) picks the matching view name.\n3. The view does the Python work and returns a response.\n4. A missing path stays missing instead of pretending to work.\n\nFull project setup, migrations, and templates come later. This stage is the **routing idea**.\n\n## What a minimal Django view looks like\n\nWhen you eventually install Django, a health view often looks like:\n\n```python\nfrom django.http import JsonResponse\n\ndef health(request):\n    return JsonResponse({\"ok\": True})\n```\n\nConnected in `urls.py`:\n\n```python\nfrom django.urls import path\nfrom .views import health\n\nurlpatterns = [\n    path(\"health/\", health),\n]\n```\n\nFor now, simulate that with a dictionary and plain functions.\n\n## Common beginner mistakes\n\n**Putting business logic in `urls.py`.** The route table should stay readable — it chooses views, it does not become the whole app.\n\n**Views that do everything.** Split data access, validation, and rendering when a view grows past one screen.\n\n**Trailing slash confusion.** Django often uses `/health/` with a trailing slash. Be consistent in your route table.\n\n**Skipping the mental model because \"Django handles it.\"** Frameworks route requests; they do not remove the need to understand paths and responses.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `django_routes.py`:\n\n```python\n# django_routes.py — Stage 02: Django Web Framework\n# Models urls.py with a plain route dictionary.\n\nroutes = {\n    \"/health/\": \"health_view\",\n    \"/dashboard/\": \"dashboard_view\",\n}\n\n\ndef health_view():\n    return 200, {\"ok\": True}\n\n\ndef dashboard_view():\n    return 200, {\"page\": \"dashboard\", \"widgets\": 3}\n\n\ndef resolve_path(path):\n    view_name = routes.get(path)\n    if view_name is None:\n        return 404, {\"error\": \"not found\"}\n\n    # TODO: call health_view or dashboard_view based on view_name\n    return 500, {\"error\": \"not implemented\"}\n\n\ndef main():\n    for path in [\"/health/\", \"/dashboard/\", \"/missing/\"]:\n        status, body = resolve_path(path)\n        print(f\"{path} -> {status} {body}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 django_routes.py\n```\n\nConfirm known paths hit the stub and `/missing/` returns 404.\n\n### Step 3 — Wire view names to functions\n\nComplete the TODO so `/health/` and `/dashboard/` return their view responses. Use a dictionary mapping view name strings to callables, or an `if/elif` chain you can explain.\n\n### Step 4 — One small change you can explain\n\nAdd **one** route after the original three cases work. Examples:\n\n- `/settings/` pointing to a new view returning user preferences\n- A view that returns 401 for dashboard when a `user` argument is `None` (preview of Stage 05)\n\nIn a comment, name which Django file each part would live in on a real project (`urls.py`, `views.py`).\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| URL pattern | Mapping from path to view |\n| View | Function or class that handles a request |\n| Model | Python class representing stored data |\n| Template | HTML generated with context data |\n| Admin | Built-in Django UI for staff data management |\n| urlpatterns | List of route definitions in `urls.py` |\n\n## Proof checklist\n\n- [ ] `django_routes.py` exists in `~/asv-learn-python-full/stage-02`\n- [ ] `/health/` and `/dashboard/` return 200 with expected bodies\n- [ ] `/missing/` returns 404\n- [ ] You can say which part acts like `urls.py` vs a view\n- [ ] You added one route and re-ran successfully\n\nWhen those are true, continue to **FastAPI & Async Python**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "fastapi-async",
+      "title": "FastAPI & Async Python",
+      "hours": "8-10",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "true_false",
+          "question": "FastAPI can use Python type hints to validate request data.",
+          "correct": true,
+          "explanation": "FastAPI uses type hints and Pydantic validation to check input."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why reject /users/not-a-number before handler logic runs?",
+          "options": [
+            "Strings are never allowed in URLs",
+            "404 is always correct for bad input",
+            "Invalid path values must not enter trusted code paths",
+            "Validation removes the need for handlers"
+          ],
+          "correct": 2,
+          "explanation": "Validation keeps functions from treating bad input as safe input."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "When is async def most appropriate?",
+          "options": [
+            "For every function regardless of libraries used",
+            "When the handler waits on async-aware I/O such as async HTTP or DB clients",
+            "Only when deleting databases",
+            "When avoiding type hints"
+          ],
+          "correct": 1,
+          "explanation": "Async helps when work waits on non-blocking I/O; it is not a badge for every route."
+        }
+      ],
+      "content": "# FastAPI & Async Python\n\n## Why this lesson exists\n\nFastAPI is built for **APIs**. It uses Python type hints and validation so route handlers receive **trusted input** and return structured JSON. The decorator is not decoration — it is the route label that says which requests may reach your function.\n\nIn this stage you will model a FastAPI **endpoint contract** in plain Python: method, path pattern, type validation, success response, and rejection before handler logic runs. You are not required to install FastAPI yet. You are proving you can read the contract FastAPI protects.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-03\ncd ~/asv-learn-python-full/stage-03\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full/stage-03\"\nSet-Location \"$HOME\\asv-learn-python-full/stage-03\"\n```\n\nYou will create `api_contract.py` in that folder.\n\n## Start here: endpoint promise before syntax\n\nRead a FastAPI endpoint as a contract:\n\n| Contract question | Example answer |\n| --- | --- |\n| What method is allowed? | GET |\n| What path is allowed? | /users/{user_id} |\n| What input comes from the path? | user_id |\n| What type should it become? | int |\n| What should the function return? | user object or error |\n\nWhen the client sends `/users/not-a-number`, validation should **fail before** your handler trusts the value.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** name method, path, parameter, type, and response\n- **Inspect:** treat validation as a gate before trusted code\n- **Build:** implement the contract in plain Python\n- **Prove:** show valid and invalid path values produce different outcomes\n\nPractice after reading means you understand the promise before `@app.get` syntax. Ask: *what request is allowed, and what value must be validated?*\n\n## One clean pass through this lesson\n\nRead FastAPI work as a chain:\n\n1. Method and path say which requests are allowed.\n2. Path values must be extracted and validated.\n3. Valid input reaches handler logic.\n4. Invalid input returns an error object instead of slipping through.\n5. Returned dictionaries become JSON responses in a real FastAPI app.\n\nAsync (`async def`) helps when handlers wait on slow I/O — databases, HTTP clients, queues. Use `async def` when libraries are async-aware. Do not add async everywhere because it looks modern.\n\n## Core FastAPI shape (for later)\n\n```python\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\"/health\")\ndef health():\n    return {\"ok\": True}\n\n\n@app.get(\"/users/{user_id}\")\ndef read_user(user_id: int):\n    return {\"user_id\": user_id}\n```\n\nYour local file simulates what FastAPI would do before `read_user` runs.\n\n## Common beginner mistakes\n\n**Trusting path strings without validation.** `\"42\"` and `42` are not the same kind of value for database lookups.\n\n**Validation inside the handler only.** By then bad input may already have caused confusing branches.\n\n**Using async without async libraries.** Plain `def` is fine for CPU-light synchronous work.\n\n**Returning inconsistent error shapes.** Clients handle APIs more easily when errors share a predictable structure.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `api_contract.py`:\n\n```python\n# api_contract.py — Stage 03: FastAPI & Async Python\n# Models GET /users/{user_id} validation before handler logic.\n\ndef parse_user_id(raw_value):\n    try:\n        return int(raw_value)\n    except (TypeError, ValueError):\n        return None\n\n\ndef handle_get_user(path):\n    # Path shape: /users/42\n    prefix = \"/users/\"\n    if not path.startswith(prefix):\n        return 404, {\"error\": \"not found\"}\n\n    raw_id = path[len(prefix):]\n    user_id = parse_user_id(raw_id)\n    if user_id is None:\n        return 400, {\"error\": \"user_id must be an integer\"}\n\n    # TODO: return 200 and {\"user_id\": user_id, \"name\": f\"User {user_id}\"}\n\n\ndef main():\n    samples = [\"/users/42\", \"/users/not-a-number\", \"/health\"]\n    for path in samples:\n        status, body = handle_get_user(path)\n        print(f\"GET {path} -> {status} {body}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 api_contract.py\n```\n\nConfirm invalid ids return 400 and `/health` returns 404.\n\n### Step 3 — Complete the success response\n\nReturn 200 with `user_id` and a `name` field for valid integer ids.\n\n### Step 4 — One small change you can explain\n\nChange **one** thing. Examples:\n\n- Reject negative user ids with 400\n- Add `GET /health` returning 200 in the same handler module\n- Document in a comment when you would choose `async def` for this route\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Endpoint | Method + path + handler function |\n| Path parameter | Value embedded in the URL |\n| Type hint | Annotation describing expected Python type |\n| Validation | Rejecting input that cannot become the expected type |\n| JSON response | Dictionary serialized as response body |\n| async | Style for non-blocking I/O when libraries support it |\n\n## Proof checklist\n\n- [ ] `api_contract.py` exists in `~/asv-learn-python-full/stage-03`\n- [ ] `GET /users/42` returns 200 with integer user_id\n- [ ] `GET /users/not-a-number` returns 400 before success logic\n- [ ] Unknown paths return 404\n- [ ] You added one validation rule and re-ran\n- [ ] You can explain validation-before-handler in one sentence\n\nWhen those are true, continue to **Databases & SQLAlchemy**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "database-sqlalchemy",
+      "title": "Databases & SQLAlchemy",
+      "hours": "8-10",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What question should you ask before writing a database query?",
+          "options": [
+            "How do I skip validation?",
+            "Which rows and fields do I need?",
+            "How do I hide every error?",
+            "How do I store secrets in the table name?"
+          ],
+          "correct": 1,
+          "explanation": "Good query design starts with the rows, fields, and failure cases you actually need."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should find_user_by_email return when no row matches?",
+          "options": [
+            "The first user in the list",
+            "A random user",
+            "None",
+            "An empty string only"
+          ],
+          "correct": 2,
+          "explanation": "Missing data is normal; callers should handle None instead of inventing rows."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does user_lookup.py practice before SQLAlchemy syntax?",
+          "options": [
+            "Production shard management",
+            "Query contract thinking with plain Python data",
+            "Skip writing a plan file",
+            "Automatic password hashing in tables"
+          ],
+          "correct": 1,
+          "explanation": "Lists of dictionaries model tables honestly on your computer first."
+        }
+      ],
+      "content": "# Databases & SQLAlchemy\n\n## Why this lesson exists\n\nMost real applications need **durable data** — users, orders, lessons, permissions — that survives after the current request finishes. SQLAlchemy is a Python toolkit for talking to relational databases with models, queries, and sessions.\n\nBefore ORM syntax, answer the professional question: *what row does this query need, which fields must come back, and what should happen when nothing matches?* If you cannot state that contract, `session.query()` will only hide the confusion.\n\nIn this stage you will model a **users table** with a list of dictionaries and a lookup helper. You are not installing PostgreSQL or SQLAlchemy yet. You are practicing query thinking locally.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-04\ncd ~/asv-learn-python-full/stage-04\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full/stage-04\"\nSet-Location \"$HOME\\asv-learn-python-full/stage-04\"\n```\n\nYou will create `user_lookup.py` in that folder.\n\n## Start here: data contract before ORM\n\nName the contract before SQL:\n\n| Contract question | Example answer |\n| --- | --- |\n| What are we storing? | users |\n| What identifies one record? | id or email |\n| Which fields do we need back? | id, email, name |\n| Can the lookup fail? | yes |\n| What should a miss return? | None or controlled not-found response |\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** understand tables as collections of rows with named fields\n- **Inspect:** read each row as facts the app can trust only after validation\n- **Build:** implement lookup by email with honest miss behavior\n- **Prove:** show a hit returns one row and a miss returns None\n\nPractice after reading means you know expected rows and fields before ORM methods appear. Ask: *what makes one user match, and what if no row matches?*\n\n## One clean pass through this lesson\n\nRead database work as a chain:\n\n1. Decide which table-like collection holds records.\n2. Decide which field identifies the row you want.\n3. Return only the matching row's needed fields.\n4. Return `None` when nothing matches.\n5. Explain the miss instead of inventing data.\n\nMissing data is normal — wrong email, deleted account, typo. Handle it deliberately.\n\n## Table mental model\n\n```text\nusers\nid | email              | name\n1  | ada@example.com    | Ada\n2  | grace@example.com  | Grace\n```\n\nA Python model class mirrors that shape:\n\n```python\nclass User:\n    def __init__(self, user_id, email, name):\n        self.id = user_id\n        self.email = email\n        self.name = name\n```\n\nYour list-of-dicts version is the same idea without the ORM.\n\n## Common beginner mistakes\n\n**Returning the first row when lookup fails.** That turns a miss into wrong data — worse than an error.\n\n**Storing unvalidated input.** Validate before insert or lookup when format matters (email shape, id type).\n\n**Queries with no named purpose.** \"Get all users\" is not a product feature unless the UI needs it.\n\n**Treating None as an crash.** Callers should branch on `None` and return 404 or a friendly message.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `user_lookup.py`:\n\n```python\n# user_lookup.py — Stage 04: Databases & SQLAlchemy\n# Models a table lookup before SQLAlchemy syntax.\n\nusers = [\n    {\"id\": 1, \"email\": \"ada@example.com\", \"name\": \"Ada\"},\n    {\"id\": 2, \"email\": \"grace@example.com\", \"name\": \"Grace\"},\n]\n\n\ndef find_user_by_email(email):\n    if not email or not isinstance(email, str):\n        return None\n\n    normalized = email.strip().lower()\n    # TODO: return the matching user dict or None\n    return None\n\n\ndef main():\n    samples = [\"ada@example.com\", \"missing@example.com\", \"\", \"  Grace@Example.com  \"]\n    for email in samples:\n        result = find_user_by_email(email)\n        print(f\"lookup {email!r} -> {result}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 user_lookup.py\n```\n\nConfirm all lookups return `None` until you implement matching.\n\n### Step 3 — Implement lookup\n\nMatch email case-insensitively after strip and lower. Return the full user dict for hits and `None` for misses.\n\nExpected: Ada and Grace match; missing and empty string do not.\n\n### Step 4 — One small change you can explain\n\nChange **one** thing. Examples:\n\n- Return only `{id, name}` instead of the full row\n- Add `find_user_by_id` with the same miss behavior\n- Count how many lookups missed in `main()` for logging visibility\n\nIn a comment, write the plain-English query contract your function implements.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Table | Named collection of rows with the same fields |\n| Row | One record in a table |\n| Primary key | Stable identifier for a row (often id) |\n| Query | Request for rows matching conditions |\n| ORM | Object-relational mapper — Python classes for tables |\n| Session | SQLAlchemy workspace for queries and transactions |\n\n## Proof checklist\n\n- [ ] `user_lookup.py` exists in `~/asv-learn-python-full/stage-04`\n- [ ] Valid emails return the correct user dict\n- [ ] Unknown emails return None, not invented rows\n- [ ] Empty or invalid input returns None safely\n- [ ] You extended lookup behavior and re-ran\n- [ ] You wrote the query contract in a comment or note\n\nWhen those are true, continue to **Authentication & Security**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "auth-security",
+      "title": "Authentication & Security",
+      "hours": "8-10",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is authorization?",
+          "options": [
+            "Choosing a button color",
+            "Checking what an authenticated user is allowed to do",
+            "Turning HTML into CSS",
+            "Renaming a browser tab"
+          ],
+          "correct": 1,
+          "explanation": "Authorization checks permissions after identity is known."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which status should an anonymous profile request return first?",
+          "options": [
+            "200",
+            "201",
+            "302",
+            "401"
+          ],
+          "correct": 3,
+          "explanation": "401 means the caller is not identified yet; permission checks come after identity."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why must 401 and 403 stay distinct?",
+          "options": [
+            "Browsers treat them as identical for caching",
+            "They signal different failures: missing identity vs known-but-not-allowed",
+            "403 always means the server crashed",
+            "401 means the user is an admin"
+          ],
+          "correct": 1,
+          "explanation": "Different statuses help clients, users, and auditors respond correctly."
+        }
+      ],
+      "content": "# Authentication & Security\n\n## Why this lesson exists\n\n**Authentication** answers *who is this user?* **Authorization** answers *what is this user allowed to do?* Blurring them leads to private data leaking to the wrong account — one of the most common web security failures.\n\nIn this stage you will model a **protected profile route** in plain Python with two gates: identity first, permission second. You are not wiring OAuth, JWT signing, or password storage yet. You are proving the guard order is safe before framework middleware hides it.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-05\ncd ~/asv-learn-python-full/stage-05\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full/stage-05\"\nSet-Location \"$HOME\\asv-learn-python-full/stage-05\"\n```\n\nYou will create `profile_guard.py` in that folder.\n\n## Start here: two gates in order\n\n| Question | Meaning | Failure result |\n| --- | --- | --- |\n| Who is making this request? | Authentication | **401** sign in required |\n| Is this user allowed to do this? | Authorization | **403** not allowed |\n\nA signed-in user is **known**. That does not mean they may read every profile.\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** separate identity from permission before handler code\n- **Inspect:** read each branch as an access decision\n- **Build:** return 401, 403, or 200 only after the correct gate\n- **Prove:** match outputs to the permission table\n\nPractice after reading means you know expected behavior for anonymous, owner, stranger, and admin callers before editing logic.\n\n## One clean pass through this lesson\n\nRead protected routes as a chain:\n\n1. If there is no signed-in user, stop with **401** before preparing private data.\n2. If there is a user, check whether they may read the requested profile.\n3. Allow only when the caller is the **owner** or an **admin**.\n4. Stop known-but-not-allowed users with **403**.\n5. Return protected data only after both gates pass.\n\nThe order matters. Private data should not be returned or logged before the access decision.\n\n## Permission table before code\n\n| Caller | Requested profile | Expected result |\n| --- | --- | --- |\n| anonymous | user 10 | 401 |\n| user 2 | user 10 | 403 |\n| user 10 | user 10 | 200 |\n| admin 1 | user 10 | 200 |\n\nThat table is the **security contract**. The code implements the table — not the other way around.\n\n## 401 vs 403\n\n- **401:** \"I cannot identify you yet.\"\n- **403:** \"I know who you are, and this action is not allowed.\"\n\nDifferent bugs, different user messages, different audit signals.\n\n## Common beginner mistakes\n\n**Treating logged in as allowed for everything.** Session presence is not permission.\n\n**Returning private data before checks complete.** Prepare responses only after authorization passes.\n\n**Storing secrets in source code.** API keys and signing secrets belong in environment configuration.\n\n**Hiding 403 behind generic 404.** Sometimes privacy wants ambiguous errors, but learners should understand the distinction first.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `profile_guard.py`:\n\n```python\n# profile_guard.py — Stage 05: Authentication & Security\n# Two gates: identity (401) then permission (403).\n\ndef can_read_profile(current_user, requested_user_id):\n    if current_user is None:\n        return False\n\n    is_owner = current_user[\"id\"] == requested_user_id\n    is_admin = current_user.get(\"role\") == \"admin\"\n    return is_owner or is_admin\n\n\ndef get_profile(current_user, requested_user_id):\n    if current_user is None:\n        return 401, {\"error\": \"sign in required\"}\n\n    if not can_read_profile(current_user, requested_user_id):\n        return 403, {\"error\": \"not allowed\"}\n\n    return 200, {\n        \"user_id\": requested_user_id,\n        \"visible_to\": current_user[\"id\"],\n    }\n\n\ndef main():\n    cases = [\n        (None, 10),\n        ({\"id\": 2, \"role\": \"user\"}, 10),\n        ({\"id\": 10, \"role\": \"user\"}, 10),\n        ({\"id\": 1, \"role\": \"admin\"}, 10),\n    ]\n    for current_user, requested in cases:\n        status, body = get_profile(current_user, requested)\n        label = current_user[\"id\"] if current_user else \"anonymous\"\n        print(f\"caller {label} reads {requested} -> {status} {body}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 profile_guard.py\n```\n\nMatch each line to the permission table: 401, 403, 200, 200.\n\n### Step 3 — Add one caller case\n\nAdd a test case and expected behavior after the original four work. Examples:\n\n- Support role that may read profiles in the same organization\n- User with `role: \"banned\"` always gets 403 even on own profile\n\nDocument the new row in a comment at the top of the file.\n\n### Step 4 — One small change you can explain\n\nChange **one** thing. Examples:\n\n- Include `\"reason\"` in error bodies for debugging in dev only\n- Add a helper that logs access decisions without printing private fields\n- Write two sentences on why 401 and 403 must not be swapped\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Authentication | Proving who the user is |\n| Authorization | Checking permitted actions for that user |\n| Session | Server-side or signed record of signed-in identity |\n| Token | Credential (often JWT) sent with requests |\n| Owner | User who owns the requested resource |\n| Fail closed | Deny access when checks fail or are incomplete |\n\n## Proof checklist\n\n- [ ] `profile_guard.py` exists in `~/asv-learn-python-full/stage-05`\n- [ ] Anonymous callers receive 401\n- [ ] Wrong user receives 403; owner and admin receive 200\n- [ ] Protected data appears only after both gates pass\n- [ ] You added one caller case and re-ran\n- [ ] You can explain why sign-in is not the same as permission\n\nWhen those are true, continue to **Deployment & Production Python**.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "deployment-python",
+      "title": "Deployment & Production Python",
+      "hours": "8-10",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "true_false",
+          "question": "A deploy is proven only because the process says it restarted.",
+          "correct": false,
+          "explanation": "A restart is not enough. You still need route checks and log review after the app is serving traffic."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why should migrations run before code expects new schema fields?",
+          "options": [
+            "To skip tests entirely",
+            "So running code matches the database shape users hit",
+            "Because health routes replace migrations",
+            "To store secrets in migration files"
+          ],
+          "correct": 1,
+          "explanation": "Schema and code must move together intentionally during deploy."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does deploy_checklist.py model?",
+          "options": [
+            "A Kubernetes cluster installer",
+            "Evidence required before calling a release done",
+            "Skip writing a plan file",
+            "Automatic blue-green traffic splitting"
+          ],
+          "correct": 1,
+          "explanation": "Plain Python data makes the proof chain reviewable before tooling hides it."
+        }
+      ],
+      "content": "# Deployment & Production Python\n\n## Why this lesson exists\n\nDeployment means making your app run **reliably for real users**. Production work includes configuration, logging, process restarts, database migrations, health checks, rollback plans, and security — not only copying files to a server.\n\nIn this stage you will write a **deploy proof checklist** as Python data and a function that decides whether a release is safe to call done. You are not building Kubernetes or full CI/CD yet. You are learning the evidence chain: tests, migrations, restart, **public route proof**, logs, rollback.\n\nThere is no in-lesson code box on this platform yet. Same rhythm: **read concept → edit a `.py` file → run in terminal → one small change → checklist**.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-python-full/stage-06\ncd ~/asv-learn-python-full/stage-06\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-python-full/stage-06\"\nSet-Location \"$HOME\\asv-learn-python-full/stage-06\"\n```\n\nYou will create `deploy_checklist.py` in that folder.\n\n## Start here: deploy is a proof chain\n\nRead the chain in order:\n\n1. **Before deploy:** tests pass and required configuration is present.\n2. **During deploy:** dependencies install, migrations apply, process restarts.\n3. **After deploy:** public health route returns 200, protected routes still enforce auth, logs show no new crash loop, rollback path is known.\n\nIf one link is missing, the deploy is not finished — even if a panel says \"online.\"\n\n## How to use this lesson\n\nRead in this order:\n\n- **Learn:** name pre-deploy, deploy, and post-deploy checks\n- **Inspect:** separate internal process status from user-facing proof\n- **Build:** model checklist data and evaluate evidence\n- **Prove:** explain why restart alone is weaker than public route 200\n\nPractice after reading means you treat deployment as evidence, not a label. Ask: *what could still be broken for users after the process restarted?*\n\n## One clean pass through this lesson\n\n| Check | What it proves | What it does not prove |\n| --- | --- | --- |\n| Tests passed | Change is safe enough to try | Every user workflow works |\n| Migrations applied | Schema matches code expectations | Data backfill is correct |\n| App restarted | New process is running | Public site answers requests |\n| Health route 200 | Basic request succeeds | All features work |\n| Logs clean | No obvious crash loop | No hidden logic bugs |\n| Rollback known | Recovery is possible | Rollback is painless |\n\nUser-facing proof comes **after** the app is running.\n\n## Health route example\n\nEvery deployable app should expose a simple health check:\n\n```python\ndef health():\n    return {\"ok\": True, \"service\": \"python-api\"}\n```\n\nIn production, that route is fetched from outside the server — the same way a user or load balancer would reach it.\n\n## Common beginner mistakes\n\n**Calling deploy done after restart.** Process managers lie quietly while nginx or the app still returns 502.\n\n**Running migrations after code expects new columns.** Order matters: migrate, then deploy code that uses the schema.\n\n**No rollback notes until incident day.** Decide recovery steps when you still have calm attention.\n\n**Secrets in git.** Production config belongs in environment variables or a secret store, not in `settings.py` commits.\n\n## Your local task\n\n### Step 1 — Create the starter\n\nCreate `deploy_checklist.py`:\n\n```python\n# deploy_checklist.py — Stage 06: Deployment & Production Python\n# Model deploy evidence before cloud tooling.\n\nREQUIRED_CHECKS = [\n    \"tests_passed\",\n    \"migrations_applied\",\n    \"app_restarted\",\n    \"public_health_status\",\n    \"logs_checked\",\n    \"rollback_path_known\",\n]\n\n\ndef evaluate_deploy(evidence):\n    missing = [key for key in REQUIRED_CHECKS if key not in evidence]\n    if missing:\n        return \"INCOMPLETE\", missing\n\n    if not evidence[\"tests_passed\"]:\n        return \"BLOCKED\", [\"tests_passed\"]\n\n    if evidence[\"migrations_applied\"] is not True:\n        return \"BLOCKED\", [\"migrations_applied\"]\n\n    if evidence[\"app_restarted\"] is not True:\n        return \"BLOCKED\", [\"app_restarted\"]\n\n    if evidence[\"public_health_status\"] != 200:\n        return \"ROLLBACK\", [\"public_health_status\"]\n\n    if evidence[\"logs_checked\"] is not True:\n        return \"ROLLBACK\", [\"logs_checked\"]\n\n    if evidence[\"rollback_path_known\"] is not True:\n        return \"INCOMPLETE\", [\"rollback_path_known\"]\n\n    return \"RELEASE OK\", []\n\n\ndef main():\n    good = {\n        \"tests_passed\": True,\n        \"migrations_applied\": True,\n        \"app_restarted\": True,\n        \"public_health_status\": 200,\n        \"logs_checked\": True,\n        \"rollback_path_known\": True,\n    }\n    bad_health = {**good, \"public_health_status\": 503}\n\n    for label, evidence in [(\"good\", good), (\"bad_health\", bad_health)]:\n        decision, details = evaluate_deploy(evidence)\n        print(f\"=== {label} ===\")\n        print(decision, details)\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n### Step 2 — Run unchanged\n\n```bash\npython3 deploy_checklist.py\n```\n\nConfirm `good` → `RELEASE OK` and `bad_health` → `ROLLBACK`.\n\n### Step 3 — Add one production check\n\nExtend `REQUIRED_CHECKS` and `evaluate_deploy` with **one** check you would want before shipping to paying users. Examples:\n\n- `protected_route_requires_login`\n- `database_read_smoke_test`\n- `owner_notified`\n\nAdd a third evidence dict in `main()` that fails only your new check.\n\n### Step 4 — Write the rollback sentence\n\nIn a comment or `ROLLBACK.md` snippet, write one plain-English rollback step for this course project (for example: redeploy previous git tag and restore database snapshot).\n\nExplain in two sentences why `\"process restarted\"` is weaker than `\"public health route returned 200 after restart.\"`\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Deployment | Moving tested code to an environment users reach |\n| Migration | Controlled database schema change |\n| Health check | Simple route proving the app responds |\n| Rollback | Reverting to last known good release |\n| Environment variable | Config value outside source code |\n| Smoke test | Quick post-deploy check of critical paths |\n\n## Proof checklist\n\n- [ ] `deploy_checklist.py` exists in `~/asv-learn-python-full/stage-06`\n- [ ] Good evidence returns RELEASE OK\n- [ ] Failed health status triggers ROLLBACK\n- [ ] You added one extra required check and tested it\n- [ ] You documented a rollback step in plain language\n- [ ] You can explain user-facing proof vs process status\n\nWhen those are true, you have completed the **Python Full Stack** course path.\n\n## ASV Learn house notes\n\nPractice runs on your computer with Python 3: edit → save → run in a terminal. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    }
+  ],
+  "tags": "Software, web, frontend, fullstack, devops",
+  "learnings": [
+    "Build Python web apps from HTTP requests through server-side frameworks",
+    "Use Django and FastAPI patterns for real request/response flows",
+    "Model data with SQLAlchemy and keep schema changes intentional",
+    "Add authentication and security controls appropriate to the app",
+    "Deploy and operate a Python service with tests and production basics"
+  ]
+}

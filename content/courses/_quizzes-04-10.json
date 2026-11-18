@@ -1,0 +1,205 @@
+{
+  "module-04": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "With score = 95, which status should this chain produce if written correctly: if score >= 90 → excellent; elif score >= 70 → pass; else → retry?",
+        "options": [
+          "excellent",
+          "pass",
+          "retry",
+          "None — both excellent and pass run"
+        ],
+        "correct": 0,
+        "explanation": "Python runs the first matching branch. 95 >= 90 is true, so status becomes excellent and later branches are skipped."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Why should you check score >= 90 before score >= 70?",
+        "options": [
+          "So high scores are labeled excellent instead of stopping at the lower pass branch",
+          "Because Python only allows one comparison per file",
+          "Because else cannot follow elif",
+          "Because integers cannot use >="
+        ],
+        "correct": 0,
+        "explanation": "Conditions are tested top to bottom. A lower bar first would catch 95 as pass and never reach excellent."
+      }
+    ]
+  },
+  "module-05": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "In a for loop that totals scores, what is total = 0 before the loop?",
+        "options": [
+          "An accumulator starting point so each pass can add the next score",
+          "A counter that must stay zero forever",
+          "A boolean that ends the loop",
+          "A required name for every list"
+        ],
+        "correct": 0,
+        "explanation": "An accumulator starts at a known value (often 0) and updates on each iteration to build a running total."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "For scores = [80, 90, 75], what is the total after for score in scores: total += score with total starting at 0?",
+        "options": [
+          "245",
+          "80",
+          "3",
+          "75"
+        ],
+        "correct": 0,
+        "explanation": "80 + 90 + 75 = 245. The loop adds each list item to the accumulator."
+      }
+    ]
+  },
+  "module-06": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "Which collection is best for a changeable ordered list of open tasks?",
+        "options": [
+          "list",
+          "tuple",
+          "set",
+          "integer"
+        ],
+        "correct": 0,
+        "explanation": "Lists keep order and support changes like append. Tuples are fixed; sets drop order/duplicates; integers are not collections of tasks."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "How do you read the title field from task = {\"title\": \"Practice loops\", \"status\": \"open\"}?",
+        "options": [
+          "task[\"title\"]",
+          "task.title()",
+          "task[0]",
+          "title(task)"
+        ],
+        "correct": 0,
+        "explanation": "Dictionary values are looked up with their key in square brackets, such as task[\"title\"]."
+      }
+    ]
+  },
+  "module-07": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "What does return do inside a function?",
+        "options": [
+          "Sends a value back to the caller so it can be stored or printed later",
+          "Always prints the value to the terminal",
+          "Deletes the function after one use",
+          "Converts every argument into a string"
+        ],
+        "correct": 0,
+        "explanation": "return gives a result to the caller. Printing is separate; you can print the returned value if you want."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What does percent_done(3, 4) return if it computes (completed / total) * 100?",
+        "options": [
+          "75.0",
+          "3",
+          "4",
+          "None"
+        ],
+        "correct": 0,
+        "explanation": "3 divided by 4 is 0.75; times 100 is 75.0."
+      }
+    ]
+  },
+  "module-08": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "Which exception should you typically catch when int(raw) fails on non-numeric text?",
+        "options": [
+          "ValueError",
+          "IndexError",
+          "ImportError",
+          "StopIteration"
+        ],
+        "correct": 0,
+        "explanation": "int() raises ValueError when the text cannot be converted to an integer."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "After a successful int conversion of \"150\" for a 0–100 score, what should validation do?",
+        "options": [
+          "Reject it as out of range with a clear message",
+          "Always crash the program",
+          "Treat it as text forever",
+          "Ignore the number and use 0"
+        ],
+        "correct": 0,
+        "explanation": "Conversion success is not enough; range checks catch usable-looking numbers that are still invalid for the score domain."
+      }
+    ]
+  },
+  "module-09": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "What is the difference between open modes \"w\" and \"a\"?",
+        "options": [
+          "\"w\" overwrites (or creates) the file; \"a\" adds to the end without wiping earlier lines",
+          "\"w\" only reads; \"a\" only deletes",
+          "They are identical in Python 3",
+          "\"a\" requires the file to be binary"
+        ],
+        "correct": 0,
+        "explanation": "Write mode replaces contents; append mode extends the file. Both can create a file if needed, but their effect on existing data differs."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "Why use a with open(...) as file: block when writing tasks?",
+        "options": [
+          "It closes the file cleanly when the block ends",
+          "It disables encoding",
+          "It turns the file into a list automatically",
+          "It prevents any text from being written"
+        ],
+        "correct": 0,
+        "explanation": "The with statement manages the file context and closes it when you leave the block, which is safer than leaving files open."
+      }
+    ]
+  },
+  "module-10": {
+    "hours": "2-3",
+    "quiz": [
+      {
+        "type": "multiple_choice",
+        "question": "What does from datetime import date allow you to do?",
+        "options": [
+          "Call date.today() to get today’s date using the standard library",
+          "Install Python for the first time",
+          "Create a .txt file without open",
+          "Convert any string to a list"
+        ],
+        "correct": 0,
+        "explanation": "Importing date from datetime loads a standard-library type so you can call date.today() and related helpers."
+      },
+      {
+        "type": "multiple_choice",
+        "question": "What is today.strftime(\"%Y-%m-%d\") used for?",
+        "options": [
+          "Formatting a date object into a readable YYYY-MM-DD string",
+          "Deleting yesterday’s files",
+          "Opening a network port",
+          "Sorting a list of integers"
+        ],
+        "correct": 0,
+        "explanation": "strftime builds a string from a date/time using a pattern such as %Y-%m-%d."
+      }
+    ]
+  }
+}

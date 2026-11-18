@@ -1,0 +1,2 @@
+You will map Django-style apps, FastAPI endpoint contracts, SQLAlchemy-shaped data plans, and auth decisions —
+often before you are required to install the full framework stack.

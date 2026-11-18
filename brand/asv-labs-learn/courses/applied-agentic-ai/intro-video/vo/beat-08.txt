@@ -1,0 +1,2 @@
+You practice locally with scoped tools and synthetic tasks.
+Authorization and safety limits are stated once up front — then we build.

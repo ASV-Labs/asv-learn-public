@@ -1,0 +1,2 @@
+In this course you learn to treat a model like a component.
+You practice clear instructions, catch weird answers, and map the pieces that make an AI feature real.

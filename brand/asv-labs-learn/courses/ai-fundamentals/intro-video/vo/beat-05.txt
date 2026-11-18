@@ -1,0 +1,2 @@
+You will practice prompting as instruction design.
+Then you shape structured outputs — so code could trust what comes back.

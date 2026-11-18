@@ -1,0 +1,2 @@
+That end-to-end path is the joy of full stack work.
+Nothing mystical — just seeing a whole feature live in every layer.

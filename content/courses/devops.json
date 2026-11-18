@@ -1,0 +1,298 @@
+{
+  "slug": "devops",
+  "title": "DevOps & Infrastructure",
+  "description": "Run apps with Linux, containers, Kubernetes, CI/CD, infrastructure as code, and observability evidence.",
+  "icon": "OPS",
+  "difficulty": "Intermediate",
+  "hours": "28-36",
+  "topics": [
+    "Linux",
+    "Containers",
+    "Kubernetes",
+    "CI/CD",
+    "Infrastructure",
+    "Observability"
+  ],
+  "certBadges": [
+    "DevOps Engineer"
+  ],
+  "runtime": "shell",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/devops.ts",
+    "live": "https://technodex.io/courses/devops"
+  },
+  "stages": [
+    {
+      "slug": "linux-shell",
+      "title": "Linux & Shell Scripting Foundations",
+      "hours": "4-5",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why inspect logs before restarting a service?",
+          "options": [
+            "To make the command longer",
+            "To avoid using health checks",
+            "To skip rollback planning",
+            "To preserve evidence of the failure"
+          ],
+          "correct": 3,
+          "explanation": "Logs can explain the failure. Restarting first can hide the evidence."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is user-facing health stronger than process status alone?",
+          "options": [
+            "Process status always includes HTTP codes",
+            "Health checks replace the need for logs",
+            "A process can run while users still see errors",
+            "Users never report symptoms"
+          ],
+          "correct": 2,
+          "explanation": "Green process state does not guarantee the user experience works."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice Stage 01 in ASV Learn house style?",
+          "options": [
+            "Restart production services for practice",
+            "Skip writing a plan file",
+            "Skip rollback planning until senior level",
+            "Write response_checklist.sh and run it in your own terminal or lab"
+          ],
+          "correct": 3,
+          "explanation": "Practice is local or authorized lab only — write the checklist and run it yourself."
+        }
+      ],
+      "content": "# Linux & Shell Scripting Foundations\n\n## Why this lesson exists\n\nDevOps starts with **careful inspection**. A shell command should answer a question before it changes a system. The professional habit is observe → preserve evidence → verify user impact → choose the safest action → keep rollback ready.\n\nThis stage teaches you to write a **response checklist** in shell variables you print locally. You are not fixing a production outage in this lesson. You are learning the order that keeps small incidents from becoming blind restarts.\n\nPractice in your own terminal, VM, or authorized lab hosts only. Keep scope legal and documented.\n\nThis course card targets **28–36 hours** of honest local practice across all stages — not padded lab time or hosted sandboxes.\n\n## Reminder: where you work\n\nCreate a course notes folder:\n\n```bash\nmkdir -p ~/asv-learn-devops/stage-01\ncd ~/asv-learn-devops/stage-01\n```\n\nWindows (WSL or Git Bash recommended for shell practice):\n\n```bash\nmkdir -p ~/asv-learn-devops/stage-01\ncd ~/asv-learn-devops/stage-01\n```\n\nYou will create `response_checklist.sh` and a small evidence log.\n\n## Start here: observe before restart\n\nWhen something breaks, resist restart-first reflexes.\n\n| Step | Question | Evidence |\n| --- | --- | --- |\n| Symptom | What changed for users or jobs? | alert, ticket, failed cron |\n| Status | Does the process appear running? | `systemctl`, `ps`, service state |\n| Logs | What happened before you arrived? | timestamped errors |\n| Public health | Can a user-facing route answer? | HTTP check, smoke test |\n| Action | Safest next move? | restart, rollback, escalate |\n| Rollback | Recovery if action fails? | previous release, snapshot |\n\nA process can be **running** while users still see failure. User-facing health is stronger evidence than green process status alone.\n\n## The operating loop\n\n```text\ninspect → decide → change → verify → document\n```\n\nRestarting can erase log clues. Document what you inspected **before** you change state. If you cannot name the rollback before the change, you are not ready to change.\n\n## Useful inspection commands (your machine or authorized lab)\n\nThese are **read-mostly** examples — adapt to your environment:\n\n| Goal | Example command | Notes |\n| --- | --- | --- |\n| OS / uptime | `uname -a`, `uptime` | Baseline context |\n| Disk space | `df -h` | Full disks cause subtle failures |\n| Memory pressure | `free -h` or `vm_stat` (macOS) | OOM kills look like random restarts |\n| Listening ports | `ss -tlnp` or `lsof -iTCP -sTCP:LISTEN` | Is anything bound to the expected port? |\n| Process snapshot | `ps aux \\| head -20` | Who is running; do not kill blindly |\n| Recent logs | `journalctl -u SERVICE -n 50 --no-pager` | Adjust unit name; read before restart |\n| HTTP health | `curl -sv --max-time 5 https://host/health` | User-facing signal |\n| Save evidence | `tee ~/asv-learn-devops/stage-01/incident.log` | Keep a copy you can attach to a ticket |\n\nPipe long output to a file: `journalctl ... > ~/asv-learn-devops/stage-01/incident.log`. Redact secrets before sharing.\n\n### Capture a local baseline (safe)\n\nOn **your own machine**, save a baseline you can compare later:\n\n```bash\n{\n  echo \"=== $(date -u +%Y-%m-%dT%H:%M:%SZ) ===\"\n  uname -a\n  uptime\n  df -h | head -20\n} | tee practice_log.txt\n```\n\nDo not run inspection against systems you are not authorized to touch.\n\n## Shell script habits\n\n- `set -euo pipefail` in real scripts catches many foot-guns (stop on error, unset vars fail, pipe failures propagate).\n- Quote variables: `\"$var\"` not `$var`.\n- Prefer explicit paths in runbooks over \"run the usual command.\"\n- Prefer `printf` over unquoted `echo` when formatting structured notes.\n- Keep scripts small and reviewable; a checklist that prints truth beats a 200-line \"automation\" nobody trusts.\n\n### Exit codes as evidence\n\n| Code | Meaning in practice |\n| --- | --- |\n| `0` | Command succeeded for its own definition of success |\n| non-zero | Something failed — capture stderr before retrying |\n| `curl -f` non-zero | HTTP error status — treat as health failure |\n\nA green shell prompt after `systemctl restart` does not mean users are healthy. Pair process actions with a health check exit code.\n\n## Common beginner mistakes\n\n- `systemctl restart` before reading logs\n- Trusting green dashboard while users report errors\n- No rollback named before deploy or restart\n- Running destructive commands on systems you do not own\n- Expecting an in-lesson hosted shell grader instead of local or authorized-lab practice\n- Saving secrets (tokens, passwords) into `practice_log.txt` or tickets\n- Treating `ps` \"process exists\" as proof the user path works\n\n## Your local task\n\n### Step 1 — Create the checklist script\n\nCreate `response_checklist.sh`:\n\n```bash\n#!/usr/bin/env bash\n# response_checklist.sh — Stage 01: Linux & Shell Foundations\n# Run: bash response_checklist.sh\n\ninspect_steps=\"status logs public-health\"\naction_order=\"inspect then change then verify\"\nsafe_action=\"escalate if health fails after one bounded restart attempt\"\nrollback_plan=\"redeploy previous known-good release if health does not recover\"\nsymptom=\"example: API returns 502 for learners\"\nstatus_evidence=\"systemctl status app — active (running)\"\nlog_evidence=\"last 50 lines show connection refused to database\"\nhealth_evidence=\"curl -f https://lab.example/health — FAIL (502)\"\n\nprintf '%s\\n' \\\n  \"symptom=$symptom\" \\\n  \"inspect_steps=$inspect_steps\" \\\n  \"action_order=$action_order\" \\\n  \"status_evidence=$status_evidence\" \\\n  \"log_evidence=$log_evidence\" \\\n  \"health_evidence=$health_evidence\" \\\n  \"safe_action=$safe_action\" \\\n  \"rollback_plan=$rollback_plan\"\n```\n\n### Step 2 — Run unchanged\n\n```bash\nbash response_checklist.sh\n```\n\nRead output as a story: symptom → evidence → action → rollback.\n\n### Step 3 — Local inspection practice (safe)\n\nAppend real output from your baseline capture to `practice_log.txt` (Step above). Optionally add:\n\n```bash\n# Optional — only on machines you own / are authorized to inspect\n# ps aux | head -5\n# ss -tlnp 2>/dev/null | head -10 || lsof -iTCP -sTCP:LISTEN 2>/dev/null | head -10\n```\n\n### Step 4 — One change you can explain\n\nEdit `safe_action` to require log capture before restart. Re-run and explain why restart-first would be weaker work.\n\n### Step 5 — Mini tabletop (written)\n\nCreate `tabletop_01.txt` with four lines: (1) symptom, (2) first command you would run, (3) what would make you escalate instead of restart, (4) rollback if a bounded restart fails. This is paper practice — no production systems.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| shell | Command-line interpreter (bash, zsh) |\n| stdout / stderr | Normal output vs error output streams |\n| health check | Request that proves user-visible readiness |\n| rollback | Return to last known-good state |\n| evidence | Saved output tied to a decision |\n| runbook | Short documented response order |\n| exit code | Numeric success/failure signal from a command |\n\n## Proof checklist\n\n- [ ] `~/asv-learn-devops/stage-01` exists\n- [ ] `response_checklist.sh` prints all evidence fields in sensible order\n- [ ] You ran harmless local inspection commands and saved notes\n- [ ] `tabletop_01.txt` names escalate vs restart vs rollback\n- [ ] You can explain why logs before restart matter\n- [ ] You know practice is local/authorized lab only — no hosted sandbox promised here\n\nWhen those are true, continue to **Docker & Containerization**.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "docker-containers",
+      "title": "Docker & Containerization",
+      "hours": "5-6",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Which item should not be baked into a container image?",
+          "options": [
+            "Application code",
+            "Runtime dependencies",
+            "Secret tokens",
+            "Health-check path"
+          ],
+          "correct": 2,
+          "explanation": "Secrets should be supplied by the runtime environment or secret manager, not baked into an image."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why name a rollback image tag before deploy?",
+          "options": [
+            "Because Docker deletes old tags automatically",
+            "So recovery does not become a guess under pressure",
+            "To avoid health checks",
+            "To skip CI pipelines"
+          ],
+          "correct": 1,
+          "explanation": "Known-good rollback tags make failed releases recoverable."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does the container health check prove?",
+          "options": [
+            "The image has no vulnerabilities ever",
+            "The app inside the container can answer after start",
+            "Secrets are stored in the Dockerfile",
+            "Kubernetes is installed on the laptop"
+          ],
+          "correct": 1,
+          "explanation": "Health checks show readiness to serve traffic, not perfect security."
+        }
+      ],
+      "content": "# Docker & Containerization\n\n## Why this lesson exists\n\nContainers package an app with the runtime it needs. The goal is **repeatability**: the same image should behave the same in development, staging, and production — with clear boundaries for secrets, ports, health, and rollback.\n\nThis stage teaches you to write a **container release card** before editing a Dockerfile. \"It runs in Docker\" is not a release claim until image identity, build checks, traffic path, health proof, rollback partner, and secret rules are named.\n\nPractice is local terminal / authorized lab only. ASV Learn does not host a Docker sandbox for this lesson.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-devops\nmkdir -p stage-02\ncd stage-02\n```\n\nCreate `container_release_card.sh`. If Docker is installed locally, you may optionally run read-only commands like `docker version` — never against unauthorized hosts.\n\n## Container boundary\n\n| Artifact | Why it matters |\n| --- | --- |\n| Image name and tag | Identifies exact release candidate |\n| Dockerfile checks | What belongs inside the image |\n| Runtime port | How traffic reaches the app |\n| Health check | Proves container answers after start |\n| Rollback image | Previous known-good tag |\n| Secret rule | Tokens come from runtime, not baked in |\n\nContainers clarify boundaries; they do not remove operational responsibility.\n\n## What belongs in the image\n\n**Inside:** application code, runtime dependencies, non-root user when possible, health-check endpoint.\n\n**Outside (runtime config):** API keys, database URLs, environment-specific URLs — inject via env vars or secret manager at deploy time.\n\n| Bake into image | Inject at runtime |\n| --- | --- |\n| App source / build output | API keys, DB passwords |\n| Locked dependency install | Environment-specific URLs |\n| Non-secret defaults | Per-env feature flags with secrets |\n| Healthcheck binary/script | Cloud credentials |\n\n## Image layers and repeatability\n\nDocker images stack **layers**. Instructions that change often (app code) should come **after** instructions that change rarely (dependency install) so rebuilds stay fast and cache-friendly.\n\nTypical order:\n\n1. Base image (pinned tag, not bare `latest` in production)\n2. Install OS packages if needed\n3. Copy dependency manifests → install dependencies\n4. Copy application source\n5. Set non-root user, expose port, define health check and CMD\n\nWhen a teammate asks \"what runs in prod?\", the release card plus Dockerfile should answer together — image tag, build steps, port, health URL, rollback tag.\n\n## Local Docker commands (optional, if installed)\n\nRead-only inspection on your laptop:\n\n| Goal | Example | Scope |\n| --- | --- | --- |\n| Confirm install | `docker version` | Local only |\n| List images | `docker image ls` | Local only |\n| Inspect one image | `docker image inspect IMAGE` | Local only |\n| Run known local image | `docker run --rm -p 3000:3000 IMAGE` | Only if image exists locally |\n\n```bash\ndocker version\ndocker image ls\n# docker run --rm -p 3000:3000 learner-api:staging-2026-08-07  # only when image exists locally\n```\n\nNever push to a registry or deploy without authorization. This stage proves **release discipline**, not cloud access.\n\n### If Docker is not installed\n\nThat is fine for stage proof. Complete the release card, Dockerfile sketch, and secret rule. Install Docker later on your own machine or authorized lab when you are ready to build — do not wait for a hosted sandbox that this course does not provide.\n\n## Compose vs single container (honest scope)\n\n**docker compose** (or similar) helps local multi-container setups — app + database for dev. Production may use Kubernetes or managed services instead. On your release card, name whether this deploy is **one container** or a **composed stack** so reviewers know the boundary you tested.\n\nCompose tip for local notes: write `compose_boundary.txt` with one sentence — \"dev stack = api + postgres; prod path is not this compose file.\" Honesty about boundaries beats pretending compose equals production.\n\n## Common beginner mistakes\n\n- `:latest` tag with no rollback tag recorded\n- Baking `.env` files into images\n- No health check (orchestrator cannot tell ready vs started)\n- Running as root without reason\n- Claiming containerization replaces monitoring or rollback planning\n- Pushing practice images to shared registries without permission\n- Expecting ASV Learn to grade a live `docker build` inside the lesson\n\n## Your local task\n\n### Step 1 — Create the release card\n\nCreate `container_release_card.sh`:\n\n```bash\n#!/usr/bin/env bash\n# container_release_card.sh — Stage 02: Docker\n\nimage_name=\"learner-api:staging-2026-08-07\"\ndockerfile_checks=\"pinned base image, dependency lockfile, non-root USER\"\nruntime_port=\"3000\"\ncontainer_healthcheck=\"curl -f http://localhost:3000/health\"\nrollback_image=\"learner-api:staging-previous\"\nno_secret_rule=\"never COPY .env or tokens; use runtime env injection\"\n\nprintf '%s\\n' \\\n  \"image=$image_name\" \\\n  \"dockerfile_checks=$dockerfile_checks\" \\\n  \"runtime_port=$runtime_port\" \\\n  \"healthcheck=$container_healthcheck\" \\\n  \"rollback=$rollback_image\" \\\n  \"secret_rule=$no_secret_rule\"\n```\n\n### Step 2 — Run\n\n```bash\nbash container_release_card.sh\n```\n\nVerify every field is something a teammate could act on during deploy.\n\n### Step 3 — Optional Dockerfile sketch\n\nCreate `Dockerfile.sketch` (not required to build) with comments only:\n\n```dockerfile\n# FROM node:20-alpine\n# WORKDIR /app\n# COPY package*.json ./\n# RUN npm ci --omit=dev\n# COPY . .\n# USER node\n# EXPOSE 3000\n# HEALTHCHECK CMD curl -f http://localhost:3000/health || exit 1\n# CMD [\"node\", \"server.js\"]\n```\n\nMatch each line to a field on your release card.\n\n### Step 4 — One change\n\nUpdate the tag with today's date pattern you would actually use. Add one dockerfile check (e.g. \"no devDependencies in prod stage\"). Re-run the card script.\n\n### Step 5 — Secret smell test\n\nCreate `secret_smell_test.txt` listing three paths that must never appear in a Dockerfile `COPY` (examples: `.env`, `id_rsa`, cloud credential JSON). For each, write the runtime alternative (env injection, secret manager, mounted secret).\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| image | Immutable filesystem snapshot for containers |\n| container | Running instance of an image |\n| tag | Version label for an image |\n| Dockerfile | Recipe to build an image |\n| health check | Command proving the app is ready |\n| layer cache | Reused build steps when inputs unchanged |\n| runtime config | Values injected when the container starts |\n\n## Proof checklist\n\n- [ ] Release card script prints six fields\n- [ ] Rollback image is named before deploy discussion\n- [ ] Secret rule forbids baking credentials\n- [ ] You can explain port vs health check vs tag\n- [ ] Optional Dockerfile sketch matches the card\n- [ ] `secret_smell_test.txt` names three forbidden bake-ins\n- [ ] Any Docker commands were local or authorized-lab only\n\nWhen those are true, continue to **Kubernetes Orchestration**.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "kubernetes",
+      "title": "Kubernetes Orchestration",
+      "hours": "5-7",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "true_false",
+          "question": "A readiness probe helps decide whether a pod should receive traffic.",
+          "correct": true,
+          "explanation": "Readiness probes help Kubernetes avoid sending traffic to pods that are not ready."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is a running pod not the same as a safe rollout?",
+          "options": [
+            "Pods never restart during deploys",
+            "Services stop routing during rollouts",
+            "The pod may not pass readiness or the new version may be unhealthy",
+            "Readiness probes are optional decoration"
+          ],
+          "correct": 2,
+          "explanation": "Rollout safety depends on readiness and verification, not pod existence alone."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should k8s_rollout_card.sh include before changing a cluster?",
+          "options": [
+            "Only the newest container tag",
+            "Production admin passwords",
+            "A list of unrelated microservices",
+            "Deployment, replicas, service, readiness, rollout check, rollback command"
+          ],
+          "correct": 3,
+          "explanation": "The card forces rollout evidence and recovery to be named first."
+        }
+      ],
+      "content": "# Kubernetes Orchestration\n\n## Why this lesson exists\n\nKubernetes runs containers as **managed workloads**. The beginner model that matters: desired state, controlled rollout, stable service routing, readiness probes, verification, and rollback. A running pod is not the same as a safe release.\n\nThis stage teaches you to write a **Kubernetes rollout card** in shell before touching cluster objects. If you have minikube or kind locally, you may run read-only `kubectl get` later — unauthorized clusters are out of scope. There is no hosted cluster inside ASV Learn for this lesson.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-devops\nmkdir -p stage-03\ncd stage-03\n```\n\nCreate `k8s_rollout_card.sh`.\n\n## Core objects (plain language)\n\n| Object | Meaning |\n| --- | --- |\n| Deployment | Desired app version + replica count |\n| Pod | One running copy of the workload |\n| Service | Stable network path to pods |\n| Probe | Health signal Kubernetes acts on |\n| Rollout | Controlled move from old version to new |\n| ReplicaSet | Generation of pods owned by a Deployment |\n\n**Readiness** probe: pod may receive traffic. **Liveness** probe: pod should restart if broken. Do not send traffic to pods that fail readiness.\n\n## Rollout narrative (plain language)\n\nImagine two replicas running version **A**. You deploy version **B**:\n\n1. Kubernetes starts a new pod with **B**.\n2. Readiness must pass before the pod joins the Service endpoints.\n3. Traffic shifts gradually; old **A** pods drain after connections finish (depending on strategy).\n4. If **B** fails readiness repeatedly, rollout stalls — that is preferable to sending users to broken pods.\n5. `kubectl rollout undo` returns to the last known-good ReplicaSet when health evidence demands it.\n\nYour rollout card is the cheat sheet you want **before** step 1 happens at 2 a.m.\n\n## Useful kubectl commands (authorized lab / local cluster only)\n\n| Goal | Example | Notes |\n| --- | --- | --- |\n| Context check | `kubectl config current-context` | Confirm you are not on prod by accident |\n| Cluster reachability | `kubectl cluster-info` | Read-only |\n| Nodes | `kubectl get nodes` | Read-only |\n| Workloads | `kubectl get deploy,po,svc` | Read-only overview |\n| Rollout watch | `kubectl rollout status deploy/NAME` | After an authorized change |\n| Rollback | `kubectl rollout undo deploy/NAME` | Named on the card before you need it |\n| Describe | `kubectl describe pod NAME` | Events often explain probe failures |\n\nIf you do not have a cluster, still write the card and notes. Installing minikube/kind is optional local homework — not graded inside the lesson UI.\n\n## Service and Ingress (one sentence each)\n\n- **Service** — stable cluster IP / DNS name selecting healthy pods by label.\n- **Ingress** (optional layer) — HTTP routing from outside the cluster to Services (TLS, host rules). Many teams use a cloud load balancer instead; the card still needs a named stable route to users.\n\n## Resource requests and limits (awareness)\n\nPods declare **requests** (scheduler uses for placement) and **limits** (maximum CPU/memory). Under-provisioned apps fail readiness or get OOM-killed; over-provisioned clusters waste cost. You do not need to tune them perfectly in this card — but your rollout notes should mention whether memory spikes during deploy could fail readiness.\n\n## Labels and selectors (why Service finds pods)\n\nDeployments label pods (`app=learner-api`). Services route to pods matching those labels. If labels drift, traffic goes nowhere even when pods run. Your card's `service_name` and `deployment_name` should imply a label strategy you could explain to a teammate.\n\n| Piece | Example | Failure mode if wrong |\n| --- | --- | --- |\n| Pod label | `app=learner-api` | Service selects nothing |\n| Service selector | `app=learner-api` | Must match pod labels |\n| Deployment name | `learner-api` | Rollout status / undo target |\n\n## Start here: readiness before rollout\n\nSay the card: *deployment learner-api, two replicas, service learner-api-service, readiness on /health, verify with rollout status, undo if health fails.*\n\n## Common beginner mistakes\n\n- Treating `Running` pod status as user-ready\n- Rolling out 100% at once with no surge strategy awareness\n- No rollback command written down before deploy\n- Applying manifests from memory without review\n- Practicing against production clusters without authorization\n- Confusing liveness (restart) with readiness (traffic)\n- Expecting a free hosted Kubernetes sandbox from this course card\n\n## Your local task\n\n### Step 1 — Create the rollout card\n\nCreate `k8s_rollout_card.sh`:\n\n```bash\n#!/usr/bin/env bash\n# k8s_rollout_card.sh — Stage 03: Kubernetes\n\ndeployment_name=\"learner-api\"\nreplicas=\"2\"\nservice_name=\"learner-api-service\"\nreadiness_probe=\"HTTP GET /health on port 3000\"\nrollout_check=\"kubectl rollout status deployment/learner-api --timeout=120s\"\nrollback_command=\"kubectl rollout undo deployment/learner-api\"\nverify_steps=\"check rollout status, hit service /health, compare error rate\"\n\nprintf '%s\\n' \\\n  \"deployment=$deployment_name\" \\\n  \"replicas=$replicas\" \\\n  \"service=$service_name\" \\\n  \"readiness=$readiness_probe\" \\\n  \"rollout_check=$rollout_check\" \\\n  \"rollback=$rollback_command\" \\\n  \"verify=$verify_steps\"\n```\n\n### Step 2 — Run\n\n```bash\nbash k8s_rollout_card.sh\n```\n\nRead each line as pre-deploy homework.\n\n### Step 3 — Readiness story\n\nIn `rollout_notes.txt`, write three sentences:\n\n1. What happens if readiness fails during rollout?\n2. Why does the Service matter when pods change?\n3. When would you run the rollback command?\n\n### Step 4 — Optional local cluster\n\nIf minikube/kind is installed and you are authorized:\n\n```bash\nkubectl config current-context\nkubectl cluster-info\nkubectl get nodes\n```\n\nRead-only only. Do not apply untested manifests to shared clusters.\n\n### Step 5 — Probe decision table\n\nCreate `probe_decisions.txt` with two rows you fill in:\n\n| Situation | Prefer readiness change or liveness change? | Why |\n| --- | --- | --- |\n| App boots slowly but becomes healthy | | |\n| App deadlocks and never recovers | | |\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| desired state | What the cluster should match (declarative config) |\n| replica | Copy of a pod for availability |\n| rollout | Update of deployment to new image/version |\n| readiness | Pod ready to receive traffic |\n| liveness | Pod should be restarted if check fails |\n| kubectl | CLI for Kubernetes clusters |\n| context | Which cluster/user kubectl targets |\n\n## Proof checklist\n\n- [ ] Rollout card prints deployment, replicas, service, readiness, check, rollback\n- [ ] `rollout_notes.txt` answers three readiness questions\n- [ ] `probe_decisions.txt` distinguishes readiness vs liveness\n- [ ] You can explain readiness vs liveness in plain language\n- [ ] Rollback command is named before any deploy story\n- [ ] Any kubectl use was read-only on authorized lab only\n\nWhen those are true, continue to **CI/CD Pipelines & GitHub Actions**.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "cicd-pipelines",
+      "title": "CI/CD Pipelines & GitHub Actions",
+      "hours": "5-6",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should a pipeline do with secret values?",
+          "options": [
+            "Commit them to the repo",
+            "Echo them for debugging",
+            "Put them in screenshots",
+            "Use protected secrets and avoid printing them"
+          ],
+          "correct": 3,
+          "explanation": "Pipelines should use protected secret storage and avoid logging secret values."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is a green build not the same as a safe production release?",
+          "options": [
+            "Tests never run in CI",
+            "Build artifacts cannot be tracked",
+            "Production has no health endpoints",
+            "Release still needs deploy gates, approval, and rollback conditions"
+          ],
+          "correct": 3,
+          "explanation": "Automation provides evidence; humans or environment rules still control release."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What belongs on the CI/CD release card before writing workflow YAML?",
+          "options": [
+            "Only the GitHub logo",
+            "Trigger, test, artifact, secret rule, deploy gate, rollback condition",
+            "Every possible workflow trigger ever invented",
+            "Unlimited production deploy on every push"
+          ],
+          "correct": 1,
+          "explanation": "Gates define safety; YAML implements the gates."
+        }
+      ],
+      "content": "# CI/CD Pipelines & GitHub Actions\n\n## Why this lesson exists\n\nA **pipeline** is a release checklist that runs the same way every time. Good pipelines make failure visible **before** production users see it. Automation should clarify release authority — a green build is evidence, not automatic production approval.\n\nThis stage teaches you to write a **CI/CD release card** naming trigger, tests, build artifact, secret handling, deploy gate, and rollback condition. Workflow YAML comes after the gates make sense.\n\nPractice is local terminal / personal practice repo only. ASV Learn does not run GitHub Actions inside the lesson UI.\n\n## Typical pipeline stages\n\n| Stage | Purpose | Fails the pipeline when |\n| --- | --- | --- |\n| Lint / format | Style and static issues | Rules violated |\n| Unit / integration test | Behavior regressions | Assertions fail |\n| Build | Produce artifact | Compile/bundle errors |\n| Scan (optional) | Known vulns in deps/image | Policy threshold exceeded |\n| Deploy to staging | Verify in near-prod | Health check fails |\n| Deploy to production | User-facing release | Gate not approved or health fails |\n\nNot every repo needs every stage on day one. The release card forces you to name which gates **your** service requires before production.\n\n## Pull request vs main\n\nA common pattern: PR runs test + build; merge to `main` builds a versioned artifact; production deploy is manual or environment-gated. Document that split on your card so nobody assumes \"merged equals live.\"\n\n| Event | Typical jobs | Must not auto-do |\n| --- | --- | --- |\n| Pull request | lint, test, maybe build | production deploy |\n| Push to main | test, build versioned artifact | silent prod push without gate |\n| Manual / environment approval | production deploy | skip health verification |\n\n## Artifact identity\n\nGood release cards name **what** gets promoted: container digest, tarball path, git SHA in filename, or semver tag. \"The build\" is not an artifact. When rollback condition fires, you must know exactly which bits to redeploy.\n\nWrite artifact identity so a teammate can find it six months later: path or registry + digest/tag + git SHA.\n\n## Failed pipeline = stop signal\n\nIf test or build fails, **nothing** should reach production automatically. Document on your card who gets notified and whether a failed deploy job blocks retry until someone acknowledges the failure cause. Silent retries without human awareness recreate the same outage.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-devops\nmkdir -p stage-04\ncd stage-04\n```\n\nCreate `cicd_release_card.sh`. Optionally create `.github/workflows/` in a personal practice repo later — not required for this stage proof.\n\n## Pipeline gates\n\n| Gate | What it proves |\n| --- | --- |\n| Trigger | Intended branch or event starts the pipeline |\n| Test | Code still behaves as expected |\n| Build | Release artifact can be produced |\n| Secret rule | Credentials not printed or committed |\n| Deploy gate | Human or environment rule controls production |\n| Rollback condition | Team knows when to revert |\n\n## Start here: gate before YAML\n\nSay the card: *push to main after review runs npm test, builds web artifact, uses repo secrets without echo, production needs protected environment approval, rollback if health or error budget fails.*\n\n## Local practice commands (no cloud required)\n\nThese prove discipline on your machine — they do not replace a real Actions runner:\n\n| Goal | Example |\n| --- | --- |\n| Confirm shell card runs | `bash cicd_release_card.sh` |\n| Dry-run test command name | `printf '%s\\n' \"would run: npm test && npm run lint\"` |\n| Sketch workflow mapping | edit `workflow.sketch.yml` |\n| Secret never-list | write `secret_notes.txt` |\n\nIf you later use a personal GitHub repo, keep secrets in encrypted repository secrets — never paste tokens into lesson notes.\n\n## Common beginner mistakes\n\n- Deploy on every green build with no approval\n- Secrets in workflow files or log output\n- Tests that never fail (assert true)\n- No artifact identity (what exactly got deployed?)\n- Assuming GitHub Actions runs inside ASV Learn lessons\n- Retrying failed deploys without reading the failure log\n- Treating \"pipeline green\" as user-facing health proof without a post-deploy check\n\n## Your local task\n\n### Step 1 — Create the release card\n\nCreate `cicd_release_card.sh`:\n\n```bash\n#!/usr/bin/env bash\n# cicd_release_card.sh — Stage 04: CI/CD\n\npipeline_trigger=\"push to main after PR review\"\ntest_command=\"npm test && npm run lint\"\nbuild_artifact=\"dist/web-build.tar.gz with git sha in filename\"\nsecret_rule=\"use GitHub secrets; never echo API_TOKEN\"\ndeploy_gate=\"production requires protected environment + manual approval\"\nrollback_condition=\"rollback if /health fails or 5xx rate exceeds SLO for 5m\"\n\nprintf '%s\\n' \\\n  \"trigger=$pipeline_trigger\" \\\n  \"test=$test_command\" \\\n  \"artifact=$build_artifact\" \\\n  \"secrets=$secret_rule\" \\\n  \"deploy_gate=$deploy_gate\" \\\n  \"rollback=$rollback_condition\"\n```\n\n### Step 2 — Run\n\n```bash\nbash cicd_release_card.sh\n```\n\n### Step 3 — Workflow sketch\n\nCreate `workflow.sketch.yml` as comments documenting how gates map to jobs (no need to push):\n\n```yaml\n# on: push to main\n# jobs:\n#   test: runs test_command\n#   build: produces build_artifact, needs test\n#   deploy: needs build + environment approval (deploy_gate)\n```\n\n### Step 4 — Secret discipline note\n\nIn `secret_notes.txt`, list two places secrets must **never** appear (logs, git history) and one correct storage pattern (GitHub encrypted secrets).\n\n### Step 5 — Failure stop policy\n\nCreate `failure_stop.txt` with three lines: (1) which jobs block promote, (2) who is notified on failure, (3) what must be true before a retry is allowed. This is the human half of CI — automation without a stop policy still ships broken builds.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| CI | Continuous integration — automated build/test on change |\n| CD | Continuous delivery/deployment — automated release path |\n| artifact | Built output promoted through environments |\n| deploy gate | Control point before production |\n| rollback condition | Signal to revert release |\n| protected environment | Hosted CI setting requiring approval |\n| runner | Machine that executes pipeline jobs |\n\n## Proof checklist\n\n- [ ] Release card prints all six gates\n- [ ] Deploy gate is separate from \"tests passed\"\n- [ ] Secret rule forbids echo/commit\n- [ ] Workflow sketch maps jobs to gates\n- [ ] `secret_notes.txt` lists never/always rules\n- [ ] `failure_stop.txt` names block/notify/retry rules\n- [ ] You know Actions practice is your repo/lab — not an in-lesson runner\n\nWhen those are true, continue to **Infrastructure as Code with Terraform**.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "terraform-iac",
+      "title": "Infrastructure as Code with Terraform",
+      "hours": "5-6",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the safest first step before applying infrastructure changes?",
+          "options": [
+            "Delete the state",
+            "Skip variables",
+            "Review the plan",
+            "Apply from memory"
+          ],
+          "correct": 2,
+          "explanation": "The plan shows the intended changes before infrastructure is modified."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why does Terraform state need stronger protection than ordinary notes?",
+          "options": [
+            "State files are always public by design",
+            "State stores only emoji reactions",
+            "It maps code to real resources and enables destructive changes if leaked",
+            "State replaces the need for code review"
+          ],
+          "correct": 2,
+          "explanation": "State is operational truth; protect it with remote backends and access control."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is drift detection for?",
+          "options": [
+            "Speeding up apply without plans",
+            "Removing the need for variables",
+            "Disabling peer review",
+            "Finding changes made outside IaC so reality matches reviewed code"
+          ],
+          "correct": 3,
+          "explanation": "Scheduled plans catch unmanaged changes that code review would miss."
+        }
+      ],
+      "content": "# Infrastructure as Code with Terraform\n\n## Why this lesson exists\n\n**Infrastructure as code** turns changes into reviewable files. The habit is not \"apply quickly\" — it is **plan → review → apply → verify drift**. Terraform (and similar tools) is safest when state, scope, and approval are visible before reality changes.\n\nThis stage teaches you to write an **infrastructure change card** before any `terraform apply`. You do not need cloud credentials for the card exercise. ASV Learn does not provide a hosted Terraform cloud sandbox for this lesson — practice is local notes plus optional local CLI.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-devops\nmkdir -p stage-05\ncd stage-05\n```\n\nCreate `iac_change_card.sh`. If Terraform is installed locally, `terraform version` is optional proof only.\n\n## Change discipline\n\n| Item | Purpose |\n| --- | --- |\n| Resource scope | Names affected infrastructure |\n| State backend | Protects record of managed resources |\n| Plan review | Shows changes before apply |\n| Variable rule | Environment data explicit |\n| Apply gate | Controls who may change reality |\n| Drift check | Detects changes made outside code |\n\n**State** is not a casual note file. It maps code to real resources. Protect it (remote backend, locking, access control).\n\n## Plan output: what reviewers scan for\n\nWhen you attach `terraform plan` to a PR, skim for:\n\n| Signal | Concern level |\n| --- | --- |\n| `+ create` small resource | Usually normal |\n| `~ update in-place` | Read argument changes carefully |\n| `-/+ destroy and then create replacement` | Downtime or new identity — high scrutiny |\n| `- destroy` | Must be intentional; data loss risk |\n| Unexpected resource count | Scope creep — card said \"one LB\" but plan touches ten resources |\n\nIf plan and card scope disagree, stop. Fix scope or fix code before apply.\n\n## Useful local commands (optional)\n\n| Goal | Example | Notes |\n| --- | --- | --- |\n| Confirm install | `terraform version` | No cloud needed |\n| Format | `terraform fmt -check` | When you have `.tf` files |\n| Validate syntax | `terraform validate` | After `init` in a real module |\n| Plan (authorized) | `terraform plan -out=tfplan` | Never against accounts you do not own |\n| Show plan | `terraform show tfplan` | Review before apply |\n\nWithout cloud credentials, still complete the change card and reviewer checklist — that is the stage proof.\n\n## Variables and secrets\n\n- **Variables** — environment size, region, instance type (checked into sane defaults + tfvars per env).\n- **Secrets** — database passwords, API keys (vault, cloud secret manager, CI-injected — **not** git).\n\nTerraform state may still contain sensitive values if providers mark them — restrict state access like production credentials.\n\n| Kind | OK in git? | Better home |\n| --- | --- | --- |\n| Region / instance size | Often yes (non-secret) | `variables.tf` + env tfvars |\n| DB password | No | Secret manager / CI secret |\n| State file | No (local casual copies) | Remote backend + locking |\n| Provider tokens | No | Environment / CI |\n\n## Modules and reuse (one paragraph)\n\nTeams split Terraform into **modules** when the same pattern repeats (standard web tier, database subnet). Modules do not change the discipline: plan, review, apply, drift check. Your change card scope should still say whether this PR touches a root module only or a shared module others depend on — shared modules deserve extra review because blast radius grows.\n\n## Start here: plan before apply\n\nSay the card: *scope is web instance + load balancer, remote locked state, plan reviewed in PR, secrets not in state when avoidable, apply needs peer review + window, scheduled plan detects drift.*\n\n## Common beginner mistakes\n\n- `apply` from laptop without plan review\n- Local state file on one engineer's machine only\n- Secrets in `.tfvars` committed to git\n- No scope — \"terraform the whole account\"\n- Treating destroy operations as low risk\n- Expecting ASV Learn to provision cloud resources for practice\n- Applying a plan generated days ago without re-planning\n\n## Your local task\n\n### Step 1 — Create the change card\n\nCreate `iac_change_card.sh`:\n\n```bash\n#!/usr/bin/env bash\n# iac_change_card.sh — Stage 05: Terraform / IaC\n\nresource_scope=\"web service instance + load balancer + target group\"\nstate_backend=\"remote S3-equivalent backend with state locking\"\nplan_review=\"terraform plan output attached to PR; no apply without approval\"\nvariable_rule=\"env via tfvars; secrets from vault — not committed\"\napply_gate=\"apply requires peer review + maintenance window\"\ndrift_check=\"scheduled terraform plan in CI flags unmanaged changes\"\n\nprintf '%s\\n' \\\n  \"scope=$resource_scope\" \\\n  \"state=$state_backend\" \\\n  \"plan_review=$plan_review\" \\\n  \"variables=$variable_rule\" \\\n  \"apply_gate=$apply_gate\" \\\n  \"drift=$drift_check\"\n```\n\n### Step 2 — Run\n\n```bash\nbash iac_change_card.sh\n```\n\n### Step 3 — Plan review practice\n\nCreate `plan_review_checklist.txt` with five yes/no questions a reviewer asks before approve (e.g. \"Any unexpected destroy?\", \"Blast radius documented?\").\n\n### Step 4 — One scoped change story\n\nAdd a paragraph to the checklist describing a **small** change (add tag, resize instance) vs a **risky** change (replace load balancer). Same card format; different approval bar.\n\n### Step 5 — Blast-radius sketch\n\nCreate `blast_radius.txt` naming: (1) resources in scope, (2) resources explicitly out of scope, (3) what you would do if `terraform plan` shows an unexpected destroy. This is paper discipline — no cloud apply required.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| IaC | Infrastructure defined in version-controlled files |\n| plan | Preview of changes Terraform will make |\n| apply | Execute planned changes against real infra |\n| state | Mapping between resources in code and in cloud |\n| drift | Real infra differs from code |\n| backend | Where state is stored and locked |\n| blast radius | How much can break if this change is wrong |\n\n## Proof checklist\n\n- [ ] Change card prints six discipline fields\n- [ ] Plan review is required before apply in your card\n- [ ] State backend mentions locking or protection\n- [ ] `plan_review_checklist.txt` has five reviewer questions\n- [ ] `blast_radius.txt` names in-scope / out-of-scope / unexpected destroy response\n- [ ] You can explain why state needs stronger protection than notes\n- [ ] Any terraform CLI use was local or authorized account only\n\nWhen those are true, continue to **Monitoring & Observability**.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    },
+    {
+      "slug": "monitoring-observability",
+      "title": "Monitoring & Observability",
+      "hours": "4-6",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes an alert actionable?",
+          "options": [
+            "A loud label only",
+            "A screenshot with no owner",
+            "A clear condition and a runbook action",
+            "A dashboard nobody checks"
+          ],
+          "correct": 2,
+          "explanation": "An actionable alert names the condition and the first response step."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the difference between monitoring and observability in this course?",
+          "options": [
+            "They are identical terms with no distinction",
+            "Observability means more charts with no owners",
+            "Monitoring asks if the system is healthy; observability helps explain why it is not",
+            "Monitoring replaces runbooks"
+          ],
+          "correct": 2,
+          "explanation": "Useful observability ties signals to investigation and response."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should devops_capstone_review.txt list?",
+          "options": [
+            "Every cloud account password",
+            "One honest artifact from each stage you can show a reviewer",
+            "Only screenshots of Grafana with no SLO",
+            "Proof of unauthorized scanning"
+          ],
+          "correct": 1,
+          "explanation": "Capstone review ties six stage cards into reviewable local evidence."
+        }
+      ],
+      "content": "# Monitoring & Observability\n\n## Why this lesson exists\n\n**Monitoring** asks whether the system is healthy. **Observability** provides enough evidence to understand **why** it is unhealthy. Useful signals connect a health change to a response path — SLO, metric, log, alert, runbook, owner.\n\nThis final stage teaches you to write an **observability card** before claiming a system is \"monitored.\" Dashboards without owners and runbooks create noise, not operations.\n\nPractice is local notes and tabletop response — not a hosted metrics stack inside ASV Learn.\n\n## Reminder: where you work\n\n```bash\ncd ~/asv-learn-devops\nmkdir -p stage-06\ncd stage-06\n```\n\nCreate `observability_card.sh`.\n\n## Signals that matter\n\n| Signal | Example |\n| --- | --- |\n| SLO | 99% successful learning route responses |\n| Metric | 5xx rate, latency p95, queue depth |\n| Log | Request ID + error stack on failure |\n| Alert | Condition needing human action |\n| Runbook | First response step |\n| Owner | Role accountable for follow-up |\n\nDo not collect every chart because the tool allows it. Pick signals that help someone **respond**.\n\n## RED method (quick lens)\n\nFor each service, ask:\n\n| Letter | Question | Example |\n| --- | --- | --- |\n| **R** Rate | How much traffic? | Requests per second |\n| **E** Errors | How many fail? | 5xx rate, failed jobs |\n| **D** Duration | How long? | p95 latency |\n\nRED does not replace SLOs or logs — it helps you pick a **small** metric set before dashboard sprawl.\n\n## Logs vs metrics vs traces (one line each)\n\n- **Metrics** — aggregated numbers over time (good for alerts).\n- **Logs** — discrete events with context (good for \"why this request failed\").\n- **Traces** — request path across services (good for latency in distributed systems).\n\nThis course card expects at least one metric signal and one log signal on your observability card.\n\n| Signal type | Good for | Weak when |\n| --- | --- | --- |\n| Metric | Threshold alerts, trends | Explaining one bad request |\n| Log | Root cause of a request | High-cardinality spam without IDs |\n| Trace | Cross-service latency | You only have one process |\n\n## Error budget (intro idea)\n\nAn **error budget** is how much failure your SLO allows over a window. If SLO is 99% monthly success, you have ~1% budget for incidents and planned risk. When budget is exhausted, teams slow feature releases and focus on reliability — observability cards connect to that decision even if you do not calculate budgets formally yet.\n\n## On-call handoff\n\nYour `dashboard_owner` should know where the runbook lives and who covers the next shift. An alert that pages someone with no runbook and no handoff is operational debt. `tabletop.txt` in this stage practices that handoff story without a real incident.\n\n## Local evidence habits (no hosted Grafana required)\n\nYou can practice evidence discipline without a vendor stack:\n\n| Habit | Local practice |\n| --- | --- |\n| Timestamp everything | Include UTC time in tabletop lines |\n| Tie to deploy | Note \"last deploy version/time\" in runbook |\n| Correlate IDs | Invent a `request_id` in the fictional timeline |\n| Redact | Never paste real secrets into notes |\n| Close the loop | Tabletop ends with rollback **or** escalate |\n\nOptional on your own machine (authorized only): `curl -sv --max-time 5 https://host/health` and save exit code + timestamp into notes. Do not probe systems you do not own.\n\n## Start here: signal before dashboard\n\nSay the card: *SLO on route success, alert on elevated 5xx for five minutes, logs tie errors to deploy time, runbook compares deploy and rolls back if health fails, on-call DevOps owns the dashboard.*\n\n## Common beginner mistakes\n\n- Alerts with no runbook (\"someone will figure it out\")\n- SLO without error budget concept (optional advanced note)\n- Logging secrets or PII\n- Dashboard nobody owns after launch\n- Metric spikes with no user-facing symptom link\n- Alerting on CPU alone while user errors are ignored\n- Expecting ASV Learn to provide a live metrics sandbox for homework\n\n## Your local task\n\n### Step 1 — Create the observability card\n\nCreate `observability_card.sh`:\n\n```bash\n#!/usr/bin/env bash\n# observability_card.sh — Stage 06: Monitoring & Observability\n\nservice_slo=\"99 percent successful /learn route responses over 30 days\"\nmetric_signal=\"5xx error rate above baseline for 5 minutes\"\nlog_signal=\"application logs include request_id and deploy version on errors\"\nalert_condition=\"5xx rate > 2% for 5m OR p95 latency > 800ms for 10m\"\nrunbook_action=\"check deploy time, tail logs, compare health, rollback if SLO breach continues\"\ndashboard_owner=\"on-call DevOps engineer\"\n\nprintf '%s\\n' \\\n  \"slo=$service_slo\" \\\n  \"metric=$metric_signal\" \\\n  \"logs=$log_signal\" \\\n  \"alert=$alert_condition\" \\\n  \"runbook=$runbook_action\" \\\n  \"owner=$dashboard_owner\"\n```\n\n### Step 2 — Run\n\n```bash\nbash observability_card.sh\n```\n\n### Step 3 — Incident table-top\n\nCreate `tabletop.txt` — a fictional five-line timeline: alert fires → on-call opens dashboard → runbook step 1 → decision (rollback or escalate). No real incident required.\n\n### Step 4 — Course capstone review\n\nIn `devops_capstone_review.txt`, list one card artifact from each stage (01–06) you would show a reviewer. Honest local files count as proof at this course depth.\n\n### Step 5 — Alert quality check\n\nCreate `alert_quality.txt` answering: (1) What user symptom does this alert protect? (2) What is the first command or dashboard panel in the runbook? (3) When is \"page a human\" wrong (too noisy)? Keep it short — quality over alert count.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| SLO | Service level objective — target for reliability |\n| metric | Numeric time-series measurement |\n| alert | Automated notification when threshold crossed |\n| runbook | Documented response steps |\n| on-call | Rotation responsible for alerts |\n| error budget | Allowed failure within an SLO window |\n| signal | Evidence used to decide a response |\n\n## Proof checklist\n\n- [ ] Observability card prints SLO, metric, log, alert, runbook, owner\n- [ ] Alert condition is specific (not \"errors bad\")\n- [ ] Runbook names first actions, not vague \"investigate\"\n- [ ] `tabletop.txt` walks alert → response\n- [ ] `alert_quality.txt` ties alert to user symptom\n- [ ] `devops_capstone_review.txt` references all six stage artifacts\n- [ ] You know practice is local/authorized lab — no hosted observability sandbox promised\n\nWhen those are true, you have completed the **DevOps & Infrastructure** course card at stage depth (~**28–36 hours** honest local practice across the path). Deepen with real lab projects over time — hour totals grow with practice, not padding.\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). Keep scope legal and documented. Lessons are read in ASV Learn; complete the local task and proof checklist before continuing.\n"
+    }
+  ],
+  "learnings": [
+    "Use Linux and shell scripting as the base for operations work",
+    "Package apps with Docker and reason about container boundaries",
+    "Orchestrate workloads with Kubernetes primitives you can explain",
+    "Automate delivery with CI/CD and infrastructure as code",
+    "Observe systems with logs, metrics, and evidence-backed runbooks"
+  ],
+  "tags": "Software, web, frontend, fullstack, devops"
+}

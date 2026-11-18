@@ -1,0 +1,2 @@
+You inherit a case file: a fake company, a written scope, and a question.
+Where could a real attacker walk in — and how do you prove it without causing harm?

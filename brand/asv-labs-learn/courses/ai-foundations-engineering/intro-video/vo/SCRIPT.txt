@@ -1,0 +1,55 @@
+AI FOUNDATIONS ENGINEERING — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is AI Foundations Engineering, from ASV Learn.
+For builders who want models to behave after launch — not only in a demo.
+
+========== BEAT 02 → beat-02 ==========
+
+Monday, your model looks brilliant.
+Friday, the data shifted, and the same pipeline starts quietly lying.
+
+========== BEAT 03 → beat-03 ==========
+
+That drift story is the heart of this course.
+You learn the engineering loop that keeps an AI system honest: data, features, training, checks, deploy, watch.
+
+========== BEAT 04 → beat-04 ==========
+
+You are not training a production model in these lessons.
+You are building the cards, pipelines, and monitoring plans a team could trust before anyone hits train at scale.
+
+========== BEAT 05 → beat-05 ==========
+
+You will shape data and features, compare training choices,
+and write validation and deployment stories you can defend in a review.
+
+========== BEAT 06 → beat-06 ==========
+
+When something goes wrong, you will know whether to blame the data, the features, the model, or the handoff.
+
+========== BEAT 07 → beat-07 ==========
+
+The path runs from ML fundamentals, through pipelines and features,
+into training and validation, then deployment, monitoring, and scale.
+
+========== BEAT 08 → beat-08 ==========
+
+Practice stays on your machine with notebooks, scripts, and notes you can re-run.
+
+========== BEAT 09 → beat-09 ==========
+
+Take this when you already understand basic AI ideas and want production habits.
+Agent mission design lives in Applied Agentic AI — this course is the reliability spine.
+
+========== BEAT 10 → beat-10 ==========
+
+Your proof is a small engineering packet: validation story, monitoring plan, and handoff notes a teammate could follow.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that is how recommendation, forecasting, and quality models survive contact with real users.
+Start with ML engineering fundamentals. Take your time.

@@ -1,0 +1,53 @@
+REACT & MODERN FRONTEND — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is React and Modern Frontend, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+You flip a toggle. You type in a box. The interface changes before your eyes —
+no full page reload, no mystery refresh. That immediate response is why people love React.
+
+========== BEAT 03 → beat-03 ==========
+
+This course teaches you to build interfaces from components and hooks,
+so user choices become visible state you control.
+
+========== BEAT 04 → beat-04 ==========
+
+You will add routing, data fetching, and forms,
+then learn state management, performance habits, testing, and accessibility.
+
+========== BEAT 05 → beat-05 ==========
+
+The loop stays tactile: edit, save, see the UI answer you — often with Node recipes before full JSX tooling.
+
+========== BEAT 06 → beat-06 ==========
+
+We begin with JavaScript prerequisites, then React core,
+routing and data, state and performance, testing and accessibility, and a project proof capstone.
+
+========== BEAT 07 → beat-07 ==========
+
+Four project ideas give you a portfolio map.
+Your required proof is one reviewable project card — behavior visible before polish — not four finished production apps.
+
+========== BEAT 08 → beat-08 ==========
+
+You build locally with the browser tooling React developers actually use.
+
+========== BEAT 09 → beat-09 ==========
+
+When you later wire a real API, you will already think in components, state, and clear loading states.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a React portfolio project card strong enough that a reviewer understands the app before the screenshots.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, React skills power dashboards, product UIs, and design systems teams ship every week.
+Start with JavaScript prerequisites. Take your time.

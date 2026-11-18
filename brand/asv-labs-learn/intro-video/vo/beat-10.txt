@@ -1,0 +1,2 @@
+By the end, you will have built a progress tracker and reporting helper.
+Something you can open, run, and show someone. That is a real first tool — not just a finished tutorial.

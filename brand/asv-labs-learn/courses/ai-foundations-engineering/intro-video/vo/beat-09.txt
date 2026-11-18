@@ -1,0 +1,2 @@
+Take this when you already understand basic AI ideas and want production habits.
+Agent mission design lives in Applied Agentic AI — this course is the reliability spine.

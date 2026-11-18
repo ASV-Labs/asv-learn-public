@@ -1,0 +1,2 @@
+Picture a small service: accounts, stored data, protected routes, and a working API shape.
+By the end, you can explain and practice that service end to end — in plain Python first.

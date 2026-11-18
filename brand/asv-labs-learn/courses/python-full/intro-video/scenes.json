@@ -1,0 +1,101 @@
+{
+  "slug": "python-full",
+  "title": "PYTHON FULL STACK — INTRO v4.1 VO",
+  "catalogTitle": "Python Full Stack",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "PYTHON",
+      "line2": "full stack",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · service you can explain"
+    },
+    {
+      "type": "audience",
+      "question": "accounts · data · routes · API",
+      "answer": "map it — then practice it."
+    },
+    {
+      "type": "chips",
+      "heading": "your map",
+      "chips": [
+        "Django thinking",
+        "FastAPI contracts",
+        "SQLAlchemy plans",
+        "auth"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "request",
+      "leftLines": [
+        "hit a route"
+      ],
+      "rightTitle": "response",
+      "rightLines": [
+        "touch data",
+        "shaped JSON"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "web fundamentals",
+        "Django",
+        "FastAPI",
+        "databases",
+        "auth & security",
+        "deploy habits"
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "structure matters",
+      "items": [
+        "settings & apps",
+        "migrations",
+        "tests before users"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "two highways",
+      "cards": [
+        "React & Node",
+        "this Python path",
+        "same destination"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "local first",
+      "sub": "install when a stage asks",
+      "prompt": "python router_demo.py",
+      "result": "200 + JSON"
+    },
+    {
+      "type": "audience",
+      "question": "absolute beginner pace?",
+      "answer": "no — Python Zero comfort first."
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "service story",
+      "windowTitle": "accounts API shape",
+      "lines": [
+        "sign up flow",
+        "save data",
+        "fetch it back"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with Python web fundamentals",
+      "sub": "take your time",
+      "industry": "internal tools · data products · API backends"
+    }
+  ]
+}

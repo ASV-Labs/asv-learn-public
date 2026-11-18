@@ -1,0 +1,2 @@
+You will learn printing and variables, decisions and loops, lists and dictionaries.
+Then functions, files, and what to do when something breaks — step by step on your own computer.

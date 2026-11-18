@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "asv-learn-content-range",
+  "main": "src/index.mjs",
+  "compatibility_date": "2026-08-09",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "learn.asv-labs.com/content/*",
+      "zone_name": "asv-labs.com"
+    }
+  ]
+}

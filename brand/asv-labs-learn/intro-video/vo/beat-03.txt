@@ -1,0 +1,3 @@
+Python began in the early nineteen-nineties.
+Guido van Rossum wanted a language people could actually read.
+He named it after Monty Python — not the snake.

@@ -1,0 +1,66 @@
+PYTHON ZERO TO USEFUL
+ASV Labs Learn — course intro
+
+How to record (that's the whole job):
+1. Open Voice Memos on your phone (or QuickTime on your Mac).
+2. Hit record.
+3. Read everything below, top to bottom, out loud.
+4. Between paragraphs, take a normal breath. Don't rush.
+5. Hit stop. Send me the file (or drop it in this folder as voiceover.m4a).
+
+That's it. I will cut it up and match it to the video.
+
+
+----- start reading -----
+
+This is Python Zero to Useful, from ASV Labs Learn.
+
+It is a course for people who have never written code.
+
+Maybe you are not even sure how to spell Python.
+
+That is fine. That is exactly who this is for.
+
+So. What is Python?
+
+Python is a way to give a computer instructions.
+
+You write the instructions down. The computer follows them.
+
+That is all it is.
+
+You type your instructions into a file.
+
+Python reads that file, from the top down.
+
+Then it shows you the answer, on your screen.
+
+People use Python for real work.
+
+Take a messy spreadsheet. Turn it into a clean report.
+
+Without doing it by hand, every single week.
+
+Before you can write anything, Python has to be on your computer.
+
+That is Module Zero.
+
+You will open a terminal, type one short command, and find out if Python is already there.
+
+Mac. Windows. Linux.
+
+Each one gets its own short video, with the exact steps for that computer.
+
+You only watch yours.
+
+By the end of this course, you will have built a real tool.
+
+Something you can actually show someone.
+
+You do not need a fancy computer. You do not need to be good at math.
+
+Start with Module Zero.
+
+Take your time.
+
+----- stop reading -----

@@ -1,0 +1,106 @@
+{
+  "slug": "react",
+  "title": "REACT & MODERN FRONTEND — INTRO v4.1 VO",
+  "catalogTitle": "React & Modern Frontend",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "REACT",
+      "line2": "& modern frontend",
+      "brand": "ASV LEARN",
+      "tag": "beginner · interfaces that answer"
+    },
+    {
+      "type": "audience",
+      "question": "flip a toggle",
+      "answer": "the UI answers instantly."
+    },
+    {
+      "type": "definition",
+      "heading": "why React",
+      "items": [
+        "components",
+        "hooks",
+        "visible state"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "you will add",
+      "chips": [
+        "routing",
+        "fetching",
+        "forms",
+        "a11y"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "tactile loop",
+      "sub": "edit → save → see",
+      "prompt": "node component_recipe.js",
+      "result": "UI behavior named"
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "JS prerequisites",
+        "components & hooks",
+        "routing & data",
+        "state & performance",
+        "test & a11y",
+        "project proof"
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "one strong proof card",
+      "windowTitle": "portfolio_project",
+      "lines": [
+        "problem + tree",
+        "behavior visible",
+        "next iteration"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "local practice",
+      "cards": [
+        "component recipes",
+        "Node first",
+        "browser tooling"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "UI",
+      "leftLines": [
+        "components",
+        "state"
+      ],
+      "rightTitle": "later",
+      "rightLines": [
+        "real API",
+        "loading states"
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "payoff",
+      "items": [
+        "reviewable project card",
+        "four ideas mapped",
+        "one proof required"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with JavaScript prerequisites",
+      "sub": "take your time",
+      "industry": "dashboards · product UIs · design systems"
+    }
+  ]
+}

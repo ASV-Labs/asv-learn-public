@@ -1,0 +1,2 @@
+DevOps is the craft of making that journey boring — in the best way.
+Repeatable builds. Clear deploys. Alerts that mean something.

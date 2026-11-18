@@ -1,0 +1,2 @@
+That drift story is the heart of this course.
+You learn the engineering loop that keeps an AI system honest: data, features, training, checks, deploy, watch.

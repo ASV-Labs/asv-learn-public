@@ -1,0 +1,57 @@
+APPLIED AGENTIC AI — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Applied Agentic AI, from ASV Learn.
+An advanced course for people ready to put an agent on a real mission — with brakes.
+
+========== BEAT 02 → beat-02 ==========
+
+Give an agent one vague instruction — “handle the inbox” —
+and watch it get creative in all the wrong ways.
+
+========== BEAT 03 → beat-03 ==========
+
+Your job in this course is to become mission control.
+You set the goal, choose the tools, draw the limits, and demand evidence when something fails.
+
+========== BEAT 04 → beat-04 ==========
+
+Agents are not magic coworkers.
+They are systems that plan, call tools, and try again — until you teach them when to stop.
+
+========== BEAT 05 → beat-05 ==========
+
+You will design architectures, write tool contracts, and practice production habits:
+logging, safe failure, and a trail you can audit — in local Python with dictionaries and small loops.
+
+========== BEAT 06 → beat-06 ==========
+
+You are not required to call a live model for these lessons.
+When the simulated agent goes off-script, you interrupt, inspect, and recover — on purpose.
+
+========== BEAT 07 → beat-07 ==========
+
+The path moves from LLM foundations and prompting mastery,
+through retrieval and agent architectures, into tools, then production agent systems.
+
+========== BEAT 08 → beat-08 ==========
+
+You practice locally with scoped tools and synthetic tasks.
+Authorization and safety limits are stated once up front — then we build.
+
+========== BEAT 09 → beat-09 ==========
+
+Come here after AI Fundamentals, and ideally after AI Foundations Engineering.
+This is the course where autonomy meets accountability.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a mission-control packet: clear goal, tool list, stop conditions, and a failure report you would show a lead.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that is how teams ship research agents, ops assistants, and workflow bots that do not go rogue.
+Start with LLM foundations. Take your time.

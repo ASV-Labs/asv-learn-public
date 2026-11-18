@@ -1,0 +1,2 @@
+Chapters cover Python basics for security, network programming for safe checks,
+HTTP evidence, cryptography and hashing choices, defensive tools, and secure coding habits.

@@ -1,0 +1,2 @@
+You flip a toggle. You type in a box. The interface changes before your eyes —
+no full page reload, no mystery refresh. That immediate response is why people love React.

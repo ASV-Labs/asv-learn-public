@@ -1,0 +1,2 @@
+You will add routing, data fetching, and forms,
+then learn state management, performance habits, testing, and accessibility.

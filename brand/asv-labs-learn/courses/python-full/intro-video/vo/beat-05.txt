@@ -1,0 +1,1 @@
+Foundations come first, then Django thinking, FastAPI contracts, databases, auth and security, then production Python habits.

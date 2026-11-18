@@ -1,0 +1,2 @@
+You will practice information gathering, scanning, vulnerability assessment,
+web testing tools, and careful exploitation technique — always in authorized labs.

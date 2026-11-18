@@ -1,0 +1,1 @@
+You will care about structure: settings, apps, migrations, and tests that catch you before users do.

@@ -1,0 +1,777 @@
+{
+  "slug": "ethical-hacking",
+  "title": "Ethical Hacking & Penetration Testing",
+  "description": "Assessment methodology end-to-end: scope, recon, validation, evidence, reporting, remediation, defender handoff. Use Kali course for tool workstation depth.",
+  "difficulty": "Intermediate",
+  "hours": "40-50",
+  "topics": [
+    "Authorization",
+    "Reconnaissance",
+    "Web Security",
+    "Cloud Security",
+    "Reporting"
+  ],
+  "certBadges": [
+    "CEH",
+    "OSCP Prep"
+  ],
+  "runtime": "shell",
+  "source": {
+    "fixture": "content/courses/technodex-fixtures/ethical-hacking.ts",
+    "live": "https://technodex.io/courses/ethical-hacking"
+  },
+  "stages": [
+    {
+      "slug": "stage-01",
+      "title": "Ethical Hacking Fundamentals",
+      "hours": "2-3",
+      "sortOrder": 1,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What turns security testing into ethical hacking?",
+          "options": [
+            "Explicit authorization and scope",
+            "Using a popular tool",
+            "Finding an open port",
+            "Running tests quickly"
+          ],
+          "correct": 0,
+          "explanation": "Ethical hacking requires written permission, boundaries, and reviewable evidence — not tool speed."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which item belongs on a beginner scope card before any scan?",
+          "options": [
+            "A list of every CVE ever published",
+            "Neighbor Wi-Fi SSIDs discovered by accident",
+            "Authorized target, exclusions, test window, and stop rule",
+            "A promise to skip documentation"
+          ],
+          "correct": 2,
+          "explanation": "Scope cards make permission, exclusions, timing, and stop conditions visible before contact."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice this ASV Learn stage?",
+          "options": [
+            "Use an in-lesson hosted shell workspace with auto-grading",
+            "Write local lab notes on your own terminal, VM, or authorized lab host",
+            "Scan random public websites for homework credit",
+            "Skip authorization because the course mentions hacking"
+          ],
+          "correct": 1,
+          "explanation": "Lessons are read in ASV Learn; practice is authorized local lab work only."
+        }
+      ],
+      "content": "# Ethical Hacking Fundamentals\n\n## Why this lesson exists\n\nEthical hacking is authorized security testing. Tools, scan speed, and clever payloads do not make the work ethical. Permission, target boundaries, timing, evidence, and stop rules do.\n\nIn this lesson you will write one **scope card** for an authorized local lab: what may be touched, what is excluded, when testing is allowed, what evidence a defender needs, and when you must stop. That card is the foundation for every later stage in this course.\n\nThis card is part of a focused **40–50 hour** ethical hacking path. Treat every hour as reviewable professional practice, not as unbounded “hacking time.”\n\n## Where this course sits\n\nThis course teaches **assessment methodology** — the engagement process from written authorization through recon, validation, evidence, reporting, remediation, and defender handoff. It is not “install Kali and click tools.” For workstation setup and tool craft in a controlled Kali environment, take **Kali Linux & Penetration Testing Tools** alongside or after this path; that course complements methodology, it does not replace it. All practice stays in your **authorized local lab** only. Name the target, exclusions, and stop rules before any command feels persuasive.\n\n## Reminder: where you work\n\nCreate a course notes folder on your machine (or inside your Kali / lab VM):\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-01\ncd ~/asv-learn-ethical-hacking/stage-01\n```\n\nWindows (PowerShell on the host, or WSL if that is your lab shell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-01\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-01\"\n```\n\nYou will write `scope_card.txt` in that folder. Prefer a **dedicated lab VM** with snapshots so mistakes stay contained.\n\n## Start here: permission before technique\n\nDo not begin with “what tool can I run?” Begin with “what was authorized, what is excluded, when can testing happen, and what evidence would help the defender?”\n\nYou are not proving exploitation yet. You are making the assessment **reviewable** so an instructor, teammate, or future you can tell what was allowed before any command output feels persuasive.\n\n## The permission-to-proof chain\n\nRead every later stage through this chain:\n\n1. **Permission** names the work that is allowed.\n2. **Scope** names the system, account, range, or lab that is inside the boundary.\n3. **Exclusions** name what must not be touched.\n4. **Timing** names when testing may happen.\n5. **Evidence** names what a defender can review afterward.\n6. **Stop rules** name when the work pauses instead of pushing further.\n\nA professional test is not “I ran a command and found something.” A professional test is “I stayed inside the approved boundary, collected evidence the defender can use, and stopped where the rules said to stop.”\n\n| Question to answer | What it protects |\n| --- | --- |\n| What was authorized? | The work stays ethical and reviewable. |\n| What is excluded? | Nearby systems and unrelated people stay out of scope. |\n| When is testing allowed? | The test does not disrupt the wrong moment. |\n| What evidence is useful? | The defender gets proof, impact, and remediation context. |\n| When should testing stop? | Uncertainty, unexpected access, or safety concerns get escalated. |\n\nFirst say the assessment boundary in one sentence: *testing is allowed on this target, during this window, for this purpose, with these exclusions and stop rules.*\n\n## Authorization that actually holds up\n\nFeedstock for this course stresses that legality is not optional. Authorization should be written, specific, and recent enough for the engagement type.\n\n| Component | Why it matters | Honest limit |\n| --- | --- | --- |\n| Authorized target | Names the lab host, range, or app label | Visibility ≠ permission |\n| Forbidden target | Keeps neighbors, production, and public internet out | “Interesting” is not a reason |\n| Test window | Limits disruption and surprises | Open-ended windows hide risk |\n| Report fields | Forces evidence, impact, remediation, owner | Screenshots alone are not a report |\n| Stop rule | Names when to pause and escalate | Stop rules must be usable under pressure |\n\nBlack-box, gray-box, and white-box engagements change how much information you receive up front. They do **not** change the need for written scope. Red-team exercises and vulnerability assessments also still need rules of engagement; only the depth and stealth expectations change.\n\n## Engagement types without the myth\n\n| Type | What you usually know | What beginners often get wrong |\n| --- | --- | --- |\n| Black-box | Little internal detail | Assuming “unknown” means “no rules” |\n| Gray-box | Partial credentials or architecture notes | Treating partial access as full ownership |\n| White-box | Source, diagrams, or accounts | Skipping evidence because “it looks obvious” |\n| External / internal | Network perspective | Scanning the wrong side of a firewall “to be thorough” |\n| Web / wireless / cloud | Asset class | Using the same checklist without adapting privacy and blast radius |\n\nFor this course, your default engagement is a **local lab assessment**: Kali or similar workstation, isolated/host-only network, and labeled targets such as `lab.local`, Metasploitable, DVWA, or another VM you own and authorize.\n\n## Scope sentence patterns\n\nUse plain language. Examples for authorized practice only:\n\n```text\nAuthorized: lab.local (Metasploitable / DVWA / custom lab VM on host-only network)\nPurpose: document discovery and validation workflow for that labeled target\nWindow: Saturday 10:00-12:00 local (lab only)\nOut of scope: any host not named in this card; public internet; neighbor Wi-Fi\nEvidence: scope note, inventory rows, finding rows with remediation owner\nStop: pause if unexpected production-like data, unknown hosts, or safety concerns appear\n```\n\nBad scope: “whatever shows up in nmap.” Good scope: one named lab label plus an explicit out-of-scope line.\n\n## Common beginner mistakes\n\n- Opening tools before naming the authorized target\n- Treating a public hostname as “practice” because it is interesting\n- Confusing bug-bounty program rules with personal lab permission\n- Writing stop rules that only say “be careful”\n- Saving evidence only in scratch folders with no durable note\n- Expecting an automatic grading inside the lesson instead of writing a local scope card\n\n## Your local task\n\n### Step 1 — Confirm lab context\n\nWrite three lines in a scratch file:\n\n```text\nworkstation=kali-lab-vm (or your authorized lab host)\nnetwork=host-only / isolated lab (name yours)\nauthorized_target=lab.local\n```\n\nIf you cannot name those honestly, stop and fix the lab setup before any tool practice.\n\n### Step 2 — Write the scope card\n\nCreate `scope_card.txt`:\n\n```text\nauthorized_target=lab.local\nforbidden_target=public internet; any host not labeled lab.local\ntest_window=Saturday 10:00-12:00 local\nreport_fields=scope evidence impact remediation owner\nstop_rule=pause on unexpected hosts, production-like data, or unclear authorization\npurpose=document authorized assessment workflow for the labeled lab target\n```\n\nOptional: print the same fields from a shell script in your lab folder:\n\n```bash\nauthorized_target=\"lab.local\"\nforbidden_target=\"public internet; any host not labeled lab.local\"\ntest_window=\"Saturday 10:00-12:00 local\"\nreport_fields=\"scope evidence impact remediation owner\"\nstop_rule=\"pause on unexpected hosts, production-like data, or unclear authorization\"\n\nprintf '%s\\n' \\\n  \"authorized_target=$authorized_target\" \\\n  \"forbidden_target=$forbidden_target\" \\\n  \"test_window=$test_window\" \\\n  \"report_fields=$report_fields\" \\\n  \"stop_rule=$stop_rule\"\n```\n\n### Step 3 — Self-review\n\nRead the card as if you are the next reviewer. Ask:\n\n- Can I see what is allowed without guessing?\n- Is the target a lab label, not a random public system?\n- Would a defender know what evidence to expect and when you would stop?\n\n### Step 4 — One change you can explain\n\nChange **one** field (window, exclusion, or stop rule) and say out loud why the new wording makes the next session safer or clearer.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Authorization | Written permission that makes testing ethical and reviewable |\n| Scope | Boundary of systems, accounts, and actions allowed |\n| Rules of engagement | Timing, communication, impact limits, and stop conditions |\n| Evidence | Saved proof a defender can inspect later |\n| Stop rule | Pre-agreed reason to pause instead of pushing further |\n\n## Proof checklist\n\n- [ ] Course notes folder exists for stage-01\n- [ ] `scope_card.txt` lists authorized target, exclusions, window, report fields, stop rule\n- [ ] Target is a lab label, not a random public host\n- [ ] You can explain the card in under one minute\n- [ ] You know practice is local / authorized lab only (no automatic grading inside the lesson)\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse only systems you own, systems in your isolated lab, or systems you are explicitly authorized to test. Do not scan, probe, or collect from real third-party systems without written permission.\n\nWhen those items are true, continue to **Reconnaissance Planning**.\n"
+    },
+    {
+      "slug": "stage-02",
+      "title": "Reconnaissance Planning",
+      "hours": "3-4",
+      "sortOrder": 2,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the key difference between passive and active reconnaissance?",
+          "options": [
+            "Passive recon always proves compromise",
+            "Active recon contacts the target",
+            "Active recon does not need scope",
+            "Passive recon means no notes"
+          ],
+          "correct": 1,
+          "explanation": "Active reconnaissance sends traffic or queries to a target, so it must stay inside authorization."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why record confidence on each recon clue?",
+          "options": [
+            "To keep weak clues from becoming certainty",
+            "To make the report longer",
+            "To replace the scope card",
+            "To justify contacting out-of-scope hosts"
+          ],
+          "correct": 0,
+          "explanation": "Confidence labels prevent overclaiming and force honest next-step decisions."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a recon next action always reference?",
+          "options": [
+            "Any hostname that looks interesting online",
+            "The loudest tool default",
+            "An authorized lab target still inside scope",
+            "A finding severity before evidence exists"
+          ],
+          "correct": 2,
+          "explanation": "Useful clues are not automatic permission; next actions must stay on labeled authorized targets."
+        }
+      ],
+      "content": "# Reconnaissance Planning\n\n## Why this lesson exists\n\nReconnaissance is evidence collection, not a treasure hunt. Passive sources observe public or already-available information. Active checks contact targets and require clear scope. Mixing those two without labeling them is how beginners accidentally leave the lab boundary.\n\nIn this lesson you will build one **recon plan** that separates source, contact level, authorized target, evidence note, and confidence before any follow-up scan feels justified.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-02\ncd ~/asv-learn-ethical-hacking/stage-02\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-02\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-02\"\n```\n\nYou will write `recon_plan.txt` in that folder. Keep Stage 01’s scope card nearby; recon never overrides it.\n\n## Start here: recon boundary before clues\n\nDo not treat every clue as permission to touch a system. First name:\n\n1. Where the clue came from\n2. Whether collecting it contacted the target\n3. Which authorized lab label it applies to\n4. What the clue actually supports\n5. How confident you are\n6. What next action stays inside scope\n\nYou are building a plan another tester can audit, not a pile of interesting screenshots.\n\n## Passive versus active\n\n| Contact level | What it means | Example in a local lab | Risk if mishandled |\n| --- | --- | --- | --- |\n| Passive | Observe without contacting the in-scope target for the clue | Reading your own lab notes, local DNS hosts file, documented lab inventory | Using public internet “research” on unrelated orgs as if it were lab practice |\n| Active | Send traffic or queries that touch the target | `ping`, service probe, directory listing against `lab.local` | Contacting hosts outside the authorized label |\n\nWhy start passive when you can? Passive work often clarifies names, ownership language, and asset inventory with less noise. Active work should answer a specific question that passive evidence could not answer.\n\n## Information categories worth collecting\n\nUse categories so notes stay comparable across stages:\n\n| Category | Examples in lab practice | Useful because |\n| --- | --- | --- |\n| Organizational | Lab owner, engagement purpose, report audience | Keeps the test tied to a person who can act |\n| Technical | Hostnames, IP labels, services, exposed paths | Feeds inventory without claiming vulnerability |\n| Human / process | Who approves changes, who gets findings | Prevents orphan reports |\n| Boundary clues | Host-only vs bridged, naming conventions | Reduces accidental out-of-scope contact |\n\nFor public OSINT techniques (WHOIS, certificate transparency, search engines), remember the house rule for this course: practice against **your authorized lab labels** and public documentation you already own. Do not turn this lesson into reconnaissance of random internet organizations.\n\n## Recon workflow that stays professional\n\n1. Re-read the scope card.\n2. List questions the next stage needs answered.\n3. Gather passive/local evidence first.\n4. Record each clue with source and confidence.\n5. Choose one active follow-up only if scope allows it.\n6. Stop when the inventory question is answered — not when curiosity is satisfied.\n\n| Field | Purpose | Honest limit |\n| --- | --- | --- |\n| Recon source | Where the clue came from | Source quality varies |\n| Contact level | Passive or active | Labels prevent accidental contact creep |\n| Authorized target | Approved system for follow-up | Clue relevance ≠ authorization |\n| Evidence note | What the clue supports | Notes must not exaggerate |\n| Confidence | Strength of support for the next step | High confidence still is not a finding |\n\n## Confidence without theater\n\n| Confidence | When it fits | What it does not justify |\n| --- | --- | --- |\n| Low | Single weak clue or stale note | Immediate exploitation language |\n| Medium | Two consistent clues from trusted lab sources | Skipping verification |\n| High | Repeated, recent, in-scope evidence | Skipping documentation |\n\nA medium-confidence hostname is enough to plan an authorized inventory check. It is not enough to claim compromise.\n\n## Common beginner mistakes\n\n- Calling every Google result “passive recon for the engagement”\n- Active probing first because tools feel productive\n- Recording tool names instead of what the evidence proves\n- Raising confidence because the clue looked cool\n- Following a discovered IP that is not on the scope card\n- Treating recon notes as findings\n\n## Your local task\n\n### Step 1 — Restate the boundary\n\nCopy the authorized target and exclusions from Stage 01 into the top of `recon_plan.txt`.\n\n### Step 2 — Write three recon rows\n\nUse this shape (edit values for your lab):\n\n```text\nsource=local lab inventory / hosts file\ncontact_level=passive\nauthorized_target=lab.local\nevidence_note=lab inventory lists lab.local as the approved training host\nconfidence=medium\nnext_authorized_action=confirm reachability only if still in scope\n\nsource=authorized lab DNS note\ncontact_level=passive\nauthorized_target=lab.local\nevidence_note=hostname maps to the host-only lab address in my notes\nconfidence=medium\nnext_authorized_action=active ping only against lab.local\n\nsource=active reachability check\ncontact_level=active\nauthorized_target=lab.local\nevidence_note=lab.local responded to ICMP in the isolated lab\nconfidence=high\nnext_authorized_action=service inventory in Stage 03 if scope still allows\n```\n\nOptional print helper:\n\n```bash\nrecon_source=\"public lab DNS records / local inventory\"\ncontact_level=\"passive\"\nauthorized_target=\"lab.local\"\nevidence_note=\"DNS or inventory records identify the lab host name\"\nconfidence=\"medium\"\n\nprintf '%s\\n' \\\n  \"source=$recon_source\" \\\n  \"contact=$contact_level\" \\\n  \"target=$authorized_target\" \\\n  \"evidence=$evidence_note\" \\\n  \"confidence=$confidence\"\n```\n\n### Step 3 — Optional authorized active check\n\nOnly if your scope card allows it, run a single reachability check against the labeled lab host from your lab network:\n\n```bash\nping -c 3 lab.local\n```\n\nRecord the result as one active row. If the host name is different in your lab, use your labeled name — not a public host.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Can a reviewer tell passive from active without guessing?\n- Does every next action stay on the authorized label?\n- Did any clue quietly expand scope?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Passive recon | Evidence gathered without contacting the target for that clue |\n| Active recon | Evidence that requires contacting the target |\n| OSINT | Open-source intelligence; still needs legal and course boundaries |\n| Confidence | How strongly evidence supports the next scoped step |\n| Recon plan | Ordered notes that keep contact and claims under control |\n\n## Proof checklist\n\n- [ ] `recon_plan.txt` exists with at least three rows\n- [ ] Each row names source, contact level, target, evidence, confidence\n- [ ] At least one row is clearly passive and one clearly active (or planned active)\n- [ ] No next action points outside the Stage 01 scope card\n- [ ] You can explain why a clue is not yet a vulnerability finding\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not gather intelligence on third-party organizations as “practice.” Keep active contact inside your isolated lab and written authorization.\n\nWhen those items are true, continue to **Scanning & Enumeration**.\n"
+    },
+    {
+      "slug": "stage-03",
+      "title": "Scanning & Enumeration",
+      "hours": "3-4",
+      "sortOrder": 3,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does an open port prove by itself?",
+          "options": [
+            "The target is compromised",
+            "A critical vulnerability exists",
+            "A service may be reachable",
+            "The report is complete"
+          ],
+          "correct": 2,
+          "explanation": "An open port is inventory evidence, not proof of vulnerability or compromise."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What belongs in a professional service inventory row?",
+          "options": [
+            "Only the CVE title from a blog",
+            "Host, port, service guess, evidence, confidence, and safe next step",
+            "Every packet captured during the day",
+            "A severity label with no observations"
+          ],
+          "correct": 1,
+          "explanation": "Inventory rows separate observation from unverified risk language."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why prefer a narrow authorized scan over a wide subnet sweep while learning?",
+          "options": [
+            "Narrow scans create clearer inventory and less accidental out-of-scope contact",
+            "Wide sweeps never need notes",
+            "Narrow scans disable the need for scope",
+            "Wide sweeps always prove exploitability"
+          ],
+          "correct": 0,
+          "explanation": "Beginners learn faster and safer by mapping one labeled host carefully."
+        }
+      ],
+      "content": "# Scanning & Enumeration\n\n## Why this lesson exists\n\nScanning identifies reachable services. Enumeration adds detail. Neither step proves a vulnerability until evidence is verified. Beginners often jump from “port open” to “critical finding.” Professionals build an inventory first.\n\nIn this lesson you will create **service inventory rows** for an authorized lab host: target, port, service guess, enumeration evidence, confidence, and one safe next step.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-03\ncd ~/asv-learn-ethical-hacking/stage-03\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-03\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-03\"\n```\n\nKeep Stage 01 scope and Stage 02 recon notes open. Scanning outside those notes is out of scope by definition.\n\n## Start here: inventory before vulnerability claims\n\nA port, banner, or service guess is inventory evidence. It becomes useful when you can explain:\n\n1. Which authorized host it belongs to\n2. What was observed\n3. How confident the service guess is\n4. What still needs verification\n5. Why the next check is still inside scope\n\nDo not start by calling the service vulnerable. First say the inventory row in one sentence.\n\n## Networking facts that keep scans honest\n\nYou do not need a full networking textbook for this stage, but you do need these distinctions:\n\n| Idea | Why scanners care |\n| --- | --- |\n| Host discovery | “Is this address worth scanning?” is different from “what ports are open?” |\n| TCP vs UDP | Open UDP is harder to interpret; absence of response is not always closed |\n| Port states | Open, closed, filtered, and unknown mean different evidence qualities |\n| Banner / version clues | Helpful hypotheses; often wrong, incomplete, or intentionally misleading |\n| Timing and noise | Faster scans are louder and less polite; lab timing still belongs in notes |\n\nIf your lab uses host-only networking, write that down. Bridged adapters make accidental contact with non-lab hosts much easier.\n\n## Scan types as evidence choices\n\n| Approach | Typical use in lab | What it proves | What it does not prove |\n| --- | --- | --- | --- |\n| Host discovery | Confirm `lab.local` is up | Reachability clue | Softness of the host |\n| TCP port scan | Map likely service entry points | Possible listeners | Exploitability |\n| Version detection | Guess product/version | Stronger service hypothesis | Confirmed CVE |\n| Scripted checks | Gather structured clues | More inventory detail | Automatic finding validity |\n| Manual banner grab | Read a service response carefully | Exact observed text | That the text is trustworthy |\n\nPrefer a narrow authorized scan over a wide “everything” run. Wide scans create more noise than understanding when you are still learning the inventory habit.\n\n## Enumeration without overclaiming\n\nEnumeration means asking a service for more detail after you know it exists. Examples in an authorized lab:\n\n- HTTP title or server header on an approved web target\n- SMB share listing only if the lab target and scope allow it\n- SNMP community checks only on labeled lab devices\n- SMTP commands that identify service behavior without sending spam\n\nEach enumeration action should answer one inventory question. If you cannot name the question, you are browsing, not enumerating.\n\n| Field | Purpose |\n| --- | --- |\n| Scan target | In-scope host label |\n| Port | Numeric network endpoint |\n| Service guess | Likely service based on evidence |\n| Enumeration evidence | Banner, response, or clue observed |\n| Confidence | How strong the guess is |\n| Safe next step | Scoped verification action |\n\n## Example inventory rows\n\n```text\ntarget=lab.local\nport=22\nservice_guess=ssh\nenumeration_evidence=SSH banner observed on authorized lab host\nconfidence=medium\nsafe_next_step=record banner text; do not attempt credential guessing yet\n\ntarget=lab.local\nport=80\nservice_guess=http\nenumeration_evidence=HTTP response returned a training application title\nconfidence=medium\nsafe_next_step=map method/path/input in Stage 04 before changing parameters\n```\n\n## Common beginner mistakes\n\n- Treating an open port as a confirmed vulnerability\n- Scanning a subnet larger than the scope card\n- Saving only tool HTML/XML output with no human inventory row\n- Running aggressive scripts before a baseline port map\n- Copying CVE names from a script title into the report\n- Enumerating services on hosts that merely appeared nearby\n\n## Your local task\n\n### Step 1 — Name the authorized scan target\n\nWrite the top of `service_inventory.txt`:\n\n```text\nauthorized_target=lab.local\nscan_purpose=build service inventory for authorized lab host\nout_of_scope=any host not labeled lab.local\n```\n\n### Step 2 — Run one scoped inventory action\n\nIf nmap is available in your lab VM and scope allows it, prefer a focused command against the labeled host:\n\n```bash\nnmap -sV -p 22,80,443 lab.local\n```\n\nIf nmap is not available, use an authorized manual check you can explain, such as:\n\n```bash\nnc -vz lab.local 80\n```\n\nReplace host and ports with your labeled lab values. Do not invent a public target.\n\n### Step 3 — Write at least two inventory rows\n\n```bash\nscan_target=\"lab.local\"\nport=\"443\"\nservice_guess=\"https\"\nenumeration_evidence=\"TLS service responded with a training banner\"\nsafe_next_step=\"verify the banner on the authorized lab target\"\n\nprintf '%s\\n' \\\n  \"target=$scan_target\" \\\n  \"port=$port\" \\\n  \"service=$service_guess\" \\\n  \"evidence=$enumeration_evidence\" \\\n  \"next=$safe_next_step\"\n```\n\nPut the durable version in `service_inventory.txt`.\n\n### Step 4 — Self-review\n\nFor each row, answer out loud:\n\n- What did I observe?\n- What am I only guessing?\n- What verification is still required before risk language?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Scanning | Mapping reachable hosts/ports inside scope |\n| Enumeration | Collecting service detail after a target is known |\n| Banner | Service-provided text that may hint at product/version |\n| False confidence | Treating scanner labels as verified truth |\n| Inventory row | Human-readable record of observed service evidence |\n\n## Proof checklist\n\n- [ ] `service_inventory.txt` names authorized target and out-of-scope line\n- [ ] At least two ports/services are recorded with evidence\n- [ ] Each row has confidence and a safe next step\n- [ ] No row claims a vulnerability without verification language\n- [ ] Scan commands stayed on the labeled lab host\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nScan only systems you own or are explicitly authorized to test on an isolated lab network. Neighbor devices and random internet hosts are not practice targets.\n\nWhen those items are true, continue to **Web Application Testing Basics**.\n"
+    },
+    {
+      "slug": "stage-04",
+      "title": "Web Application Testing Basics",
+      "hours": "4-5",
+      "sortOrder": 4,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why record expected behavior before a web security test?",
+          "options": [
+            "It gives the test a baseline",
+            "It replaces authorization",
+            "It proves exploitation",
+            "It hides uncertainty"
+          ],
+          "correct": 0,
+          "explanation": "Without a baseline, mutated responses are hard to interpret honestly."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a safe web risk question look like?",
+          "options": [
+            "Is the whole internet hackable?",
+            "Which public site should I probe next?",
+            "A narrow question tied to method, path, and one controllable input",
+            "Can I skip notes if the payload works?"
+          ],
+          "correct": 2,
+          "explanation": "Good web tests answer one scoped question instead of spraying payloads."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which account type belongs in beginner web lab practice?",
+          "options": [
+            "A stranger’s production account",
+            "Synthetic lab accounts on an authorized training app",
+            "Your bank login for realism",
+            "An untracked shared admin password from a forum"
+          ],
+          "correct": 1,
+          "explanation": "Practice stays on authorized training apps with synthetic credentials."
+        }
+      ],
+      "content": "# Web Application Testing Basics\n\n## Why this lesson exists\n\nWeb testing starts with understanding normal behavior. Method, path, controllable input, expected result, and observed result give you a baseline. Changing inputs before you can describe normal is how beginners create noise and call it a finding.\n\nIn this lesson you will write **web test notes** for an authorized lab application (for example DVWA, Juice Shop, or another local training app you control). You will connect request shape to one safe risk question before any payload talk.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-04\ncd ~/asv-learn-ethical-hacking/stage-04\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-04\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-04\"\n```\n\nYou will write `web_test_notes.txt`. Point every note at your labeled lab app, not a live third-party site.\n\n## Start here: normal behavior before tests\n\nA useful web test answers a specific question. It does not spray payloads at every field.\n\nBefore changing anything, write:\n\n1. HTTP method\n2. Path\n3. Input the user can control\n4. Expected behavior for a normal request\n5. Observed behavior\n6. One risk question the next test will answer\n\nIf you cannot fill those fields, you are not ready to mutate input.\n\n## Request and response literacy\n\n| Piece | Why it matters in testing |\n| --- | --- |\n| Method | GET, POST, PUT, DELETE change server expectations |\n| Path | Identifies the feature under review |\n| Parameters / body | Show where attacker-controlled data enters |\n| Cookies / tokens | Often carry session and authorization state |\n| Status code | Distinguishes success, redirect, auth failure, server error |\n| Response body / headers | Reveal reflected input, caching, security headers, errors |\n\nA redirect that stays inside the lab app is different from a redirect that can leave the approved domain. An error that shows a stack trace is inventory evidence about information disclosure, not automatic remote code execution.\n\n## OWASP-oriented questions without the laundry list\n\nYou do not need to memorize every Top 10 label on day one. You do need to ask durable questions:\n\n| Risk family | Safe lab question | Evidence that would matter |\n| --- | --- | --- |\n| Access control | Can a low-privilege lab account reach another user’s object? | Predictable IDs, missing auth checks, direct object access |\n| Injection | Does untrusted input change query or command structure? | Differing responses, error shapes, confirmed data influence |\n| Auth / session | Can session tokens be guessed, reused, or fixed? | Token handling notes, logout behavior, cookie flags |\n| Misconfiguration | Are debug pages, default creds, or verbose errors exposed? | Reachable admin paths, default banners, stack traces |\n| XSS / client trust | Is untrusted input reflected or stored without encoding? | Exact reflection point and context (HTML, attribute, script) |\n\nAlways pair the family name with a reproduction path. “Possible XSS” without method/path/input/observed behavior is not a finding yet.\n\n## Baseline note pattern\n\n```text\nweb_method=GET\nweb_path=/login\ninput_parameter=redirect\nexpected_behavior=login page allows only local redirects inside the lab app\nobserved_behavior=redirect stayed inside the lab application\nrisk_question=can redirects leave the approved lab domain?\n```\n\nThat note is already useful. It tells the next tester what normal looks like and what question remains.\n\n## Intercepting proxies and lab discipline\n\nIf you use Burp, ZAP, or a similar proxy in your lab:\n\n- Point it only at the authorized training application\n- Use synthetic lab accounts\n- Save requests that matter as evidence, not every click\n- Disable intercept when you are only browsing to learn the UI\n- Do not “helpfully” proxy your normal browser traffic to banks, work, or social media\n\nProxy power makes it easy to forget which host you are talking to. Keep the authorized hostname visible in every saved note.\n\n## Common beginner mistakes\n\n- Sending payloads before recording expected behavior\n- Testing production-like personal accounts “because I own them”\n- Calling every reflected string XSS without proving context\n- Confusing 404/403 noise with access-control bypass\n- Skipping authentication flows because anonymous pages feel easier\n- Copying exploit PoCs from the internet into a lab note without understanding them\n\n## Your local task\n\n### Step 1 — Name the lab application\n\n```text\napp_label=dvwa-or-local-training-app\nbase_url=http://lab.local/  # use your real lab URL\nauth_account=synthetic lab user only\nout_of_scope=any non-lab hostname\n```\n\n### Step 2 — Capture one normal request\n\nManually use the app once for a simple feature (login form, search box, profile view). Write the normal request fields before any mutation.\n\n### Step 3 — Write two web test notes\n\nOne baseline note and one mutation note:\n\n```bash\nweb_method=\"GET\"\nweb_path=\"/login\"\ninput_parameter=\"redirect\"\nexpected_behavior=\"login page allows only local redirects\"\nobserved_behavior=\"redirect stayed inside the lab application\"\nrisk_question=\"can redirects leave the approved lab domain\"\n\nprintf '%s\\n' \\\n  \"method=$web_method\" \\\n  \"path=$web_path\" \\\n  \"parameter=$input_parameter\" \\\n  \"expected=$expected_behavior\" \\\n  \"observed=$observed_behavior\" \\\n  \"question=$risk_question\"\n```\n\nFor the mutation note, change only one input and record what changed. If nothing unsafe happened, that is still valid evidence.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Could a defender reproduce this from my notes alone?\n- Did I stay on the labeled lab app?\n- Is my risk question narrower than “is it hackable?”\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Baseline | Observed normal behavior before mutation |\n| Controllable input | Value an attacker/user can influence |\n| Reflection | Input appearing in a response |\n| Access control | Rules that limit who can reach which objects |\n| Safe risk question | Narrow question the next test will answer |\n\n## Proof checklist\n\n- [ ] `web_test_notes.txt` names lab app, base URL, synthetic account, out of scope\n- [ ] At least one baseline note exists before mutation\n- [ ] At least one mutation note changes a single input\n- [ ] Every note includes expected and observed behavior\n- [ ] No third-party production site appears in the notes\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nWeb testing practice belongs on applications you own or are explicitly authorized to test in a lab. Do not probe random websites, employer systems, or live customer apps under this course’s practice instructions.\n\nWhen those items are true, continue to **Controlled Exploitation Validation**.\n"
+    },
+    {
+      "slug": "stage-05",
+      "title": "Controlled Exploitation Validation",
+      "hours": "4-5",
+      "sortOrder": 5,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "When should controlled exploitation happen in a professional assessment?",
+          "options": [
+            "Before permission is written",
+            "After scope and evidence support a finding",
+            "Whenever a tool exists",
+            "After the report is finished"
+          ],
+          "correct": 1,
+          "explanation": "Validation proves an evidenced hypothesis; it is not the first step."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is a good proof goal for lab validation?",
+          "options": [
+            "Maximum damage and persistence",
+            "Collecting unrelated personal data",
+            "Leaving access open for later convenience",
+            "The minimum evidence that shows real risk to a defender"
+          ],
+          "correct": 3,
+          "explanation": "Least-impact proof is enough; extra harm is not professionalism."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a controlled proof card include besides the finding name?",
+          "options": [
+            "Precondition, proof goal, impact limit, stop condition, and cleanup",
+            "Only a screenshot of a tool banner",
+            "A promise to skip remediation",
+            "A public internet target list"
+          ],
+          "correct": 0,
+          "explanation": "Those fields keep validation reviewable and bounded."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "If unexpected production-like data appears during validation, what is the safest move?",
+          "options": [
+            "Copy everything for completeness",
+            "Pivot to more hosts immediately",
+            "Stop, document, and reassess the boundary",
+            "Ignore it and finish the exploit chain"
+          ],
+          "correct": 2,
+          "explanation": "Stop rules exist for boundary and safety surprises."
+        }
+      ],
+      "content": "# Controlled Exploitation Validation\n\n## Why this lesson exists\n\nControlled validation proves risk. It should name the confirmed finding, required precondition, proof goal, impact limit, stop condition, and cleanup. Exploitation theater without those fields is just unsafe curiosity.\n\nIn this lesson you will draft a **controlled proof card** for one lab finding that earlier stages already support. The goal is least-impact evidence a defender can trust — not maximum damage.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-05\ncd ~/asv-learn-ethical-hacking/stage-05\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-05\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-05\"\n```\n\nBring forward inventory and web notes. Validation without prior evidence is guessing with tools.\n\n## Start here: least-impact proof before validation\n\nControlled validation is not the beginning of the assessment. It happens after:\n\n1. Scope still allows the action\n2. Inventory or web evidence supports a specific hypothesis\n3. You can state the minimum proof that would help a defender\n4. You know what must not happen during the proof\n5. You know when to stop and how to clean up\n\nIf any of those are missing, research and document more — do not “try the exploit anyway.”\n\n## Vulnerability analysis before exploit language\n\nFeedstock vulnerability work separates discovery, scoring language, and validation:\n\n| Step | Professional output | Beginner trap |\n| --- | --- | --- |\n| Identify weakness signal | Version clue, misconfig, logic issue | Copying a CVE title from a blog |\n| Check applicability | Does this lab target actually match? | Assuming scanner severity is destiny |\n| Choose proof goal | Minimum signal of real risk | Full compromise by default |\n| Validate carefully | Controlled, reversible evidence | Persistence, lateral movement, data theft |\n| Document | Finding with remediation path | Tool screenshot with no owner |\n\nCVSS and CVE identifiers can help prioritize, but they do not replace reproduction notes. A “critical” label with no lab proof is still unfinished work.\n\n## The controlled proof card\n\n| Field | Purpose |\n| --- | --- |\n| Confirmed finding | Issue already supported by earlier evidence |\n| Precondition | What must be true before proof is valid |\n| Proof goal | Minimum evidence needed |\n| Impact limit | What the test must not do |\n| Stop condition | When validation ends |\n| Cleanup note | How temporary proof artifacts are handled |\n\nExample shape for authorized lab only:\n\n```text\nconfirmed_finding=outdated lab service with known training vulnerability\nprecondition=authorized lab target and verified vulnerable version from inventory\nproof_goal=show controlled validation without data access\nimpact_limit=no persistence, no sensitive data access, no lateral movement\nstop_condition=stop after proof output is captured\ncleanup_note=remove temporary proof files from the lab workspace\n```\n\n## Choosing proof that is enough\n\nGood proof goals in a teaching lab:\n\n- Demonstrate that a low-privilege account can read another lab user’s object ID\n- Show that a reflected input executes in a controlled browser context on a training page\n- Confirm that an outdated service version matches the vulnerable build and responds to a safe check mode\n- Prove anonymous access to an admin route that should require auth\n\nPoor proof goals for this course:\n\n- Maintaining access after the lesson\n- Dumping real personal data\n- Attacking anything outside the labeled host\n- Chaining into unrelated VMs “because I can”\n\n## False positives and stop discipline\n\n| Signal | Safer interpretation | Next move |\n| --- | --- | --- |\n| Scanner says vulnerable | Hypothesis | Verify version/config manually |\n| Exploit module fails | Maybe patched, filtered, or wrong target | Re-check inventory; do not spray modules |\n| Unexpected privilege appears | Possible higher impact than planned | Stop, document, reassess scope |\n| Production-like data appears | Boundary problem | Stop and escalate to the lab owner / yourself as owner |\n\nStop conditions are part of professionalism. Continuing because the tool almost worked is how labs become messy and reports become dishonest.\n\n## Common beginner mistakes\n\n- Validating before writing the proof goal\n- Using public exploit code without reading what it does\n- Treating successful access as permission to keep exploring forever\n- Skipping cleanup so the next snapshot inherits junk “proof”\n- Writing “critical” before impact is evidenced\n- Confusing Metasploit availability with necessity\n\n## Your local task\n\n### Step 1 — Pick one supported finding\n\nChoose a finding already backed by Stage 03 or Stage 04 notes. If you do not have one yet, write a hypothetical lab finding clearly labeled as a planning exercise — do not invent contact with a real third-party system.\n\n### Step 2 — Write `controlled_proof_card.txt`\n\n```bash\nconfirmed_finding=\"outdated lab service\"\nprecondition=\"authorized lab target and verified vulnerable version\"\nproof_goal=\"show controlled validation without data access\"\nimpact_limit=\"no persistence, no sensitive data access, no lateral movement\"\nstop_condition=\"stop after proof output is captured\"\ncleanup_note=\"remove temporary proof files from the lab workspace\"\n\nprintf '%s\\n' \\\n  \"finding=$confirmed_finding\" \\\n  \"precondition=$precondition\" \\\n  \"goal=$proof_goal\" \\\n  \"limit=$impact_limit\" \\\n  \"stop=$stop_condition\" \\\n  \"cleanup=$cleanup_note\"\n```\n\n### Step 3 — Optional least-impact validation\n\nOnly if your lab target and scope support it, perform the minimum proof action you wrote. Capture output into an evidence file named for the finding. If you are not ready to run anything, complete the card as a dry-run plan and say so explicitly.\n\n### Step 4 — Cleanup and self-review\n\nRemove temporary scratch files. Keep durable notes. Ask:\n\n- Did I prove only what I claimed?\n- Did I stop when the stop condition said to stop?\n- Can a defender reproduce the risk from the card and evidence?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Validation | Proving a hypothesized weakness with controlled evidence |\n| Proof goal | Minimum evidence that makes risk real for a defender |\n| Impact limit | Hard ceiling on what the proof may touch |\n| False positive | Alert or claim not supported by verification |\n| Cleanup | Removing temporary artifacts after evidence is saved |\n\n## Proof checklist\n\n- [ ] `controlled_proof_card.txt` includes finding, precondition, goal, limit, stop, cleanup\n- [ ] Finding is tied to earlier inventory or web evidence\n- [ ] Impact limit explicitly forbids persistence and sensitive data collection\n- [ ] Stop condition is concrete\n- [ ] Temporary files were cleaned or the dry-run status is stated\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nRun validation only against systems you own or are explicitly authorized to test. Do not download and fire public exploits at random internet hosts.\n\nWhen those items are true, continue to **Post-Exploitation Evidence Handling**.\n"
+    },
+    {
+      "slug": "stage-06",
+      "title": "Post-Exploitation Evidence Handling",
+      "hours": "3-4",
+      "sortOrder": 6,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the safest default after proof of access?",
+          "options": [
+            "Stop, document, clean up, and report",
+            "Maintain access",
+            "Collect unrelated data",
+            "Hide the finding"
+          ],
+          "correct": 0,
+          "explanation": "After proof, expand less and package evidence for defenders."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why refuse persistence in most teaching-lab engagements?",
+          "options": [
+            "Persistence always increases report quality",
+            "Persistence creates unmanaged access beyond the proof need",
+            "Persistence replaces remediation",
+            "Persistence is required for every CVE"
+          ],
+          "correct": 1,
+          "explanation": "Leftover access paths are risk, not trophies."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does an evidence index help a reviewer do?",
+          "options": [
+            "Delete timestamps automatically",
+            "Authorize new targets",
+            "Map each claim to a durable artifact without guessing",
+            "Skip impact and remediation fields"
+          ],
+          "correct": 2,
+          "explanation": "Indexes make the assessment story auditable."
+        }
+      ],
+      "content": "# Post-Exploitation Evidence Handling\n\n## Why this lesson exists\n\nPost-exploitation in a lab is not a free pass to keep going. It documents what access would mean, what data is off limits, and how the finding moves to remediation. The professional move after proof is to stop expanding access and make the evidence useful to defenders.\n\nIn this lesson you will write an **evidence handoff** that names access level, evidence boundary, sensitive-data rule, persistence rule, and defender handoff note.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-06\ncd ~/asv-learn-ethical-hacking/stage-06\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-06\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-06\"\n```\n\nUse only the access level already proven in Stage 05 (or a clearly labeled planning scenario).\n\n## Start here: evidence boundary before access details\n\nAfter proof, ask different questions:\n\n1. What minimum access was demonstrated?\n2. What evidence is enough for a defender?\n3. What data must never be collected?\n4. Why is persistence unnecessary here?\n5. Who receives the handoff and in what form?\n\nCuriosity wants more shells. Professionalism wants a clean package.\n\n## What “post-exploitation” means in this course\n\nIn many curricula, post-exploitation includes privilege escalation, persistence, dumping credentials, and lateral movement. In this ASV Learn path, the house rule is stricter for practice:\n\n| Topic | Allowed learning mode here | Not the practice goal |\n| --- | --- | --- |\n| Access context | Record account/service context from the proof | Expand into unrelated VMs |\n| Privilege meaning | Explain what the access could allow | Actually loot sensitive files |\n| Persistence concepts | Document why persistence is out of scope for the engagement | Install backdoors for “later” |\n| Credential material | Note that credentials may exist; do not harvest personal secrets | Crack or reuse real passwords outside the lab story |\n| Lateral movement | Describe as a risk narrative if evidence supports it | Pivot because the network path exists |\n\nYou can still study privilege-escalation concepts from feedstock. Your local task is to package evidence, not to turn the lab into a trophy hunt.\n\n## Evidence handoff fields\n\n| Field | Purpose |\n| --- | --- |\n| Access level | Minimum access observed in the lab |\n| Evidence boundary | What evidence is enough |\n| Sensitive data rule | What must not be collected |\n| Persistence rule | Why persistence is not used |\n| Handoff note | How the defender receives the finding |\n\nExample:\n\n```text\naccess_level=lab service account\nevidence_boundary=capture command output proving account context only\nsensitive_data_rule=do not access personal or secret data\npersistence_rule=do not install persistence or background access\nhandoff_note=send evidence, impact, and remediation owner to the defender\n```\n\n## Building an evidence index\n\nAs assessments grow, evidence files multiply. Keep a simple index:\n\n```text\nE1=scope_card.txt — authorization boundary\nE2=service_inventory.txt — ports/services observed\nE3=web_test_notes.txt — request/response baseline and mutation\nE4=controlled_proof_card.txt — validation plan and result\nE5=evidence_handoff.txt — access context and defender package\n```\n\nName files so a stranger can order the story without your memory.\n\n## Sensitive data and cleanup\n\n| Situation | Professional response |\n| --- | --- |\n| Lab database contains fake PII | Treat it as sensitive anyway; do not export casually |\n| Proof reveals real personal data by accident | Stop, minimize copies, tell the lab owner (you), delete extras |\n| Tool wants to install a service or user | Decline unless scope explicitly includes that proof and cleanup is real |\n| Session still open after notes are done | Close it; leftover access is not “convenient,” it is unmanaged risk |\n\nCleanup is part of the finding lifecycle. A report that proves access while leaving backdoors is a failure of craft.\n\n## Common beginner mistakes\n\n- Collecting more files “for completeness”\n- Keeping shells open across days without a reason in the notes\n- Screenshotting secrets into chat or cloud sync\n- Writing impact as movie-plot doom instead of evidenced capability\n- Forgetting to name the remediation owner\n- Treating post-exploitation as the fun reward stage rather than a documentation stage\n\n## Your local task\n\n### Step 1 — State the proven access\n\nIf Stage 05 produced access context, copy the minimum true statement. If you only planned validation, write a hypothetical access level labeled `PLANNING ONLY`.\n\n### Step 2 — Write `evidence_handoff.txt`\n\n```bash\naccess_level=\"lab service account\"\nevidence_boundary=\"capture command output proving account context only\"\nsensitive_data_rule=\"do not access personal or secret data\"\npersistence_rule=\"do not install persistence or background access\"\nhandoff_note=\"send evidence, impact, and remediation owner to the defender\"\n\nprintf '%s\\n' \\\n  \"access=$access_level\" \\\n  \"boundary=$evidence_boundary\" \\\n  \"data_rule=$sensitive_data_rule\" \\\n  \"persistence=$persistence_rule\" \\\n  \"handoff=$handoff_note\"\n```\n\n### Step 3 — Build a tiny evidence index\n\nCreate `evidence_index.txt` listing the Stage 01–06 artifacts you actually have. Missing earlier files is fine — mark them missing instead of inventing them.\n\n### Step 4 — Self-review\n\nAsk:\n\n- If a defender only received this handoff, could they act?\n- Did I collect anything outside the evidence boundary?\n- Is persistence explicitly refused?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Access context | Who/what identity the proof obtained |\n| Evidence boundary | Ceiling on what you collect after proof |\n| Persistence | Maintaining access beyond the proof need |\n| Handoff | Package that lets defenders act without re-deriving your work |\n| Evidence index | Map of artifacts that support the story |\n\n## Proof checklist\n\n- [ ] `evidence_handoff.txt` names access, boundary, data rule, persistence rule, handoff\n- [ ] Sensitive-data rule is explicit\n- [ ] Persistence is refused or tightly justified and cleaned\n- [ ] `evidence_index.txt` exists\n- [ ] No unrelated data collection occurred\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not practice post-exploitation against systems outside your authorized lab. Do not keep access to machines you do not fully control and document.\n\nWhen those items are true, continue to **Wireless Security Assessment**.\n"
+    },
+    {
+      "slug": "stage-07",
+      "title": "Wireless Security Assessment",
+      "hours": "3-4",
+      "sortOrder": 7,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why is a nearby wireless network not automatically a target?",
+          "options": [
+            "It has a channel number",
+            "It appears in a scan",
+            "It may not be authorized",
+            "It has a strong signal"
+          ],
+          "correct": 2,
+          "explanation": "Signal strength and visibility are not consent."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What must a wireless test card include before capture?",
+          "options": [
+            "Authorized SSID, approved adapter, purpose, privacy rule, and cleanup",
+            "Only the word monitor-mode",
+            "Every SSID in the building",
+            "A plan to deauth strangers for practice"
+          ],
+          "correct": 0,
+          "explanation": "Radio work needs purpose-bound scope and privacy limits first."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "If you do not own a practice AP, what is the correct course mode?",
+          "options": [
+            "Capture whatever is loudest near your laptop",
+            "Planning-only with an explicit privacy boundary — no unauthorized capture",
+            "Crack the cafe Wi-Fi for realism",
+            "Skip the privacy rule because you are learning"
+          ],
+          "correct": 1,
+          "explanation": "Planning is valid practice; unauthorized airspace capture is not."
+        }
+      ],
+      "content": "# Wireless Security Assessment\n\n## Why this lesson exists\n\nWireless testing touches shared radio space. Nearby networks are not automatically targets because they appear in a scan. Professional work names the authorized SSID or lab network, approved hardware, capture purpose, privacy rule, and cleanup before any monitor-mode excitement.\n\nIn this lesson you will create a **wireless test card** for an authorized lab network only — ideally an isolated practice AP you own, not your neighbor’s Wi‑Fi.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-07\ncd ~/asv-learn-ethical-hacking/stage-07\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-07\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-07\"\n```\n\nIf you do not have a dedicated practice AP, complete this stage as a **planning and privacy-boundary exercise**. Do not “practice” on unknown networks.\n\n## Start here: radio scope before capture\n\nWireless packets do not respect your intentions. Before enabling monitor mode or any capture tool, write:\n\n1. Authorized SSID / BSSID\n2. Channel (if known)\n3. Approved adapter\n4. Capture purpose\n5. Privacy rule for unrelated networks and clients\n6. Cleanup for temporary capture files\n\nIf those fields are blank, the card is not ready.\n\n## Wireless fundamentals that matter for testers\n\n| Concept | Why it matters |\n| --- | --- |\n| SSID / BSSID | Human name vs radio identity; duplicates and spoofs exist |\n| Channel / band | Capture without channel focus collects irrelevant noise |\n| Open / WPA2 / WPA3 | Security posture changes what “assessment” even means |\n| Client vs AP | Clients may be guest phones; privacy rules still apply |\n| Monitor mode | Powerful and easy to misuse outside a lab AP |\n\nWEP cracking demos from older curricula are historical learning material. They are not a reason to attack any live network you do not own. Prefer modern lab setups where you control the AP and the clients.\n\n## Privacy is part of scope\n\n| Rule | Practical meaning |\n| --- | --- |\n| Authorized network only | Filter or ignore SSIDs that are not on the card |\n| No bystander content | Do not inspect unrelated client traffic for fun |\n| Purpose-bound capture | Handshake/metadata for the lab AP, not “everything in the air” |\n| Retention limit | Delete captures after notes are saved unless evidence rules require keeping them |\n| Location honesty | Coffee-shop airspace is not your classroom |\n\nA strong signal from a neighbor network is still unauthorized. Signal strength is not consent.\n\n## Wireless test card fields\n\n| Field | Purpose |\n| --- | --- |\n| Wireless target | Authorized SSID or lab network |\n| Channel | Radio channel being observed |\n| Approved adapter | Hardware allowed for the lab |\n| Capture purpose | Why metadata is being collected |\n| Privacy rule | How unrelated networks/clients are excluded |\n| Cleanup note | How temporary captures are handled |\n\nExample:\n\n```text\nwireless_target=ASV-LAB-AP\nchannel=6\napproved_adapter=lab wireless adapter\ncapture_purpose=document authorized lab handshake metadata\nprivacy_rule=ignore non-lab networks and unrelated clients\ncleanup_note=delete temporary capture files after evidence notes are saved\n```\n\n## Assessment questions that stay honest\n\nGood lab questions:\n\n- Is the practice AP using the expected security mode?\n- Are guest and lab SSIDs separated as intended?\n- Does the lab documentation match the observed BSSID/channel?\n- Are capture files stored only in the course notes workspace?\n\nQuestions that usually leave the house style:\n\n- Can I break into the cafe Wi‑Fi?\n- What is my neighbor’s password?\n- Can I deauth strangers to force handshakes?\n\nThose are not course practice tasks.\n\n## Common beginner mistakes\n\n- Enabling monitor mode on a laptop at home and treating every SSID as a lab\n- Saving large pcaps to shared folders without review\n- Running deauth floods because a tutorial showed the command\n- Forgetting cleanup so captures linger on USB disks\n- Calling “detected WPA2” a vulnerability by itself\n- Skipping the privacy rule because “I’m only looking”\n\n## Your local task\n\n### Step 1 — Decide practice mode\n\nWrite one of these at the top of `wireless_test_card.txt`:\n\n```text\npractice_mode=authorized-lab-ap\n```\n\nor\n\n```text\npractice_mode=planning-only-no-capture\n```\n\n### Step 2 — Fill the card\n\n```bash\nwireless_target=\"ASV-LAB-AP\"\nchannel=\"6\"\napproved_adapter=\"lab wireless adapter\"\ncapture_purpose=\"document authorized lab handshake metadata\"\nprivacy_rule=\"ignore non-lab networks and unrelated clients\"\ncleanup_note=\"delete temporary capture files after evidence notes are saved\"\n\nprintf '%s\\n' \\\n  \"ssid=$wireless_target\" \\\n  \"channel=$channel\" \\\n  \"adapter=$approved_adapter\" \\\n  \"purpose=$capture_purpose\" \\\n  \"privacy=$privacy_rule\" \\\n  \"cleanup=$cleanup_note\"\n```\n\n### Step 3 — Optional authorized observation\n\nOnly if `practice_mode=authorized-lab-ap` and you own/control the AP, perform the minimum observation needed for your purpose. Prefer listing the lab SSID and channel over long open-air captures. Record what you saw in `wireless_notes.txt`.\n\n### Step 4 — Cleanup and self-review\n\nDelete temporary captures you do not need. Ask:\n\n- Would this card protect a bystander network?\n- Is the purpose narrower than “see what happens”?\n- Can I prove authorization for the SSID I named?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| SSID | Network name advertised by an access point |\n| BSSID | Radio identifier for a specific AP interface |\n| Monitor mode | Adapter mode that can observe wireless frames |\n| Privacy rule | Written limit that excludes unrelated networks/clients |\n| Practice AP | Access point you own/control for lab learning |\n\n## Proof checklist\n\n- [ ] `wireless_test_card.txt` includes target, channel, adapter, purpose, privacy, cleanup\n- [ ] Practice mode is explicit\n- [ ] Privacy rule excludes non-lab networks\n- [ ] No capture of unauthorized networks occurred\n- [ ] Temporary files cleaned or planning-only status stated\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not assess, deauthenticate, capture, or crack networks you do not own or lack written authorization to test. Shared radio space makes mistakes easy; your card must make the boundary obvious.\n\nWhen those items are true, continue to **Social Engineering Defense Testing**.\n"
+    },
+    {
+      "slug": "stage-08",
+      "title": "Social Engineering Defense Testing",
+      "hours": "2-3",
+      "sortOrder": 8,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What belongs in an approved social engineering simulation plan?",
+          "options": [
+            "Audience, boundaries, approval, and reporting",
+            "Private pressure",
+            "Credential collection",
+            "Unapproved impersonation"
+          ],
+          "correct": 0,
+          "explanation": "People-safe exercises need approval, limits, and a training-focused report path."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why forbid credential collection in a defense-awareness simulation?",
+          "options": [
+            "Credentials make reports prettier",
+            "Password capture is required for all metrics",
+            "Real passwords turn training into an incident",
+            "Users learn better when secrets are stolen"
+          ],
+          "correct": 2,
+          "explanation": "Awareness tests should measure reporting and process, not harvest secrets."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What reporting style best protects participants?",
+          "options": [
+            "Aggregate results with remediation and training updates",
+            "Public named fail lists",
+            "Silent collection with no after-action learning",
+            "Crisis pretexts with no approval contact"
+          ],
+          "correct": 0,
+          "explanation": "Aggregate, actionable reporting improves defenses without humiliation."
+        }
+      ],
+      "content": "# Social Engineering Defense Testing\n\n## Why this lesson exists\n\nSocial engineering assessments measure process and training. They can harm people if they use pressure, humiliation, credential theft, or unapproved impersonation. Professional defense testing requires approval, audience limits, safe pretexts, reporting plans, and care for the humans affected.\n\nIn this lesson you will draft a **safe simulation card** for an approved awareness exercise — not a real phishing campaign against strangers.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-08\ncd ~/asv-learn-ethical-hacking/stage-08\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-08\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-08\"\n```\n\nYou will write `safe_simulation_card.txt`. This stage is mostly planning and defense design.\n\n## Start here: people first\n\nBefore inventing a pretext, answer:\n\n1. What behavior are we measuring?\n2. Who is in the approved audience?\n3. What will the scenario refuse to do?\n4. Who authorized the exercise?\n5. How do results become training, not blame?\n\nIf the plan cannot protect people, it is not ready — regardless of how clever the story sounds.\n\n## What social engineering tests can measure\n\n| Goal | Useful signal | Harmful distortion |\n| --- | --- | --- |\n| Reporting habit | Users report suspicious training mail | Tricking users then mocking them |\n| Verification habit | Users check a second channel before action | Creating fake emergencies |\n| Process gaps | Help desk follows reset procedures | Pressuring staff into policy violations |\n| Defense controls | Mail filters / banners catch the template | Collecting real passwords “to prove it” |\n\nDefense testing is successful when it improves systems and training. It fails when it primarily produces embarrassment.\n\n## Pretext boundaries that belong in writing\n\n| Boundary | Why it matters |\n| --- | --- |\n| No credential collection | Real passwords turn training into an incident |\n| No crisis impersonation | Fake medical/legal threats cause real harm |\n| No executive spoofing without approval | Authority pressure warps consent |\n| No targeting of excluded people | Interns, customers, or distressed staff may be off limits |\n| Aggregate reporting by default | Individual gotcha lists create fear, not learning |\n\nFeedstock material covers phishing platforms and physical techniques. In this ASV Learn path, you study those concepts through **safe planning and defense design**, not by running unauthorized campaigns.\n\n## Safe simulation card fields\n\n| Field | Purpose |\n| --- | --- |\n| Simulation goal | Behavior the exercise measures |\n| Audience | Who is included |\n| Pretext boundary | What the scenario will not claim or impersonate |\n| Approval contact | Who authorized the exercise |\n| Reporting plan | How results become training and remediation |\n\nExample:\n\n```text\nsimulation_goal=measure reporting of suspicious training emails\naudience=approved lab cohort\npretext_boundary=no crisis claims, no credential collection, no personal pressure\napproval_contact=security training owner\nreporting_plan=share aggregate results and recommended awareness updates\n```\n\n## Defense notes you should write even in a lab\n\nWhile drafting the simulation, also draft the defensive improvements you would recommend:\n\n- Clear reporting button / mailbox\n- Banner marking external mail\n- Help-desk verification script for reset requests\n- Tabletop for “urgent payment” and “urgent gift card” stories\n- After-action training that avoids shaming\n\nA simulation without a remediation path is entertainment.\n\n## Common beginner mistakes\n\n- Designing the cleverest lure before writing approval and audience\n- Planning to collect passwords “just for metrics”\n- Using fear, grief, or HR threats as pretexts\n- Publishing named fail lists\n- Practicing on friends/family without informed consent and a safe design\n- Confusing OSINT curiosity about real people with course practice\n\n## Your local task\n\n### Step 1 — Choose a measurable goal\n\nPick one behavior, such as “report suspicious training email within one business day.”\n\n### Step 2 — Write `safe_simulation_card.txt`\n\n```bash\nsimulation_goal=\"measure reporting of suspicious training emails\"\naudience=\"approved lab cohort\"\npretext_boundary=\"no crisis claims, no credential collection, no personal pressure\"\napproval_contact=\"security training owner\"\nreporting_plan=\"share aggregate results and recommended awareness updates\"\n\nprintf '%s\\n' \\\n  \"goal=$simulation_goal\" \\\n  \"audience=$audience\" \\\n  \"boundary=$pretext_boundary\" \\\n  \"approval=$approval_contact\" \\\n  \"reporting=$reporting_plan\"\n```\n\n### Step 3 — Write three defense recommendations\n\nCreate `defense_recommendations.txt` with three concrete controls or training updates that would make the measured behavior easier and safer.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Would I accept this exercise if I were in the audience?\n- Does the plan avoid credential collection and crisis theater?\n- Can results be reported without humiliating individuals?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Pretext | Cover story used in a social engineering exercise |\n| Audience | Approved population included in the test |\n| Awareness simulation | Authorized exercise that measures human/process defenses |\n| Aggregate reporting | Results summarized without unnecessary naming |\n| Verification habit | Checking a second trusted channel before acting |\n\n## Proof checklist\n\n- [ ] `safe_simulation_card.txt` includes goal, audience, boundary, approval, reporting\n- [ ] Pretext boundary forbids credential collection and crisis claims\n- [ ] `defense_recommendations.txt` has at least three improvements\n- [ ] No live phishing was sent to unauthorized people\n- [ ] You can explain how the exercise protects participants\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nAny live simulation requires explicit organizational approval outside this course page.\n\nDo not run phishing, vishing, or physical intrusion exercises against people or organizations that have not approved the engagement in writing. Course practice here is planning and defense design unless you have separate explicit authorization.\n\nWhen those items are true, continue to **Cryptography Weakness Review**.\n"
+    },
+    {
+      "slug": "stage-09",
+      "title": "Cryptography Weakness Review",
+      "hours": "3-4",
+      "sortOrder": 9,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is the safest beginner position on cryptography?",
+          "options": [
+            "Invent a custom cipher",
+            "Use established primitives and document the purpose",
+            "Log secrets for proof",
+            "Reuse salts everywhere"
+          ],
+          "correct": 1,
+          "explanation": "Purpose-first review with standard primitives beats homemade crypto."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is a safer review method for a password-hashing weakness?",
+          "options": [
+            "Dump the live user database to personal cloud storage",
+            "Inspect configuration/metadata without collecting user passwords",
+            "Replace hashing with Base64",
+            "Publish private keys in the finding title"
+          ],
+          "correct": 1,
+          "explanation": "Crypto review should evidence weak decisions without spreading secrets."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why is “HTTPS is present” incomplete as a crypto conclusion?",
+          "options": [
+            "HTTPS always means custom ciphers are required",
+            "HTTPS replaces password hashing",
+            "Protocol version, ciphers, certificates, and key handling still need review",
+            "HTTPS proves the app has no access-control issues"
+          ],
+          "correct": 2,
+          "explanation": "Transport security is necessary but not a full cryptography review."
+        }
+      ],
+      "content": "# Cryptography Weakness Review\n\n## Why this lesson exists\n\nCrypto review asks what asset is protected, what primitive is used, what weakness signal exists, how to test safely, and what remediation is practical. Beginners should not invent ciphers, log secrets for “proof,” or treat hash length as a personality quiz.\n\nIn this lesson you will write a **crypto review card** for one lab asset — for example a password verifier, TLS endpoint, or token design in your authorized training app.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-09\ncd ~/asv-learn-ethical-hacking/stage-09\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-09\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-09\"\n```\n\nYou will write `crypto_review_card.txt`. Prefer reviewing configuration and metadata over collecting secrets.\n\n## Start here: purpose before weakness claims\n\nName the asset and the job cryptography is supposed to do:\n\n1. What is being protected?\n2. Is the goal confidentiality, integrity, authenticity, or password verification?\n3. What primitive or protocol appears to be in use?\n4. What signal suggests a weak decision?\n5. How can you review it without exposing secrets?\n6. What standard migration path exists?\n\nIf you cannot name the purpose, you are not ready to call the design unsafe.\n\n## Primitive families without the folklore\n\n| Family | Typical job | Beginner review focus |\n| --- | --- | --- |\n| Symmetric encryption | Confidentiality with a shared key | Key handling, mode misuse, hard-coded keys |\n| Asymmetric encryption / signatures | Key exchange, identity, non-repudiation clues | Certificate validity, algorithm choices |\n| Hashing | Integrity fingerprints, content addressing | Collision-prone legacy hashes used as security controls |\n| Password hashing | Verifying secrets at rest | Fast hashes, missing salts, no work factor |\n| TLS / HTTPS | Protecting data in transit | Protocol version, cipher suite, cert trust |\n\nClassical cipher demos (Caesar, Vigenère) are historical teaching aids. They are not modern controls. Do not “upgrade” a lab by inventing a custom mix of XOR and hope.\n\n## Weakness signals worth documenting\n\n| Signal | Why it matters | Safer review method |\n| --- | --- | --- |\n| MD5/SHA-1 for password storage | Too fast / obsolete for password verification | Inspect config or code paths; do not harvest user passwords |\n| Missing unique salts | Same passwords produce same hashes | Review storage format/metadata |\n| TLS 1.0 / weak ciphers offered | Downgrade and compatibility risk | Use a lab TLS checker against your app |\n| Hard-coded keys in source | Anyone with the repo gets the secret | Static review of lab code you own |\n| Homegrown “encryption” | Usually confidentiality theater | Compare to established library guidance |\n\n## Crypto review card fields\n\n| Field | Purpose |\n| --- | --- |\n| Asset name | What the cryptography protects |\n| Crypto use | Hashing, encryption, signing, or verification |\n| Weakness signal | Clue that a decision may be unsafe |\n| Safe test method | How to review without exposing secrets |\n| Remediation note | Safer standard or migration path |\n\nExample:\n\n```text\nasset_name=student password verifier\ncrypto_use=password hashing for verification\nweakness_signal=unsalted fast hash observed in legacy records\nsafe_test_method=review configuration and sample metadata without collecting passwords\nremediation_note=migrate to slow password hashing with unique salts\n```\n\n## TLS review in the lab\n\nIf your authorized lab app speaks HTTPS, a useful beginner review is:\n\n```bash\n# Example only — use your lab hostname\nopenssl s_client -connect lab.local:443 -servername lab.local </dev/null 2>/dev/null | openssl x509 -noout -dates -subject -issuer\n```\n\nRecord protocol expectations, certificate subject, validity window, and whether the cert matches the lab hostname. Do not turn this into internet-wide scanning.\n\n## Common beginner mistakes\n\n- Inventing a custom cipher “for learning”\n- Logging secrets or private keys into notes shared to cloud sync\n- Calling Base64 encryption\n- Reusing one salt “to keep things simple”\n- Equating “HTTPS present” with “crypto is done”\n- Running password-cracking tools against real user databases outside a dedicated lab story\n\n## Your local task\n\n### Step 1 — Pick one lab asset\n\nChoose a password verifier, token, TLS endpoint, or file encryption setting you control.\n\n### Step 2 — Write `crypto_review_card.txt`\n\n```bash\nasset_name=\"student password verifier\"\ncrypto_use=\"password hashing for verification\"\nweakness_signal=\"unsalted fast hash observed in legacy records\"\nsafe_test_method=\"review configuration and sample metadata without collecting passwords\"\nremediation_note=\"migrate to slow password hashing with unique salts\"\n\nprintf '%s\\n' \\\n  \"asset=$asset_name\" \\\n  \"use=$crypto_use\" \\\n  \"signal=$weakness_signal\" \\\n  \"test=$safe_test_method\" \\\n  \"remediation=$remediation_note\"\n```\n\n### Step 3 — Optional safe lab check\n\nIf you have a local HTTPS training app, capture certificate metadata only. If not, document the review method you would use and stop at planning.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Did I name purpose before weakness?\n- Did my method avoid collecting secrets?\n- Is remediation a recognized standard, not a custom invention?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Primitive | Established cryptographic building block |\n| Password hashing | Slow, salted verification of secrets at rest |\n| TLS | Protocol family protecting data in transit |\n| Weakness signal | Observable clue that a crypto decision may be unsafe |\n| Migration path | Practical move toward a stronger standard |\n\n## Proof checklist\n\n- [ ] `crypto_review_card.txt` includes asset, use, signal, safe method, remediation\n- [ ] Safe method avoids collecting passwords or private keys\n- [ ] Remediation names an established approach\n- [ ] No custom cipher was proposed as a fix\n- [ ] Any live check stayed on the lab asset\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nReview cryptography on systems you own or are authorized to assess. Do not attempt to break cryptography on third-party services as “practice.”\n\nWhen those items are true, continue to **Cloud Security Assessment**.\n"
+    },
+    {
+      "slug": "stage-10",
+      "title": "Cloud Security Assessment",
+      "hours": "3-4",
+      "sortOrder": 10,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes a cloud assessment safe and useful?",
+          "options": [
+            "Scoped configuration evidence and ownership",
+            "Testing every account found",
+            "Ignoring identity boundaries",
+            "Reporting without remediation"
+          ],
+          "correct": 0,
+          "explanation": "Cloud work is mostly scoped config evidence tied to an owner."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "In the shared responsibility model, who usually owns IAM role choices?",
+          "options": [
+            "Only the physical data-center vendor",
+            "Whoever finds a public bucket on the internet",
+            "The customer / lab account owner",
+            "No one, because cloud is automatically secure"
+          ],
+          "correct": 2,
+          "explanation": "Providers supply IAM features; customers choose who gets which permissions."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should you do if unexpected foreign data appears in a cloud check?",
+          "options": [
+            "Mirror the data for a more complete lab report",
+            "Stop, avoid downloading it, and fix ownership assumptions",
+            "Open more accounts to compare",
+            "Post the objects publicly for peer review"
+          ],
+          "correct": 1,
+          "explanation": "Unexpected data is a boundary problem, not a collection opportunity."
+        }
+      ],
+      "content": "# Cloud Security Assessment\n\n## Why this lesson exists\n\nCloud testing is mostly configuration and evidence review. The approved account, identity boundary, storage checks, logging signals, and remediation owner matter more than flashy exploit demos. Many real cloud incidents start as misconfiguration, not movie hacking.\n\nIn this lesson you will write a **cloud assessment row** for an authorized training project/account — or a planning row if you are using local mocks and documentation only.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-10\ncd ~/asv-learn-ethical-hacking/stage-10\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-10\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-10\"\n```\n\nYou will write `cloud_assessment_row.txt`. Keep provider credentials out of git and out of lesson screenshots.\n\n## Start here: cloud scope before configuration review\n\nWrite the boundary first:\n\n1. Which account, subscription, or project is approved?\n2. Which identities/roles are in review?\n3. Which storage or network controls are being checked?\n4. Which logs prove monitoring exists?\n5. Who owns the fix?\n6. What is explicitly out of scope (other accounts, customer tenancies, production)?\n\nCloud power makes cross-account mistakes expensive. Scope is the safety rail.\n\n## Shared responsibility without slogans\n\n| Layer | Provider usually owns | Customer / lab owner usually owns |\n| --- | --- | --- |\n| Physical data centers | Facilities and hardware controls | Almost nothing here |\n| Managed service runtime | Platform patching for the service | Configuration of the service |\n| Identity and access | IAM features | Who gets which role |\n| Data | Encryption features | Classification, key choices, exposure settings |\n| Logging | Log products | Enabling, retention, review, response |\n\nA managed database being “in the cloud” does not mean the provider chose your public exposure settings for you.\n\n## High-value misconfiguration themes\n\n| Theme | Lab review question | Evidence to capture |\n| --- | --- | --- |\n| Storage exposure | Is the bucket/container private by default policy? | Policy JSON / console evidence, not downloaded private data |\n| IAM excess | Does a lab role allow `*` on sensitive actions? | Role policy summary |\n| Network exposure | Are admin ports open to the world? | Security group / firewall rules |\n| Secrets in code | Are keys committed to a lab repo? | File path and redacted snippet |\n| Logging gaps | Are admin actions audited? | Log config enabled/disabled |\n\nIf you find a publicly listable training bucket in your own authorized cloud lab account, document exposure settings. Do not download other people’s data if you stumble into something unexpected — stop and fix ownership assumptions.\n\n## Cloud assessment row fields\n\n| Field | Purpose |\n| --- | --- |\n| Cloud account scope | Approved account, subscription, or project |\n| Identity boundary | Roles and permissions in review |\n| Storage check | Exposure or encryption evidence inspected |\n| Logging signal | Logs that prove monitoring exists |\n| Remediation owner | Who owns the fix |\n\nExample:\n\n```text\ncloud_account_scope=asv-training-project\nidentity_boundary=review lab roles only\nstorage_check=confirm private buckets and encryption settings\nlogging_signal=cloud audit log enabled for admin actions\nremediation_owner=cloud platform owner\n```\n\n## Containers and Kubernetes as cloud-adjacent scope\n\nIf your lab includes containers:\n\n- Review whether the container runs as root unnecessarily\n- Check whether secrets are baked into images\n- Confirm network policies are intentional\n- Keep cluster credentials out of notes that sync publicly\n\nTreat cluster names like hostnames: only touch labeled lab clusters.\n\n## Common beginner mistakes\n\n- Scanning the public internet for open buckets as homework\n- Using personal cloud root credentials for experiments\n- Screenshotting full access keys into chat\n- Calling “cloud” a finding without naming the control\n- Testing a workplace cloud account without written permission\n- Ignoring logging because storage findings feel more exciting\n\n## Your local task\n\n### Step 1 — Declare practice mode\n\n```text\npractice_mode=authorized-cloud-lab-account\n```\n\nor\n\n```text\npractice_mode=planning-only\n```\n\n### Step 2 — Write `cloud_assessment_row.txt`\n\n```text\ncloud_account_scope=asv-training-project\nidentity_boundary=review lab roles only\nstorage_check=confirm private buckets and encryption settings\nlogging_signal=cloud audit log enabled for admin actions\nremediation_owner=cloud platform owner\nout_of_scope=any cloud account not named in this row\n```\n\nOptional shell print:\n\n```bash\ncloud_account_scope=\"asv-training-project\"\nidentity_boundary=\"review lab roles only\"\nstorage_check=\"confirm private buckets and encryption settings\"\nlogging_signal=\"cloud audit log enabled for admin actions\"\nremediation_owner=\"cloud platform owner\"\n\nprintf '%s\\n' \\\n  \"scope=$cloud_account_scope\" \\\n  \"identity=$identity_boundary\" \\\n  \"storage=$storage_check\" \\\n  \"logging=$logging_signal\" \\\n  \"owner=$remediation_owner\"\n```\n\n### Step 3 — Collect one evidence note\n\nIf you have an authorized cloud lab account, export or copy one non-secret configuration evidence item (for example: “bucket public access block = on”). If planning-only, write the exact console/CLI check you would run.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Is the account scope unmistakable?\n- Did I avoid collecting foreign data?\n- Does an owner exist for the remediation?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Shared responsibility | Split of security duties between provider and customer |\n| IAM | Identity and access management |\n| Misconfiguration | Unsafe settings that create exposure without a novel exploit |\n| Audit log | Record of administrative or data-plane actions |\n| Sandbox account | Isolated cloud project approved for learning |\n\n## Proof checklist\n\n- [ ] Practice mode is explicit\n- [ ] `cloud_assessment_row.txt` includes scope, identity, storage, logging, owner\n- [ ] Evidence note avoids secrets and foreign data\n- [ ] Out-of-scope accounts are named\n- [ ] No public-bucket hunting on the open internet\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not probe random public buckets “to learn.”\n\nAssess only cloud accounts and projects you own or are explicitly authorized to test. Public exposure on the internet is not an invitation.\n\nWhen those items are true, continue to **Mobile Security Review**.\n"
+    },
+    {
+      "slug": "stage-11",
+      "title": "Mobile Security Review",
+      "hours": "3-4",
+      "sortOrder": 11,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What data should a beginner mobile security lab use?",
+          "options": [
+            "Personal production data",
+            "A stranger’s account",
+            "Synthetic approved test data",
+            "Untracked secrets"
+          ],
+          "correct": 2,
+          "explanation": "Synthetic data keeps mobile review from becoming a privacy incident."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a mobile review card name before inspecting app behavior?",
+          "options": [
+            "Package, test device, data rule, permission question, and finding note",
+            "Only the word Frida",
+            "A production SSO account",
+            "Every app installed on a daily-driver phone"
+          ],
+          "correct": 0,
+          "explanation": "Controlled review starts with device, data, and one clear question."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why prefer a lab emulator or dedicated test device?",
+          "options": [
+            "Emulators remove the need for authorization",
+            "Daily-driver phones produce better secret dumps",
+            "It reduces the chance of touching real personal identity data",
+            "Emulators make all permissions malicious by default"
+          ],
+          "correct": 2,
+          "explanation": "Isolated test devices keep practice away from real personal data."
+        }
+      ],
+      "content": "# Mobile Security Review\n\n## Why this lesson exists\n\nMobile security review focuses on app behavior, permissions, storage, network use, and data handling inside an approved test setup. A test device or emulator, synthetic data, and one clear permission question keep the review controlled.\n\nIn this lesson you will write a **mobile review card** for an approved lab app package — or a planning card if you do not have an emulator ready yet.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-11\ncd ~/asv-learn-ethical-hacking/stage-11\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-11\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-11\"\n```\n\nYou will write `mobile_review_card.txt`. Keep personal phone backups and real contacts out of the exercise.\n\n## Start here: test device before app claims\n\nBefore inspecting an app, write:\n\n1. App package / build label\n2. Test device or emulator\n3. Data handling rule\n4. Permission or storage question under review\n5. What evidence would support a reportable issue\n6. What is out of scope (production accounts, real SMS, friend devices)\n\nMobile platforms make it easy to touch real identity data. Your card must forbid that explicitly.\n\n## Platform ideas without tool worship\n\n| Area | Review question | Evidence examples |\n| --- | --- | --- |\n| Permissions | Does the feature need this permission now? | Permission list vs feature map |\n| Local storage | Are tokens or PII stored in predictable world-readable places? | Storage path notes on a lab build |\n| Transport | Does the lab build pin or at least require TLS? | Proxy notes against the lab app |\n| Auth session | What happens on logout / token expiry? | Observed session behavior |\n| WebViews | Is untrusted content executed with too much power? | Navigation and JS bridge notes |\n| IoT-adjacent apps | Does the companion app expose device admin carelessly? | Pairing and local network notes |\n\nDeep tooling (Frida, Objection, firmware extraction) appears in feedstock. In this course stage, mastery means **one controlled review question with synthetic data**, not a full mobile exploit pipeline.\n\n## Synthetic data rules\n\n| Allowed | Not allowed |\n| --- | --- |\n| Fake names and lab emails | Real customer or family data |\n| Throwaway lab accounts | Production SSO accounts |\n| Sample tokens generated for the lab | Stolen session cookies from real apps |\n| Screenshots of lab-only screens | Photos of other people’s private content |\n\nIf the only way to test a feature is to use real personal data, redesign the lab or stop.\n\n## Mobile review card fields\n\n| Field | Purpose |\n| --- | --- |\n| App package | Approved app build or package name |\n| Test device | Device or emulator used for the lab |\n| Data handling rule | What test data can be used |\n| Permission review | Which permissions are being checked |\n| Finding note | What evidence would support a reportable issue |\n\nExample:\n\n```text\napp_package=lab.training.mobile\ntest_device=approved lab emulator\ndata_handling_rule=use synthetic accounts and no personal data\npermission_review=compare requested permissions to the app feature need\nfinding_note=document permission, evidence, impact, and remediation\n```\n\n## A simple review workflow\n\n1. Install only the lab build on the lab emulator/device.\n2. List permissions and map each to a feature.\n3. Exercise one feature with synthetic data.\n4. Note storage or network behaviors that seem excessive.\n5. Write one finding note or an explicit “no issue evidenced” note.\n6. Uninstall or reset the emulator snapshot when done.\n\n“No issue evidenced” is a valid professional outcome.\n\n## Common beginner mistakes\n\n- Sideloading random APKs from the internet onto a daily-driver phone\n- Using a personal Google/Apple account full of real data\n- Calling every permission “malware”\n- Proxying all phone traffic without noticing non-lab apps\n- Publishing lab package names as if they were vendor 0-days\n- Skipping uninstall/reset so lab credentials linger\n\n## Your local task\n\n### Step 1 — Declare practice mode\n\n```text\npractice_mode=lab-emulator\n```\n\nor\n\n```text\npractice_mode=planning-only\n```\n\n### Step 2 — Write `mobile_review_card.txt`\n\n```bash\napp_package=\"lab.training.mobile\"\ntest_device=\"approved lab emulator\"\ndata_handling_rule=\"use synthetic accounts and no personal data\"\npermission_review=\"compare requested permissions to the app feature need\"\nfinding_note=\"document permission, evidence, impact, and remediation\"\n\nprintf '%s\\n' \\\n  \"app=$app_package\" \\\n  \"device=$test_device\" \\\n  \"data_rule=$data_handling_rule\" \\\n  \"permissions=$permission_review\" \\\n  \"finding=$finding_note\"\n```\n\n### Step 3 — Permission map\n\nCreate `permission_map.txt` with at least three permissions (real from your lab app, or realistic examples if planning-only) and whether each is justified by a feature.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Is all data synthetic?\n- Is the device a lab device?\n- Does the finding note require evidence, not vibes?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Package name | Application identifier on the platform |\n| Emulator | Virtual device used for safer lab testing |\n| Permission | OS-mediated access to sensitive capabilities |\n| Synthetic data | Fake data created for testing |\n| Companion app | Mobile app that controls or monitors a device |\n\n## Proof checklist\n\n- [ ] Practice mode is explicit\n- [ ] `mobile_review_card.txt` complete\n- [ ] `permission_map.txt` has at least three rows\n- [ ] Data handling rule forbids personal/production data\n- [ ] No review of unauthorized third-party production apps as “practice targets”\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nReview only app builds and devices you are authorized to test. Do not reverse or intercept other people’s production apps or accounts for this course.\n\nWhen those items are true, continue to **Reporting & Remediation**.\n"
+    },
+    {
+      "slug": "stage-12",
+      "title": "Reporting & Remediation",
+      "hours": "2-3",
+      "sortOrder": 12,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes a finding actionable?",
+          "options": [
+            "Evidence, impact, remediation, and verification",
+            "A dramatic title",
+            "Tool output only",
+            "No owner"
+          ],
+          "correct": 0,
+          "explanation": "Defenders need proof, meaning, a fix, and a way to confirm the fix."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the job of an executive summary?",
+          "options": [
+            "List every packet captured",
+            "Explain scope, overall risk, key finding, top fix, and verification in plain language",
+            "Replace technical evidence entirely",
+            "Hide uncertainty behind severity labels"
+          ],
+          "correct": 1,
+          "explanation": "Executives need a clear risk story; engineers still need the detail underneath."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which remediation quality check matters most?",
+          "options": [
+            "The fix is specific, owned, and paired with a verification step",
+            "The advice says only “be more secure”",
+            "The finding has the longest tool log",
+            "Severity is always labeled critical"
+          ],
+          "correct": 0,
+          "explanation": "Actionable remediation is concrete, owned, and retestable."
+        }
+      ],
+      "content": "# Reporting & Remediation\n\n## Why this lesson exists\n\nA professional report is useful because it gives evidence, impact, remediation, verification, and ownership without drama. Fancy formatting cannot rescue a finding that a defender cannot reproduce or fix.\n\nIn this lesson you will write a **finding row** and a short executive-style summary paragraph from your earlier lab notes. The audience is a defender or lab owner who needs to act.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-12\ncd ~/asv-learn-ethical-hacking/stage-12\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-12\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-12\"\n```\n\nPull evidence from earlier stage folders. If a prior artifact is missing, mark the gap instead of inventing proof.\n\n## Start here: defender action before report polish\n\nA finding is ready to write when you can answer:\n\n1. What is the issue in one plain title?\n2. What evidence proves it?\n3. Why does it matter (impact)?\n4. What should change (remediation)?\n5. How will someone verify the fix?\n6. Who owns the fix?\n\nIf evidence is weak, say so. Uncertainty belongs in the report, not in marketing language.\n\n## Report structure that scales\n\nEven a one-finding lab report benefits from structure:\n\n| Section | Job |\n| --- | --- |\n| Scope summary | What was authorized and tested |\n| Executive summary | Business-readable risk story |\n| Findings | Technical detail with evidence |\n| Remediation roadmap | Immediate / short-term / longer-term |\n| Appendix | Raw evidence index |\n\nExecutives need clarity and priority. Engineers need reproduction steps. Your finding row must serve both without becoming either a novel or a tool dump.\n\n## Finding row fields\n\n| Field | Purpose |\n| --- | --- |\n| Finding title | Concise issue name |\n| Evidence summary | Proof a reviewer can inspect |\n| Impact summary | Why the issue matters |\n| Remediation step | What should be changed |\n| Verification step | How the fix will be checked |\n\nExample:\n\n```text\nfinding_title=Open admin panel on lab host\nevidence_summary=authenticated lab scan showed admin route reachable without admin role\nimpact_summary=could expose privileged functions if access controls fail\nremediation_step=restrict route and require admin authorization\nverification_step=retest route access after control change\n```\n\n## Severity without theater\n\n| Severity | Use when | Avoid when |\n| --- | --- | --- |\n| Critical | Direct, reliable, high-impact abuse path evidenced | You are excited |\n| High | Serious impact with credible path | Impact is speculative |\n| Medium | Real issue with constraints | You need filler findings |\n| Low / Informational | Hardening debt, missing headers, minor hygiene | You want the report to look bigger |\n\nCVSS can help communicate, but a wrong vector string is worse than a plain-language severity with honest uncertainty.\n\n## Remediation quality bar\n\nGood recommendations are:\n\n- Specific to the evidenced issue\n- Actionable by a named role\n- Ordered by urgency when multiple fixes exist\n- Paired with verification steps\n- Free of vague advice like “be more secure”\n\nExample roadmap language:\n\n```text\nImmediate (0-7 days): restrict admin route; rotate any exposed lab credentials\nShort-term (7-30 days): add regression test for access control\nLonger-term (30-90 days): centralize authz checks and monitoring alerts\n```\n\n## Common beginner mistakes\n\n- Leading with tool names instead of issues\n- Dramatic titles with weak evidence\n- Remediation that says “patch” with no owner or verification\n- Mixing scope problems into vulnerability severity\n- Hiding uncertainty\n- Delivering raw scanner exports as the report\n\n## Your local task\n\n### Step 1 — Choose one evidenced issue\n\nPrefer something from your web, scan, crypto, cloud, or validation notes. If needed, write a clearly labeled sample finding for the lab story.\n\n### Step 2 — Write `finding_row.txt`\n\nCreate the file with these fields (edit for your lab evidence):\n\n```text\nfinding_title=Open admin panel on lab host\nevidence_summary=authenticated lab scan showed admin route reachable without admin role\nimpact_summary=could expose privileged functions if access controls fail\nremediation_step=restrict route and require admin authorization\nverification_step=retest route access after control change\nowner=lab owner / course reviewer\nseverity=medium\n```\n\nOptional shell print of the same fields:\n\n```bash\nfinding_title=\"Open admin panel on lab host\"\nevidence_summary=\"authenticated lab scan showed admin route reachable\"\nimpact_summary=\"could expose privileged functions if access controls fail\"\nremediation_step=\"restrict route and require admin authorization\"\nverification_step=\"retest route access after control change\"\n\nprintf '%s\\n' \\\n  \"title=$finding_title\" \\\n  \"evidence=$evidence_summary\" \\\n  \"impact=$impact_summary\" \\\n  \"remediation=$remediation_step\" \\\n  \"verification=$verification_step\"\n```\n\n### Step 3 — Write a five-sentence executive summary\n\nCreate `executive_summary.txt` covering:\n\n1. What was authorized and tested\n2. Overall risk in plain language\n3. The key finding\n4. The top remediation\n5. How verification will confirm the fix\n\n### Step 4 — Self-review\n\nAsk:\n\n- Can an engineer reproduce this tomorrow?\n- Can a non-engineer understand why it matters?\n- Is ownership explicit (name or role)?\n- Does severity match evidence strength?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Finding | Evidenced issue with impact and fix path |\n| Executive summary | Short plain-language risk narrative |\n| Remediation | Concrete change that reduces risk |\n| Verification | Retest method that proves the fix worked |\n| Evidence index | Pointers to supporting artifacts |\n\n## Proof checklist\n\n- [ ] `finding_row.txt` includes title, evidence, impact, remediation, verification\n- [ ] `executive_summary.txt` is five sentences or fewer and readable\n- [ ] Severity language matches evidence strength\n- [ ] Owner or owning role is named somewhere in the notes\n- [ ] No invented proof for work you did not do\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nReport only on systems you were authorized to test. Do not publish lab findings as if they were disclosures about unrelated real organizations.\n\nWhen those items are true, continue to **Metasploit Framework in the Lab**.\n"
+    },
+    {
+      "slug": "stage-13",
+      "title": "Metasploit Framework in the Lab",
+      "hours": "3-4",
+      "sortOrder": 13,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Who owns the risk when using an exploitation framework in a lab?",
+          "options": [
+            "The tool alone",
+            "The tester following scope and safety rules",
+            "The target",
+            "Nobody if it is automated"
+          ],
+          "correct": 1,
+          "explanation": "Frameworks amplify judgment; they do not replace authorization or stop rules."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should come before launching a module?",
+          "options": [
+            "A bridged adapter facing the public internet",
+            "Leaving handlers running overnight by default",
+            "A written framework-use plan with target, expected signal, safety option, and stop condition",
+            "Skipping inventory because modules are ranked"
+          ],
+          "correct": 2,
+          "explanation": "Plans keep automation tied to evidenced, authorized validation goals."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why can choosing not to run an exploit module still be professional work?",
+          "options": [
+            "Because reports should never include technical detail",
+            "If evidence or safety conditions do not justify the impact, restraint is correct",
+            "Because frameworks are never useful",
+            "Because stop conditions are optional"
+          ],
+          "correct": 1,
+          "explanation": "Judgment includes deciding when check-mode evidence is enough."
+        }
+      ],
+      "content": "# Metasploit Framework in the Lab\n\n## Why this lesson exists\n\nA framework can help validate a lab finding, but the tester still owns scope, module choice, safety options, stop condition, and report evidence. Metasploit does not make ethical decisions for you. It amplifies whatever judgment you bring to the keyboard.\n\nIn this lesson you will draft a **framework-use plan** that starts with check/safe verification language, limits impact, and ends with report-ready evidence for an authorized lab target.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-13\ncd ~/asv-learn-ethical-hacking/stage-13\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-13\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-13\"\n```\n\nPrefer a snapshotted lab VM. Framework mistakes are easier to undo when you can roll back.\n\n## Start here: tester judgment before framework use\n\nBefore launching `msfconsole` or any equivalent, write:\n\n1. Module or technique category you intend to use\n2. Authorized lab target\n3. Expected signal if the module is relevant\n4. Safety option / check-first behavior\n5. Stop condition\n6. Report note that turns output into a finding\n\nIf you cannot fill those fields, you are browsing modules, not validating risk.\n\n## What frameworks are good for\n\n| Good use | Poor use |\n| --- | --- |\n| Confirming a lab service matches a known vulnerable build | Spraying modules at every open port |\n| Producing repeatable evidence for a finding | Skipping inventory and hoping something sticks |\n| Teaching exploit stages in a disposable VM | Practicing against random internet hosts |\n| Checking whether a patch removed a training issue | Measuring skill by number of shells |\n\nPassword-attack and privilege-escalation concepts from feedstock belong in the same discipline: name the target, name the proof goal, and stop when the evidence is enough.\n\n## Framework-use plan fields\n\n| Field | Purpose |\n| --- | --- |\n| Module name | Lab validation module or technique category |\n| Lab target | Approved target |\n| Expected signal | Evidence the module should produce |\n| Safety option | Setting or behavior that limits impact |\n| Stop condition | When framework use ends |\n| Report note | How results become a finding |\n\nExample:\n\n```text\nmodule_name=lab validation module / version check\nlab_target=lab.local\nexpected_signal=version check confirms the finding signal\nsafety_option=check mode before any proof action\nstop_condition=stop after version evidence is recorded\nreport_note=record evidence, impact, remediation, and verification\n```\n\n## A disciplined lab sequence\n\n1. Re-read Stage 01 scope and Stage 03 inventory.\n2. Snapshot the lab VM if possible.\n3. Choose one module path tied to one inventory row.\n4. Prefer informational/check behavior before exploit behavior.\n5. Capture only the output needed for the report.\n6. Exit sessions; do not leave handlers running overnight without a written reason.\n7. Clean temporary files and update the evidence index.\n\nExample note-oriented commands (authorized lab only; adjust to your install):\n\n```bash\n# Conceptual workflow notes — run only in your authorized lab VM\n# 1) Confirm target still matches inventory\n# 2) Start framework only after framework_use_plan.txt is written\n# 3) Prefer check/safe options before exploit actions\n# 4) Capture evidence, then exit sessions and stop handlers\n```\n\nYou do not need a shell for this stage to be complete. A well-justified decision **not** to run an exploit module is professional work.\n\n## System-hacking concepts without trophy hunting\n\nIf your lab path includes password hashes or privilege markers:\n\n- Identify hash types before cracking attempts\n- Use lab-only wordlists and lab-only hashes\n- Record whether privilege escalation was necessary for the proof goal\n- Do not reuse cracked lab passwords on any non-lab system\n\nThe framework or cracker is optional. The judgment notes are required.\n\n## Common beginner mistakes\n\n- Opening Metasploit before writing the plan\n- Assuming module rank equals authorization\n- Leaving multi-handler listeners exposed on bridged adapters\n- Treating a failed exploit as proof the host is safe\n- Keeping sessions open as souvenirs\n- Copying module output into a report without impact or remediation\n\n## Your local task\n\n### Step 1 — Write `framework_use_plan.txt`\n\n```bash\nmodule_name=\"lab validation module\"\nlab_target=\"lab.local\"\nexpected_signal=\"version check confirms the finding signal\"\nsafety_option=\"check mode before any proof action\"\nstop_condition=\"stop after version evidence is recorded\"\nreport_note=\"record evidence, impact, remediation, and verification\"\n\nprintf '%s\\n' \\\n  \"module=$module_name\" \\\n  \"target=$lab_target\" \\\n  \"signal=$expected_signal\" \\\n  \"safety=$safety_option\" \\\n  \"stop=$stop_condition\" \\\n  \"report=$report_note\"\n```\n\n### Step 2 — Optional controlled run\n\nOnly if your lab target and snapshot discipline are ready, perform the check-first action from the plan. Save evidence as `framework_evidence.txt`. If you skip the run, write why the dry-run plan is still sufficient for this lesson.\n\n### Step 3 — Session hygiene\n\nConfirm no leftover sessions/handlers remain. Note cleanup in the plan file.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Did the framework serve the finding, or did the finding serve the framework?\n- Did I stop at the stop condition?\n- Can a defender understand the result without Metasploit fluency?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Module | Packaged technique inside a framework |\n| Check mode | Safer verification behavior before exploitation |\n| Handler | Listener that receives a callback session |\n| Session hygiene | Closing access paths when evidence is complete |\n| Framework-use plan | Written judgment that precedes automation |\n\n## Proof checklist\n\n- [ ] `framework_use_plan.txt` complete before any module run\n- [ ] Target matches authorized lab label\n- [ ] Safety option and stop condition are explicit\n- [ ] Evidence or explicit dry-run rationale exists\n- [ ] No leftover sessions/handlers without a written reason\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse exploitation frameworks only against systems you own or are explicitly authorized to test in an isolated lab. Public internet targets are not coursework.\n\nWhen those items are true, continue to **Incident Response Handoff**.\n"
+    },
+    {
+      "slug": "stage-14",
+      "title": "Incident Response Handoff",
+      "hours": "3-4",
+      "sortOrder": 14,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should an urgent security handoff include?",
+          "options": [
+            "Trigger, contact, preserved evidence, and communication path",
+            "Only a tool name",
+            "A public post",
+            "No timestamps"
+          ],
+          "correct": 0,
+          "explanation": "Responders need a clear trigger, owner path, and preservable facts."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a tester do first when a test becomes an incident signal?",
+          "options": [
+            "Pivot harder to confirm impact",
+            "Stop expanding access and preserve what already exists",
+            "Delete messy logs",
+            "Announce theories on a public channel"
+          ],
+          "correct": 1,
+          "explanation": "Preservation and containment communication beat continued exploitation."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why include a lesson-learned field on the handoff card?",
+          "options": [
+            "So the report can skip remediation",
+            "So ownership becomes optional",
+            "So the next engagement changes scope or monitoring based on what went wrong",
+            "So timestamps are unnecessary"
+          ],
+          "correct": 2,
+          "explanation": "Lessons convert chaos into process improvement."
+        }
+      ],
+      "content": "# Incident Response Handoff\n\n## Why this lesson exists\n\nSecurity testing can reveal urgent risk. A good handoff names the trigger, contact, evidence to preserve, communication path, and lesson learned. Testers who keep quiet, keep exploring, or dump raw tool noise onto defenders create a second problem.\n\nIn this lesson you will write an **incident handoff card** that would help a defender preserve evidence and act through an approved path — even if your “incident” is a lab simulation.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-14\ncd ~/asv-learn-ethical-hacking/stage-14\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-14\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-14\"\n```\n\nYou will write `incident_handoff_card.txt` and a short timeline note.\n\n## Start here: defender handoff before urgent action\n\nIf testing reveals urgent risk, change modes:\n\n1. Stop expanding access\n2. Preserve what already exists\n3. Contact the approved owner/path\n4. Communicate clearly without speculation theater\n5. Capture the process lesson so the next engagement is safer\n\nYour job is not to become the incident commander by accident. Your job is to make the first hour less chaotic.\n\n## When a test becomes an incident signal\n\n| Trigger example in a lab story | Why it matters |\n| --- | --- |\n| Unexpected production-like personal data appears | Privacy and legal exposure |\n| Evidence of active misuse unrelated to your test | Possible real attacker overlap |\n| Critical exposed admin control on a shared lab that others use | Immediate containment need |\n| Credentials for non-lab systems discovered | Scope break and credential risk |\n| Persistence you did not intend remains after cleanup failure | Unmanaged access path |\n\nIn a solo home lab, you are often both tester and owner. Still practice the handoff format so the habit exists when the roles split.\n\nWrite the first message as if the recipient is busy and skeptical. Lead with what happened, when it was noticed, what you stopped doing, and what artifact path holds the evidence. Save theories for a second paragraph, or omit them until facts catch up.\n\n## Handoff card fields\n\n| Field | Purpose |\n| --- | --- |\n| Incident trigger | What would cause immediate escalation |\n| Containment contact | Who can act |\n| Evidence to preserve | Logs or artifacts that should be saved |\n| Communication path | How the handoff is made |\n| Lesson note | What process should improve |\n\nExample:\n\n```text\nincident_trigger=evidence of active misuse during lab review\ncontainment_contact=security operations lead\nevidence_to_preserve=timestamps, source IPs, affected account, tool output\ncommunication_path=call on-duty lead and attach evidence package\nlesson_note=update scope and monitoring before retest\n```\n\n## Preserve first, explain second\n\nUseful preservation targets:\n\n- Timestamps in a consistent timezone\n- Host and account identifiers\n- Exact commands or requests already run\n- Relevant log slices (not the entire disk by default)\n- Hash/list of evidence files in your index\n\nAvoid:\n\n- Overwriting logs by aggressive reruns\n- Killing the only session before capturing context when context is the evidence\n- Publishing the event to public channels\n- Speculating about nation-state drama in the first message\n\n## Malware and attack-vector awareness for handoffs\n\nFeedstock malware lessons matter here as process, not as a invitation to detonate samples on your daily driver:\n\n- If suspicious files appear, isolate the lab VM\n- Record hashes and observed behaviors at a high level\n- Do not casually move suspect binaries to shared folders\n- Prefer snapshots and contained analysis environments\n\nYour handoff should say what was observed and where the artifact lives, not narrate every PE section in the first message.\n\n## Common beginner mistakes\n\n- Continuing to exploit because the finding got interesting\n- Calling everyone and no one\n- Sending screenshots with no timestamps\n- Forgetting the lesson-learned field\n- Treating handoff as optional paperwork\n- Deleting evidence because it looked messy\n\n## Your local task\n\n### Step 1 — Invent a realistic lab trigger\n\nBase it on something you could actually encounter in your lab path (scope break, exposed admin route, unexpected data, cleanup failure).\n\n### Step 2 — Write `incident_handoff_card.txt`\n\n```bash\nincident_trigger=\"evidence of active misuse during lab review\"\ncontainment_contact=\"security operations lead\"\nevidence_to_preserve=\"timestamps, source IPs, affected account, tool output\"\ncommunication_path=\"call on-duty lead and attach evidence package\"\nlesson_note=\"update scope and monitoring before retest\"\n\nprintf '%s\\n' \\\n  \"trigger=$incident_trigger\" \\\n  \"contact=$containment_contact\" \\\n  \"preserve=$evidence_to_preserve\" \\\n  \"communication=$communication_path\" \\\n  \"lesson=$lesson_note\"\n```\n\n### Step 3 — Write a six-line timeline\n\nCreate `handoff_timeline.txt` with chronological bullets: detection time, stop action, preservation action, contact attempt, package sent, retest rule.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Could an on-call person act from this card alone?\n- Did I preserve before I narrated?\n- Is the lesson note specific enough to change the next test?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Trigger | Condition that forces escalation |\n| Containment contact | Person/role empowered to act |\n| Preservation | Protecting evidence from loss or contamination |\n| Handoff package | Minimum set of facts and artifacts for responders |\n| Lesson learned | Process change that reduces repeat chaos |\n\n## Proof checklist\n\n- [ ] `incident_handoff_card.txt` complete\n- [ ] `handoff_timeline.txt` has at least six lines\n- [ ] Preservation list is concrete\n- [ ] Communication path is named\n- [ ] Lesson note would change future scope or monitoring\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nPractice handoffs with lab scenarios and systems you control. Do not create real-world panic events or touch unrelated organizations to make the exercise feel dramatic.\n\nWhen those items are true, continue to **Defense & Hardening**.\n"
+    },
+    {
+      "slug": "stage-15",
+      "title": "Defense & Hardening",
+      "hours": "3-4",
+      "sortOrder": 15,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What proves hardening reduced risk?",
+          "options": [
+            "A screenshot alone",
+            "A louder severity label",
+            "A validation step tied to the control",
+            "Deleting the report"
+          ],
+          "correct": 2,
+          "explanation": "Closure requires retesting the control, not hoping the change worked."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What belongs in a hardening row besides the control name?",
+          "options": [
+            "Asset, validation step, owner, and residual risk decision",
+            "Only the word patched",
+            "A claim that residual risk is always none",
+            "An unowned CIS dump with no tie to the finding"
+          ],
+          "correct": 0,
+          "explanation": "Hardening is complete when ownership and residual risk are explicit."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why pair detection with prevention after a fix?",
+          "options": [
+            "Detection replaces the need to fix anything",
+            "Monitoring helps catch control failure or repeat probing",
+            "Logs make authorization unnecessary",
+            "Alerts remove residual risk automatically"
+          ],
+          "correct": 1,
+          "explanation": "Reduce first, then monitor; detection is a partner to controls."
+        }
+      ],
+      "content": "# Defense & Hardening\n\n## Why this lesson exists\n\nEthical hacking is incomplete if it stops at finding problems. Hardening turns findings into controls and verifies that risk is reduced. A report without validation of fixes trains people to collect trophies instead of reducing exposure.\n\nIn this lesson you will write a **hardening row** that connects one weakness to a control, validation step, owner, and residual risk decision.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-15\ncd ~/asv-learn-ethical-hacking/stage-15\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-15\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-15\"\n```\n\nReuse a finding from Stage 12 when possible.\n\n## Start here: control evidence before closure\n\nThe work is not done when a weakness is found. Closure needs:\n\n1. Asset being improved\n2. Control that should reduce the issue\n3. Validation step that proves the control works\n4. Owner who maintains it\n5. Residual risk that remains after the fix\n6. Decision to accept, mitigate further, or retest later\n\n“We patched it” without a retest is a hope statement.\n\n## Hardening themes mapped to earlier stages\n\n| Earlier finding type | Example control | Validation idea |\n| --- | --- | --- |\n| Open admin route | Authz middleware + least privilege | Non-admin receives forbidden response |\n| Verbose error / debug page | Disable debug in lab-prod-like mode | Debug path returns generic error |\n| Weak password hashing | Migrate to slow salted hashing | Config shows new algorithm; old hashes upgraded on login |\n| Public cloud storage | Block public ACLs / enable private defaults | Policy evidence + list attempt denied |\n| Excess mobile permission | Remove unused permission | Fresh install permission list updated |\n| Wireless lab misconfig | Enforce WPA3/WPA2 as intended | AP settings match documentation |\n\nDefense also includes detection: logs, alerts, and response paths from Stage 14.\n\n## Hardening row fields\n\n| Field | Purpose |\n| --- | --- |\n| Asset | System being improved |\n| Hardening control | Fix or control |\n| Validation step | How the control is tested |\n| Owner | Who maintains it |\n| Residual risk | What risk remains after the fix |\n\nExample:\n\n```text\nasset=lab admin portal\nhardening_control=require MFA and restrict admin route access\nvalidation_step=confirm non-admin users receive a forbidden response\nowner=application security owner\nresidual_risk=accept low residual risk after monitoring is enabled\n```\n\n## Residual risk without hand-waving\n\n| Residual statement | When it is honest |\n| --- | --- |\n| Accepted low risk with monitoring | Control works; remaining edge cases are tracked |\n| Mitigated, retest scheduled | Fix landed; validation not yet complete |\n| Not accepted — escalate | Risk still too high for the asset’s role |\n| Transferred / shared | Another team owns the control and acknowledged it |\n\n“Accepted” is a decision, not a synonym for “ignored.”\n\n## Detection and malware-defense crossover\n\nHardening is not only prevention:\n\n- Enable relevant audit logs for the fixed control\n- Add an alert for repeat admin-path probes in the lab story\n- Document IOCs only when they help defenders, and keep them in the evidence index\n- Prefer reduce-then-monitor over monitor-instead-of-fix\n\nIf your lab includes suspicious-file hygiene, isolate, hash, and dispose of samples carefully. Do not harden one host by contaminating another.\n\n## Common beginner mistakes\n\n- Declaring victory after changing a setting with no retest\n- Owner field left blank\n- Residual risk copied as “none” for everything\n- Applying every CIS benchmark item without tying to the finding\n- Disabling a service that breaks the lab story without documenting tradeoffs\n- Treating hardening as optional appendix content\n\n## Your local task\n\n### Step 1 — Pick one finding to close\n\nUse a real note from earlier stages when you can.\n\n### Step 2 — Write `hardening_row.txt`\n\n```bash\nasset=\"lab admin portal\"\nhardening_control=\"require MFA and restrict admin route access\"\nvalidation_step=\"confirm non-admin users receive a forbidden response\"\nowner=\"application security owner\"\nresidual_risk=\"accept low residual risk after monitoring is enabled\"\n\nprintf '%s\\n' \\\n  \"asset=$asset\" \\\n  \"control=$hardening_control\" \\\n  \"validation=$validation_step\" \\\n  \"owner=$owner\" \\\n  \"residual=$residual_risk\"\n```\n\n### Step 3 — Optional validation run\n\nIf the control exists in your lab, run the validation step and append the result to `hardening_validation.txt`. If not, write the exact validation you would run after the control is implemented.\n\n### Step 4 — Self-review\n\nAsk:\n\n- Does validation prove the control, or only that someone intended a control?\n- Is residual risk a decision with an owner?\n- Would Stage 14’s handoff path still work if the control failed?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Hardening | Strengthening controls to reduce evidenced risk |\n| Validation | Retest that confirms the control works |\n| Residual risk | Risk remaining after mitigation |\n| Compensating control | Alternate control when the ideal fix is delayed |\n| Closure | Finding state when fix + validation + ownership are real |\n\n## Proof checklist\n\n- [ ] `hardening_row.txt` includes asset, control, validation, owner, residual risk\n- [ ] Validation step is concrete and retestable\n- [ ] Owner is a role or named person\n- [ ] Residual risk is an explicit decision\n- [ ] Optional validation result or planned validation note exists\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nApply hardening only on systems you own or administer with permission. Do not “helpfully” reconfigure third-party systems discovered on a network scan.\n\nWhen those items are true, continue to **Capstone: Authorized Assessment**.\n"
+    },
+    {
+      "slug": "stage-16",
+      "title": "Capstone: Authorized Assessment",
+      "hours": "4-6",
+      "sortOrder": 16,
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should a capstone assessment prove?",
+          "options": [
+            "A complete authorized workflow and defensible evidence",
+            "Only that a tool ran",
+            "That scope can be skipped",
+            "That remediation is optional"
+          ],
+          "correct": 0,
+          "explanation": "Capstone success is a reviewable path from permission to fix verification."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which deliverable set best matches this course’s capstone bar?",
+          "options": [
+            "A single screenshot of msfconsole",
+            "Unauthenticated scans of random internet hosts",
+            "Summary, scope, evidence index, finding, hardening, handoff, and readout",
+            "Specialty wireless captures with no authorization note"
+          ],
+          "correct": 2,
+          "explanation": "The bundle must tell the whole authorized story, not show one tool moment."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How should specialty stages (wireless, cloud, mobile) enter the capstone?",
+          "options": [
+            "Only when the lab and authorization honestly support them",
+            "Always, even if you must fake screenshots",
+            "Never, because reporting is enough",
+            "By substituting public third-party targets"
+          ],
+          "correct": 0,
+          "explanation": "Honesty beats portfolio inflation; optional intensifiers need real authorization."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What hours promise should the capstone respect for this course card?",
+          "options": [
+            "An open-ended multi-hundred-hour second curriculum by default",
+            "A focused integration block inside the overall 40–50 hour path",
+            "Zero documentation time because tools are enough",
+            "Unlimited public-internet practice hours"
+          ],
+          "correct": 1,
+          "explanation": "Keep the live card honest: deepen the authorized loop without inventing endless scope."
+        }
+      ],
+      "content": "# Capstone: Authorized Assessment\n\n## Why this lesson exists\n\nThe capstone joins the workflow: scope, recon, inventory, validation, evidence index, remediation priority, hardening, and final readout. Tool tricks do not graduate you. A defensible story from permission to fix verification does.\n\nIn this lesson you will assemble one **assessment summary** for an authorized local lab target. Capstone work can run longer than a single evening; keep the course card honest at roughly **40–50 hours** for the whole path, with this stage commonly needing a focused multi-hour block.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-ethical-hacking/stage-16\ncd ~/asv-learn-ethical-hacking/stage-16\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-ethical-hacking\\stage-16\"\nSet-Location \"$HOME\\asv-learn-ethical-hacking\\stage-16\"\n```\n\nCreate a `capstone/` bundle that links or copies your best artifacts from Stages 01–15.\n\n## Start here: assessment story before final readout\n\nThe capstone is one narrative with seven beats:\n\n1. **Scope** — what was allowed\n2. **Recon** — what you learned before deep contact\n3. **Inventory** — what services/apps were present\n4. **Validation** — what risk you proved with least impact\n5. **Evidence index** — where proof lives\n6. **Remediation priority** — what to fix first and why\n7. **Final readout** — how you explain the result to a defender\n\nIf any beat is missing, the assessment is unfinished even if a tool “succeeded.”\n\n## Capstone deliverables\n\n| Deliverable | Minimum content |\n| --- | --- |\n| `assessment_summary.txt` | Scope, sequence, evidence index, priority, readout |\n| `scope_card.txt` | Authorization boundary used for the run |\n| `evidence_index.txt` | E1..En map to files |\n| `findings/` | One or more finding rows with remediation + verification |\n| `hardening_row.txt` | At least one control closure plan |\n| `handoff_card.txt` | Escalation path if urgent risk appears |\n| `readme.txt` | How a reviewer should read the bundle in order |\n\nYou may reuse earlier files. Prefer truth over volume. One strong finding beats ten decorative scanner lines.\n\n## Assessment summary fields\n\n| Field | Purpose |\n| --- | --- |\n| Scope summary | Authorized boundary |\n| Test sequence | Ordered assessment steps actually used |\n| Evidence index | Where each proof item is recorded |\n| Remediation priority | Which fix comes first and why |\n| Final readout | How the result is explained to the defender |\n\nExample:\n\n```text\nscope_summary=authorized lab host and web application only\ntest_sequence=scope, recon, inventory, web review, validation, report, hardening\nevidence_index=E1 scope card; E2 service inventory; E3 finding row; E4 hardening row\nremediation_priority=fix admin access control before cosmetic findings\nfinal_readout=explain evidence, impact, remediation, and verification plan\n```\n\n## Recommended end-to-end sequence (lab only)\n\nUse this as a checklist, not as a requirement to force every specialty stage into one weekend:\n\n1. Refresh the Stage 01 scope card for the capstone window.\n2. Confirm recon notes still match the lab.\n3. Build or refresh a short service inventory for `lab.local` (or your label).\n4. Perform one web or service review with baseline-before-mutation discipline.\n5. Validate at most one finding with an explicit stop condition.\n6. Package evidence; refuse sensitive-data collection and persistence.\n7. Write the finding row and executive summary.\n8. Draft hardening + validation for the top issue.\n9. Draft the incident handoff path in case something urgent appears.\n10. Deliver the readout as if a busy defender has five minutes.\n\nSpecialty stages (wireless, social, cloud, mobile, crypto, Metasploit) are optional intensifiers. Include them only when your lab and authorization honestly support them. Do not fake wireless captures or cloud screenshots.\n\n## Hours honesty\n\nThis course card is **40–50 hours**, not a multi-hundred-hour omnibus. Capstone time should deepen integration and evidence quality, not explode into unpaid second curricula. If a specialty area needs more depth, schedule it as deliberate follow-on practice after you finish a clean authorized loop.\n\n## Quality bar for the final readout\n\nYour readout should let a defender answer:\n\n- What was tested?\n- What was out of scope?\n- What is the top risk and why?\n- What evidence supports it?\n- What should be fixed first?\n- How will we know the fix worked?\n- What residual risk remains?\n- Who owns the next action?\n\nPractice saying the readout out loud in under three minutes.\n\n## Common beginner mistakes\n\n- Dumping every command ever run into the summary\n- Including out-of-scope specialty work without authorization\n- Prioritizing severity labels over business/lab impact\n- Skipping hardening and handoff because reporting felt finished\n- Inflating hours with unfocused tool browsing\n- Expecting an automatic grading inside the lesson or inventing unauthorized practice targets\n\n## Your local task\n\n### Step 1 — Build the bundle skeleton\n\n```bash\nmkdir -p findings\ntouch assessment_summary.txt scope_card.txt evidence_index.txt hardening_row.txt handoff_card.txt readme.txt\n```\n\n### Step 2 — Fill `assessment_summary.txt`\n\n```bash\nscope_summary=\"authorized lab host and web application only\"\ntest_sequence=\"scope, recon, inventory, web review, validation, report, hardening\"\nevidence_index=\"E1 scope card; E2 service inventory; E3 finding row; E4 hardening row\"\nremediation_priority=\"fix admin access control before cosmetic findings\"\nfinal_readout=\"explain evidence, impact, remediation, and verification plan\"\n\nprintf '%s\\n' \\\n  \"scope=$scope_summary\" \\\n  \"sequence=$test_sequence\" \\\n  \"evidence=$evidence_index\" \\\n  \"priority=$remediation_priority\" \\\n  \"readout=$final_readout\"\n```\n\n### Step 3 — Attach real artifacts\n\nCopy or reference your best Stage 01–15 files into the bundle. Update `evidence_index.txt` so every `E#` resolves.\n\n### Step 4 — Write one primary finding and one hardening row\n\nPlace the finding in `findings/F1.txt`. Ensure remediation and verification are present. Link the hardening row to F1.\n\n### Step 5 — Deliver the readout\n\nWrite `readme.txt` with the three-minute spoken readout script. Then actually speak it once and note any sentence that required guessing — those sentences need better evidence or clearer scope.\n\n### Step 6 — Final self-audit\n\nAsk:\n\n- Would this bundle survive a skeptical reviewer?\n- Did every active action stay inside authorization?\n- Is remediation priority obvious?\n- Are hours spent proportional to the 40–50h course promise?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Assessment summary | Top-level story from scope to readout |\n| Evidence index | Map from claim to artifact |\n| Remediation priority | Ordered fix plan based on evidenced impact |\n| Residual risk | Risk left after hardening decisions |\n| Readout | Short defender-facing explanation of results |\n\n## Proof checklist\n\n- [ ] Capstone folder contains summary, scope, evidence index, finding, hardening, handoff, readme\n- [ ] Test sequence matches work actually performed\n- [ ] At least one finding has evidence, impact, remediation, verification\n- [ ] Hardening row ties to the top finding\n- [ ] Handoff card exists for urgent escalation\n- [ ] Readout can be spoken in under three minutes without inventing facts\n- [ ] All practice stayed on authorized local lab/VM targets\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nThe capstone is still ethical hacking only when authorization is real. Do not expand into neighbor networks, employer systems, or random internet hosts to make the portfolio look bigger.\n\nWhen those items are true, you have completed the ASV Learn Ethical Hacking & Penetration Testing path at the depth this course card promises.\n"
+    }
+  ],
+  "learnings": [
+    "Run authorized assessments with clear scope, rules of engagement, and consent",
+    "Plan reconnaissance and enumeration without guessing beyond the engagement",
+    "Validate findings with controlled checks and keep reproducible evidence",
+    "Document impact, remediation, and defender handoff in a usable report",
+    "Separate exploitation practice from reckless or out-of-scope activity"
+  ],
+  "tags": "Cyber, cybersecurity, security"
+}

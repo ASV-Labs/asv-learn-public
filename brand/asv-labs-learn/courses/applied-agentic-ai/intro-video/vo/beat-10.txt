@@ -1,0 +1,1 @@
+Your payoff is a mission-control packet: clear goal, tool list, stop conditions, and a failure report you would show a lead.

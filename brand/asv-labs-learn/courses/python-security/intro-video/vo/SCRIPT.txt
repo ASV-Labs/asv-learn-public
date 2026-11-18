@@ -1,0 +1,53 @@
+PYTHON FOR CYBERSECURITY — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Python for Cybersecurity, from ASV Learn.
+Defensive Python — quiet, precise, useful.
+
+========== BEAT 02 → beat-02 ==========
+
+Thousands of log lines scroll past.
+Somewhere in that noise is one useful clue. Python is how you find it without going blind.
+
+========== BEAT 03 → beat-03 ==========
+
+This course turns Python into a defensive amplifier:
+safe network checks, HTTP evidence collection, hashing decisions, and small tools that fail closed.
+
+========== BEAT 04 → beat-04 ==========
+
+You will automate the boring proof work analysts and responders repeat every week —
+so humans can spend attention on judgment.
+
+========== BEAT 05 → beat-05 ==========
+
+Chapters cover Python basics for security, network programming for safe checks,
+HTTP evidence, cryptography and hashing choices, defensive tools, and secure coding habits.
+
+========== BEAT 06 → beat-06 ==========
+
+Every script should be readable tomorrow morning. Clever is optional. Clear is required.
+
+========== BEAT 07 → beat-07 ==========
+
+If Python Zero got you standing, this course puts you on a security desk with a keyboard that helps.
+
+========== BEAT 08 → beat-08 ==========
+
+Practice on your machine with synthetic logs and targets you are allowed to touch.
+
+========== BEAT 09 → beat-09 ==========
+
+This is defensive craft — stated once, then we build.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a small toolkit: parse logs, pull evidence, make a hashing decision, and document what you proved.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that toolkit energy shows up in SOC automation, detection engineering helpers, and secure internal utilities.
+Start with Python basics for security. Take your time.

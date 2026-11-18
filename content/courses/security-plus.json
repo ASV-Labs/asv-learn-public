@@ -1,0 +1,446 @@
+{
+  "slug": "security-plus",
+  "title": "CompTIA Security+",
+  "description": "Practical Security+ fundamentals: threats, controls, incidents, risk decisions, plus a local exam-mindset practice chapter.",
+  "difficulty": "Beginner",
+  "hours": "28-34",
+  "topics": [
+    "Security Foundations",
+    "Risk Management",
+    "Access Control",
+    "Incident Response"
+  ],
+  "certBadges": [
+    "Security Foundations"
+  ],
+  "runtime": "shell",
+  "learnings": [
+    "Map common threats, attacks, and vulnerabilities to practical defenses",
+    "Explain layered architecture, secure design, and control placement",
+    "Apply access protection, cryptography basics, and implementation choices",
+    "Walk an incident from detection through response and evidence handling",
+    "Make governance, risk, and compliance decisions in plain language",
+    "Practice exam mindset with local drills that map stems to Domains 1–5"
+  ],
+  "tags": "Cyber, cybersecurity, security",
+  "source": {
+    "markdown": "content/courses/security-plus/",
+    "live": "https://learn.asv-labs.com"
+  },
+  "stages": [
+    {
+      "slug": "domain-01",
+      "title": "Domain 1: General Security Concepts",
+      "hours": "5-6",
+      "sortOrder": 1,
+      "content": "# Domain 1: General Security Concepts\n\n## Why this lesson exists\n\nCompTIA Security+ **SY0-701** Domain 1 is about **general security concepts**: shared vocabulary, CIA thinking, control types, and the risk chain that keeps answers coherent. Security+ starts with language that helps you **reason**, not with a list of scary product names.\n\nWhen something goes wrong — a fake login page, a reused password, a phishing link — a useful analysis names the actor, the path they used, the weakness they depended on, the impact, and the control that reduces the risk. This domain trains that habit as a **concepts** foundation. Domain 2 deepens threats, vulnerabilities, and mitigations; here you first learn to keep cause, path, weakness, impact, and response separate.\n\nYou will classify synthetic lab scenarios into a clear **risk chain** so your answers stay practical on exam questions and in real handoffs. You are not choosing vendors yet.\n\n## Reminder: where you work\n\nCreate a course notes folder on your machine (or authorized lab host):\n\n```bash\nmkdir -p ~/asv-learn-security-plus/domain-01\ncd ~/asv-learn-security-plus/domain-01\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\domain-01\"\nSet-Location \"$HOME\\asv-learn-security-plus\\domain-01\"\n```\n\nYou will write `risk_chain.txt` (or a short shell script that prints the same fields) in that folder.\n\n## Start here: concepts before products\n\nDo not try to memorize every attack name on day one. Read a security situation as a chain of concepts:\n\n1. Who or what can cause harm? (**threat actor**)\n2. How does the attempt reach the target? (**attack vector**)\n3. What weakness makes success easier? (**vulnerability**)\n4. What could go wrong? (**impact**)\n5. What reduces likelihood or damage? (**control**)\n\nSay the chain in one sentence before naming a product: *this actor used this path against this weakness, risking this impact; this control reduces that weakness.*\n\n## The security chain fields\n\n| Field | Question | Example |\n| --- | --- | --- |\n| Threat actor | Who or what can cause harm? | Phishing sender (external criminal) |\n| Attack vector | How does the attempt reach the target? | Email link to fake login page |\n| Vulnerability | What weakness makes success possible? | Reused password without MFA |\n| Impact | What could happen if it succeeds? | Account takeover; data exposure |\n| Control | What reduces likelihood or impact? | MFA plus user reporting workflow |\n\nThe point is not to memorize labels. The point is to avoid mixing cause, path, weakness, and response.\n\n## CIA triad (foundational concepts)\n\nSecurity+ expects you to connect decisions to purpose.\n\n| Pillar | Question | Example |\n| --- | --- | --- |\n| Confidentiality | Who may see the data? | Encryption, access control |\n| Integrity | Who may change it, and how do we detect change? | Hashing, signed updates, audit logs |\n| Availability | Can authorized users still use the service? | Redundancy, backups, health checks |\n\nA control that “locks everything down” until nobody can work fails availability. A control that preserves uptime while leaking credentials fails confidentiality.\n\n## Control types by function\n\n| Function | Job | Example |\n| --- | --- | --- |\n| Preventive | Stops or blocks | MFA, network allow-list |\n| Detective | Notices | SIEM alert, file integrity monitoring |\n| Corrective / recovery | Restores or remediates | Patch, revoke session, restore from backup |\n| Deterrent / directive (study awareness) | Discourage or require behavior | Warning banners; mandatory MFA policy |\n\nA design that only prevents (and never detects) fails quietly. A design that only detects (and never recovers) fails loudly. Domain 3 places these on trust boundaries; Domain 1 only asks you to **name the job** each control is doing.\n\n## Scenario reading (synthetic lab)\n\nA user reports an email that links to a fake login page. The account uses a reused password and no second factor. The first useful response is not a tool. It is a clear classification of the risk chain.\n\n```text\nthreat_actor=phishing sender (external)\nattack_vector=email link to fake login page\nvulnerability=password reused without MFA\nimpact=account takeover; possible mailbox and file access\ncontrol=require MFA; reset session; teach report-phish workflow\n```\n\nOptional shell print of the same fields:\n\n```bash\nthreat_actor=\"phishing sender (external)\"\nattack_vector=\"email link to fake login page\"\nvulnerability=\"password reused without MFA\"\nimpact=\"account takeover; possible mailbox and file access\"\ncontrol=\"require MFA; reset session; teach report-phish workflow\"\n\nprintf '%s\\n' \\\n  \"threat_actor=$threat_actor\" \\\n  \"attack_vector=$attack_vector\" \\\n  \"vulnerability=$vulnerability\" \\\n  \"impact=$impact\" \\\n  \"control=$control\"\n```\n\n## Common beginner mistakes\n\n- Listing products (“buy a firewall”) instead of naming the weakness the control addresses\n- Calling the attack vector the vulnerability\n- Writing dramatic impact (“everything is compromised”) without evidence\n- Mixing CIA pillars (calling downtime a confidentiality failure)\n- Skipping the control that actually reduces the named weakness\n- Expecting an automatic grading inside the lesson instead of writing a local `risk_chain.txt`\n\n## Your local task\n\n### Step 1 — Capture a synthetic scenario\n\nUse this authorized practice scenario (lab data only):\n\n```text\nAlert: user clicked a link in an unexpected password-reset email\nAccount: student portal login\nObserved: reused password; MFA not enrolled\nMissing: whether credentials were entered on the fake page\n```\n\n### Step 2 — Write the classification row\n\nCreate `risk_chain.txt`:\n\n```text\nthreat_actor=external phishing sender\nattack_vector=email link (fake password-reset page)\nvulnerability=reused password; MFA not enrolled\nimpact=account takeover if credentials were submitted\ncontrol=force password reset; require MFA enrollment; block/report sender; review recent sessions\nevidence_note=user reported unexpected reset email; MFA status confirmed off\nassumption=credential entry on fake page is unconfirmed\n```\n\n### Step 3 — Self-review\n\nRead the row as if you are the next analyst. Ask:\n\n- Can I see actor, vector, vulnerability, impact, and control without guessing?\n- Does the control reduce the **named** weakness?\n- Are assumptions labeled?\n- Which CIA pillars does the control primarily support?\n\n### Step 4 — One change you can explain\n\nChange **one** field (for example: MFA was already on, or the user confirms they entered a password). Rewrite impact and control so they still match the evidence. Say out loud why that change is justified.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Threat actor | Who or what can cause harm |\n| Attack vector | Path used to reach the target |\n| Vulnerability | Weakness that makes success easier |\n| Impact | Harm that could result |\n| Control | Action that reduces likelihood or damage |\n| CIA triad | Confidentiality, integrity, availability |\n| Residual uncertainty | What you still cannot claim |\n\n## What good looks like\n\nA strong Domain 1 note:\n\n- Names actor, vector, vulnerability, impact, and control in plain language\n- Keeps the control tied to the weakness (not a generic “be secure”)\n- Can say whether the control mainly protects C, I, and/or A\n- Separates evidence from assumptions\n- Could be handed to another learner without drama or product shopping\n\n## Proof checklist\n\n- [ ] Course notes folder exists for domain-01\n- [ ] `risk_chain.txt` (or equivalent) includes actor, vector, vulnerability, impact, control\n- [ ] Control clearly reduces the named vulnerability\n- [ ] Assumptions are labeled, not hidden\n- [ ] You can explain the chain in under one minute\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse only synthetic data, your own accounts/lab, or systems you are explicitly authorized to analyze. Do not probe, phish, or collect credentials from real systems without written permission.\n\nWhen those items are true, continue to **Domain 2: Threats, Vulnerabilities, and Mitigations**.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Which field describes the weakness that makes an attack more likely to succeed?",
+          "options": [
+            "Vulnerability",
+            "Threat actor",
+            "Impact",
+            "Asset owner"
+          ],
+          "correct": 0,
+          "explanation": "A vulnerability is the weakness. The actor uses a vector and the impact describes harm."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "In a phishing email with a fake login page, what is the attack vector?",
+          "options": [
+            "The email link path to the fake page",
+            "The reused password alone",
+            "Account takeover impact",
+            "The MFA control"
+          ],
+          "correct": 0,
+          "explanation": "The vector is the path (email link). The reused password without MFA is the vulnerability."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why separate threat actor from vulnerability in a classification row?",
+          "options": [
+            "Cause and weakness are different; mixing them leads to the wrong control",
+            "Actors are never relevant to Security+",
+            "Vulnerabilities only exist in malware",
+            "Impact and control are the same field"
+          ],
+          "correct": 0,
+          "explanation": "Controls should address the weakness and path; naming only the actor is incomplete analysis."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which CIA pillar asks whether authorized users can still use the service?",
+          "options": [
+            "Availability",
+            "Confidentiality only",
+            "Integrity only",
+            "Residual risk"
+          ],
+          "correct": 0,
+          "explanation": "Availability is whether authorized use remains possible; confidentiality and integrity answer different questions."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice this ASV Learn domain?",
+          "options": [
+            "Write local study notes on your own terminal, VM, or authorized lab host",
+            "Wait for an in-lesson hosted shell with auto-grading",
+            "Phish real users for homework credit",
+            "Skip the control field if the actor name sounds impressive"
+          ],
+          "correct": 0,
+          "explanation": "Lessons are read in ASV Learn; practice is authorized local lab work only."
+        }
+      ]
+    },
+    {
+      "slug": "domain-02",
+      "title": "Domain 2: Threats, Vulnerabilities, and Mitigations",
+      "hours": "5-6",
+      "sortOrder": 2,
+      "content": "# Domain 2: Threats, Vulnerabilities, and Mitigations\n\n## Why this lesson exists\n\nCompTIA Security+ **SY0-701** Domain 2 focuses on **threats, vulnerabilities, and mitigations**. Domain 1 gave you the risk-chain vocabulary. Here you practice classifying actor types, attack paths, weakness categories, and the controls that actually reduce those weaknesses.\n\nYou will reuse the same synthetic-lab habit: write a clear classification so your answers stay practical on exam questions and in real handoffs. You are still not choosing vendors by brand — you are connecting threat language to a mitigation that fits.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-security-plus/domain-02\ncd ~/asv-learn-security-plus/domain-02\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\domain-02\"\nSet-Location \"$HOME\\asv-learn-security-plus\\domain-02\"\n```\n\nYou will write `risk_chain.txt` (threat → vulnerability → mitigation focus) in that folder.\n\n## Start here: classify before you mitigate\n\nKeep the Domain 1 chain, then emphasize mitigation fit:\n\n1. Who or what can cause harm? (**threat actor**)\n2. How does the attempt reach the target? (**attack vector**)\n3. What weakness makes success easier? (**vulnerability**)\n4. What could go wrong? (**impact**)\n5. What reduces likelihood or damage? (**mitigation / control**)\n\nSay it once: *this actor used this path against this weakness; this mitigation reduces that weakness.*\n\n## Threat actors and motives (practical view)\n\n| Actor type | Typical motive | How it changes your analysis |\n| --- | --- | --- |\n| External criminal | Money, credentials, ransomware | Expect commodity phishing, credential stuffing, malware |\n| Insider (malicious) | Revenge, data theft | Privileged access may already exist; logging and least privilege matter |\n| Insider (unintentional) | Mistake, convenience | Training, safer defaults, and clear workflows reduce risk |\n| Nation-state / APT | Espionage, disruption | Longer campaigns; detection and resilience matter as much as prevention |\n| Hacktivist | Visibility, protest | Targets may be public-facing brands or services |\n\nHonest limit: naming an actor type is a **working hypothesis**, not courtroom proof. Keep evidence and assumptions separate in your notes.\n\n## Vectors, vulnerabilities, and common mix-ups\n\n| Concept | What it is | Common mix-up |\n| --- | --- | --- |\n| Attack vector | The **path** (email, USB, exposed port, supply chain) | Calling the vector the “vulnerability” |\n| Vulnerability | The **weakness** (missing patch, weak auth, misconfig) | Calling the phishing email itself the vulnerability |\n| Exploit | The method that uses the weakness | Treating every exploit name as a different root cause |\n| Threat | Potential for harm from an actor/capability | Treating “threat” as a synonym for malware only |\n| Mitigation | Control that reduces likelihood or impact | Naming a product without tying it to the weakness |\n\nConcrete example:\n\n- Vector: email link\n- Vulnerability: no MFA + password reuse\n- Impact: account takeover\n- Mitigation: enforce MFA, block known bad URLs, teach reporting\n\nIf you only say “phishing,” you have named a family of attacks — not a complete analysis.\n\n## Vulnerability categories you should recognize\n\n| Category | Plain meaning | Example signal |\n| --- | --- | --- |\n| Unpatched software | Known fix exists but is not applied | CVE present; outdated agent |\n| Misconfiguration | Safe option exists but is wrong | Open share; default admin left enabled |\n| Weak identity | Auth is guessable, reusable, or single-factor | Credential stuffing success |\n| Insecure design | Product/process lacks a needed control | Password reset with no identity check |\n| Zero-day | Weakness without a public patch yet | Unusual exploit; vendor advisory pending |\n\nSecurity+ cares that you can **classify and mitigate**, not that you invent exploit code. Response still means authorized environments only.\n\n## Mitigations that match the weakness\n\n| Weakness theme | Mitigation direction | Honest limit |\n| --- | --- | --- |\n| Password reuse / no MFA | Require MFA; reset sessions; block bad URLs | MFA does not erase session theft alone |\n| Missing patch | Patch cadence + verification | Patching needs change control in production |\n| Misconfig / open share | Harden defaults; least privilege | Config drift returns without review |\n| Weak recovery process | Identity-proofed recovery | Support workflows can be social-engineered |\n| No detection | Logging + alert ownership | Alerts without owners are noise |\n\nPrefer the mitigation that hits the **named** vulnerability over a generic “buy more tools.”\n\n## Scenario reading (synthetic lab)\n\n```text\nthreat_actor=phishing sender (external)\nattack_vector=email link to fake login page\nvulnerability=password reused without MFA\nimpact=account takeover; possible mailbox and file access\ncontrol=require MFA; reset session; teach report-phish workflow\n```\n\nOptional shell print:\n\n```bash\nthreat_actor=\"phishing sender (external)\"\nattack_vector=\"email link to fake login page\"\nvulnerability=\"password reused without MFA\"\nimpact=\"account takeover; possible mailbox and file access\"\ncontrol=\"require MFA; reset session; teach report-phish workflow\"\n\nprintf '%s\\n' \\\n  \"threat_actor=$threat_actor\" \\\n  \"attack_vector=$attack_vector\" \\\n  \"vulnerability=$vulnerability\" \\\n  \"impact=$impact\" \\\n  \"control=$control\"\n```\n\n## Common beginner mistakes\n\n- Listing products instead of naming the weakness the mitigation addresses\n- Calling the attack vector the vulnerability\n- Treating every email as APT-level threat\n- Writing dramatic impact without evidence\n- Skipping the mitigation that reduces the named weakness\n\n## Your local task\n\n### Step 1 — Capture a synthetic scenario\n\n```text\nAlert: user clicked a link in an unexpected password-reset email\nAccount: student portal login\nObserved: reused password; MFA not enrolled\nMissing: whether credentials were entered on the fake page\n```\n\n### Step 2 — Write the classification row\n\nCreate `risk_chain.txt`:\n\n```text\nthreat_actor=external phishing sender\nattack_vector=email link (fake password-reset page)\nvulnerability=reused password; MFA not enrolled\nimpact=account takeover if credentials were submitted\ncontrol=force password reset; require MFA enrollment; block/report sender; review recent sessions\nevidence_note=user reported unexpected reset email; MFA status confirmed off\nassumption=credential entry on fake page is unconfirmed\n```\n\n### Step 3 — Self-review\n\n- Can I see actor, vector, vulnerability, impact, and mitigation without guessing?\n- Does the mitigation reduce the **named** weakness?\n- Are assumptions labeled?\n\n### Step 4 — One change you can explain\n\nChange **one** field (for example: MFA was already on, or the user confirms they entered a password). Rewrite impact and mitigation so they still match the evidence.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Threat actor | Who or what can cause harm |\n| Attack vector | Path used to reach the target |\n| Vulnerability | Weakness that makes success easier |\n| Impact | Harm that could result |\n| Mitigation | Control that reduces likelihood or damage |\n| Residual uncertainty | What you still cannot claim |\n\n## What good looks like\n\nA strong Domain 2 note:\n\n- Names actor, vector, vulnerability, impact, and mitigation in plain language\n- Keeps the mitigation tied to the weakness\n- Separates evidence from assumptions\n- Could be handed to another learner without drama or product shopping\n\n## Proof checklist\n\n- [ ] Course notes folder exists for domain-02\n- [ ] `risk_chain.txt` includes actor, vector, vulnerability, impact, mitigation/control\n- [ ] Mitigation clearly reduces the named vulnerability\n- [ ] Assumptions are labeled, not hidden\n- [ ] You can explain the chain in under one minute\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse only synthetic data, your own accounts/lab, or systems you are explicitly authorized to analyze. Do not probe, phish, or collect credentials from real systems without written permission.\n\nWhen those items are true, continue to **Domain 3: Security Architecture**.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Which control best reduces account takeover from password reuse after phishing?",
+          "options": [
+            "Require MFA and reset affected sessions",
+            "Buy a new logo",
+            "Disable all email forever",
+            "Ignore the report if severity feels low"
+          ],
+          "correct": 0,
+          "explanation": "MFA and session reset target the credential-reuse weakness and limit active harm."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Calling a phishing email itself “the vulnerability” is usually wrong because:",
+          "options": [
+            "The email link is typically the attack vector; the weakness is often weak auth or reuse",
+            "Phishing emails are never threats",
+            "Vulnerabilities only exist in hardware",
+            "Impact and mitigation are identical"
+          ],
+          "correct": 0,
+          "explanation": "Separate path (vector) from weakness (vulnerability) so the mitigation fits."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Naming an actor type in a lab note is best treated as:",
+          "options": [
+            "A working hypothesis kept separate from proven evidence",
+            "Courtroom-grade attribution",
+            "Proof that MFA is unnecessary",
+            "A reason to skip the mitigation field"
+          ],
+          "correct": 0,
+          "explanation": "Actor labels guide analysis; keep assumptions labeled."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Unpatched software is which vulnerability category?",
+          "options": [
+            "A known fix exists but is not applied",
+            "A zero-day with no public patch by definition",
+            "Only a network routing problem",
+            "The same as residual risk acceptance"
+          ],
+          "correct": 0,
+          "explanation": "Unpatched means a fix is available but not deployed."
+        }
+      ]
+    },
+    {
+      "slug": "domain-03",
+      "title": "Domain 3: Security Architecture",
+      "hours": "5-6",
+      "sortOrder": 3,
+      "content": "# Domain 3: Security Architecture\n\n## Why this lesson exists\n\nCompTIA Security+ **SY0-701** Domain 3 is **security architecture**: placing controls where failure would matter. A design is stronger when it names **assets**, **trust boundaries**, **layers**, **data protection**, and **availability** before choosing products.\n\nThis domain trains design reasoning: map the system, say where trust changes, and explain why each control belongs there — including identity, authorization, and crypto placement as architectural choices (not a shopping list). A good Security+ answer is a short design card that would still make sense if one layer failed.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-security-plus/domain-03\ncd ~/asv-learn-security-plus/domain-03\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\domain-03\"\nSet-Location \"$HOME\\asv-learn-security-plus\\domain-03\"\n```\n\nYou will write `design_card.txt` in that folder. Optionally add a short `control_map.txt` when identity/crypto proof needs more detail.\n\n## Start here: boundaries before products\n\nDo not jump to a firewall brand, cloud SKU, or vendor name. First answer:\n\n1. What asset or workflow must stay protected and usable?\n2. Where do identity, network, or trust assumptions change?\n3. Which preventive, detective, and corrective layers share the job?\n4. What data needs protection at rest or in transit?\n5. What keeps the service available when something fails?\n\nSay the design in one sentence: *this asset crosses this trust boundary; these layers reduce this risk; this encryption and availability rule keep the service safe and usable.*\n\n## Design card fields\n\n| Field | What to decide | Why it matters |\n| --- | --- | --- |\n| Asset zone | System, data, or workflow being protected | Controls without an asset are vague |\n| Trust boundary | Where access or assumptions change | Re-check identity and policy at the edge |\n| Control layers | Preventive, detective, corrective | One failure should not be total compromise |\n| Encryption rule | Data at rest / in transit needs | Protects confidentiality and integrity |\n| Availability control | How the service stays usable | Security that breaks the service fails the mission |\n| Validation note | How you know the design fits the risk | Ties design to a real threat, not fashion |\n\nLayered security does not mean buying every tool. It means a single failure should not become a full compromise.\n\n## Trust boundaries in plain language\n\n| Boundary example | What changes | Typical control question |\n| --- | --- | --- |\n| Public internet → web app | Untrusted clients reach your service | AuthN, TLS, rate limits, input validation |\n| User → admin functions | Privilege level rises | Stronger auth, MFA, privileged access review |\n| App → database | Data store is reached | Least-privilege DB accounts, network isolation |\n| Corporate LAN → OT / lab VLAN | Network segments have different risk | Segmentation, allow-lists, monitoring |\n| SaaS IdP → internal apps | Identity is federated | Conditional access, session controls, audit logs |\n\nIf you cannot name where trust changes, you are not ready to place a control.\n\n## Identity and access as architecture (folded from implementation practice)\n\nArchitecture places **who** and **what** at the boundary — then proves the safer behavior.\n\n| Concept | Question | Architecture note |\n| --- | --- | --- |\n| Authentication (AuthN) | Are you who you claim to be? | Prove identity at sensitive boundaries (password + MFA; cert; key) |\n| Authorization (AuthZ) | What are you allowed to do? | Least privilege at the action, not “inside the LAN = trusted” |\n| Accounting / audit | What did you do? | Log decisions so detective controls have evidence |\n\nExam trap: a user authenticates successfully but is still denied an admin page — that is authorization working, not “broken login.”\n\n| Pattern | Plain meaning | Placement tip |\n| --- | --- | --- |\n| MFA | Second factor beyond password | Prefer phishing-resistant factors when available |\n| Least privilege | Minimum rights for the job | Prefer role grants over standing admin |\n| Just-in-time admin | Elevate only when needed | Time-bound elevation + logging |\n| Federation / SSO | Trust identity from an IdP | Conditional access still applies at the app |\n\nHonest limit: MFA reduces credential stuffing and many phishing outcomes; it does not erase session theft, consent phishing, or bad authorization design.\n\n## Cryptography placement (architecture, not math theater)\n\n| Use | What it protects | Proof to name |\n| --- | --- | --- |\n| TLS in transit | Credentials and session data on the wire | HTTPS required; no mixed plaintext login |\n| Encryption at rest | Stored secrets / sensitive files | Disk or field encryption; keys managed |\n| Hashing passwords | Stored credentials not recoverable as plaintext | Modern hash + salt (never store plaintext passwords) |\n| Signing / integrity | Detect tampering | Signed updates; checksum verification |\n\nSecurity+ cares that you pick the **right job** for crypto at the right boundary — confidentiality vs integrity vs authentication support.\n\n## Zero trust as a design habit (not a product)\n\nZero trust, in study terms, means: **never assume** a network location equals trust. Verify identity, device posture, and authorization continuously for sensitive actions:\n\n- Authenticate and authorize at each sensitive boundary\n- Prefer least privilege over broad “inside the LAN” access\n- Log decisions so detective controls have evidence\n\nHonest claim: zero trust is a **model**. Buying a tool labeled “zero trust” does not automatically mean your boundaries are clear.\n\n## Secure network and cloud ideas you should recognize\n\n| Idea | Plain meaning | Design question |\n| --- | --- | --- |\n| Segmentation | Separate networks by risk or function | What should never talk to what? |\n| DMZ / screened subnet | Public services isolated from internal core | Can a public compromise reach the database? |\n| Private subnets | Sensitive services not directly internet-exposed | Who may reach the data plane? |\n| Least privilege | Minimum access needed for the job | What happens if this identity is stolen? |\n| Defense in depth | Multiple independent controls | Which second control catches a first failure? |\n\n## Example design card (student account portal)\n\n```text\nasset_zone=student account portal and session secrets\ntrust_boundary=public internet to authenticated application\ncontrol_layers=preventive: TLS + MFA + rate limit; detective: audit login anomalies; corrective: session revoke + rollback path\nencryption_rule=TLS in transit; encrypt session secrets and password hashes at rest (no plaintext passwords)\navailability_control=health checks, multi-AZ or backup path, documented rollback\nvalidation_note=maps to credential theft, credential stuffing, and abusive login traffic\n```\n\nOptional shell print:\n\n```bash\nasset_zone=\"student account portal and session secrets\"\ntrust_boundary=\"public internet to authenticated application\"\ncontrol_layers=\"TLS, MFA, rate limit, audit logging, session revoke\"\nencryption_rule=\"TLS in transit; encrypted session secrets; hashed passwords\"\navailability_control=\"health checks with rollback path\"\nvalidation_note=\"controls map to credential theft and web abuse risk\"\n\nprintf '%s\\n' \\\n  \"asset_zone=$asset_zone\" \\\n  \"trust_boundary=$trust_boundary\" \\\n  \"control_layers=$control_layers\" \\\n  \"encryption_rule=$encryption_rule\" \\\n  \"availability_control=$availability_control\" \\\n  \"validation_note=$validation_note\"\n```\n\nOptional identity proof snippet (`control_map.txt`):\n\n```text\nidentity_subject=student user\nauth_factor=password plus MFA\nauthorization_rule=student can read own progress only; cannot edit other students\ncrypto_use=TLS protects credentials in transit; passwords stored hashed; session secrets encrypted\nproof_note=reviewer can verify MFA enrollment, role permissions, TLS required, and no plaintext password storage\n```\n\n## Common beginner mistakes\n\n- Starting with vendor names instead of assets and boundaries\n- Stacking five preventive tools and ignoring detection/recovery\n- Encrypting in transit but leaving secrets in plaintext logs\n- Confusing authentication success with authorization\n- Claiming “encryption” without saying at rest vs in transit and which data\n- Hardening security until the service becomes unusable\n- Writing “zero trust” with no boundary or verification step named\n\n## Your local task\n\n### Step 1 — Pick a small system\n\nUse this authorized practice target (synthetic):\n\n```text\nSystem: internal course lab wiki for enrolled students\nUsers: students (read), instructors (edit), admins (configure)\nRisks: account takeover, public exposure of draft labs, downtime during exams\n```\n\n### Step 2 — Write the design card\n\nCreate `design_card.txt` with the six fields from the table above. Keep language plain. No vendor shopping list required. If helpful, add `control_map.txt` for AuthN/AuthZ/crypto proof.\n\n### Step 3 — Failure test\n\nAssume **one** control fails (for example MFA bypass via stolen session, or TLS terminator misconfig). Write one sentence: which other layer still reduces harm?\n\n### Step 4 — One change you can explain\n\nMove one control to a different boundary (for example: admin MFA only at admin functions, not just at login). Explain why the new placement better matches the risk.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Trust boundary | Point where identity, network, or assumptions change |\n| Defense in depth | Multiple layers so one failure is not total compromise |\n| Segmentation | Separating systems by risk or function |\n| Authentication | Proving identity |\n| Authorization | Limiting allowed actions |\n| Encryption at rest / in transit | Protecting stored data vs data moving on the wire |\n| Availability control | Keeping authorized use possible during failure |\n| Validation note | Evidence that the design matches a named risk |\n\n## What good looks like\n\nA strong Domain 3 card:\n\n- Names the asset and at least one trust boundary\n- Includes preventive, detective, and recovery thinking\n- States an encryption and availability rule\n- Separates AuthN from AuthZ when identity is in scope\n- Explains why the design fits credential theft, abuse, or exposure — not “security in general”\n\n## Proof checklist\n\n- [ ] Course notes folder exists for domain-03\n- [ ] `design_card.txt` includes asset, boundary, layers, encryption, availability, validation\n- [ ] You can name what happens if one layer fails\n- [ ] No required vendor names — placement reasoning is clear\n- [ ] You can explain the card in under two minutes\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDesign practice uses synthetic systems or systems you own/administer with permission. Do not scan or reconfigure production networks without authorization and change control.\n\nWhen those items are true, continue to **Domain 4: Security Operations**.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What is a trust boundary?",
+          "options": [
+            "A point where access, identity, network, or assumptions change",
+            "A backup file",
+            "A password length rule only",
+            "A list of approved vendors"
+          ],
+          "correct": 0,
+          "explanation": "A trust boundary marks where the design needs to re-check assumptions and controls."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does defense in depth mean in a design card?",
+          "options": [
+            "Multiple layers so one failure is not total compromise",
+            "Buying every security product available",
+            "Encrypting only marketing pages",
+            "Skipping detection because prevention is enough"
+          ],
+          "correct": 0,
+          "explanation": "Layered controls share the job; product count alone is not the goal."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why include an availability control in a security design?",
+          "options": [
+            "Security that breaks authorized use fails the mission",
+            "Availability replaces confidentiality",
+            "Backups make encryption unnecessary",
+            "Availability is only a networking topic"
+          ],
+          "correct": 0,
+          "explanation": "CIA includes availability; usable service is part of a sound design."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the difference between authentication and authorization?",
+          "options": [
+            "Authentication proves identity; authorization controls allowed actions",
+            "Authentication encrypts files; authorization scans malware",
+            "They are the same thing",
+            "Authorization happens only after an incident"
+          ],
+          "correct": 0,
+          "explanation": "Architecture places both identity proof and action limits at the right boundaries."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which statement is a validation note, not a shopping list?",
+          "options": [
+            "Controls map to credential theft and abusive login traffic",
+            "Buy Brand X firewall and Brand Y EDR",
+            "Use whatever is cheapest",
+            "Security is enabled"
+          ],
+          "correct": 0,
+          "explanation": "Validation ties design choices to named risks rather than vendor names."
+        }
+      ]
+    },
+    {
+      "slug": "domain-04",
+      "title": "Domain 4: Security Operations",
+      "hours": "5-6",
+      "sortOrder": 4,
+      "content": "# Domain 4: Security Operations\n\n## Why this lesson exists\n\nCompTIA Security+ **SY0-701** Domain 4 is **security operations**: noticing, deciding, containing, recovering, and learning — plus the day-to-day health of logging, backups, patch cadence, and alert ownership. An incident response note should be specific enough that another analyst can follow the evidence and understand the decision.\n\nThis domain trains **response order before action**. Cleanup without evidence can erase what the team needed to learn. Recovery before containment can let harm continue. Your practice artifact is a response note a second analyst can trust.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-security-plus/domain-04\ncd ~/asv-learn-security-plus/domain-04\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\domain-04\"\nSet-Location \"$HOME\\asv-learn-security-plus\\domain-04\"\n```\n\nYou will write `response_note.txt` in that folder.\n\n## Start here: response order before action\n\nDo not rush from alert to cleanup. First name:\n\n1. Where the signal came from (**alert source**)\n2. How urgent the response should be (**severity**)\n3. How you reduce current harm (**containment**)\n4. What facts to preserve (**evidence**)\n5. How you restore safe operation (**recovery**)\n6. Who keeps people informed (**communication owner**)\n7. What improves the next response (**lesson learned**)\n\nSay the order in one sentence: *this signal at this severity needs this containment first, this evidence preserved, then this recovery and this owner, with this lesson learned.*\n\n## Incident response lifecycle (study map)\n\n| Phase | Job | Example action |\n| --- | --- | --- |\n| Preparation | People, runbooks, access, logging ready before incidents | On-call roster; logging retained |\n| Detection / analysis | Notice and understand the signal | Impossible-travel alert triage |\n| Containment | Limit active harm | Revoke session; isolate host (authorized) |\n| Eradication | Remove the cause when known | Disable malicious rule; remove malware (lab/prod with authority) |\n| Recovery | Restore safe operation deliberately | Password reset + MFA verify; restore service |\n| Lessons learned | Improve detection, process, or design | Tighten conditional access; update runbook |\n\nSecurity+ cares that you keep phases distinct. Containment is not recovery. Recovery is not “delete the evidence.”\n\n## Response note shape\n\n| Field | Why it matters |\n| --- | --- |\n| Alert source | Shows where the signal came from |\n| Severity | Sets urgency and escalation without panic wording |\n| Containment step | Reduces current harm |\n| Evidence to collect | Preserves facts for investigation |\n| Recovery step | Restores service or access safely |\n| Communication owner | Keeps stakeholders informed |\n| Lesson learned | Turns the event into improvement |\n\nGood incident work is disciplined. It avoids panic actions and keeps the evidence trail intact.\n\n## Severity without drama\n\n| Severity | When it fits | What the note must show |\n| --- | --- | --- |\n| Low | Limited blast radius; known benign pattern likely | What you checked |\n| Medium | Suspicious; needs timely action; not confirmed breach | Containment + evidence plan |\n| High | Confirmed or highly likely compromise of important asset | Fast containment + escalation path |\n| Critical | Broad impact, sensitive data, or active destructive activity | Immediate containment, exec/comms path |\n\nSeverity is a **priority label**, not a courtroom verdict. Prefer evidence-tied urgency over adjectives like “catastrophic” with no facts.\n\n## Evidence to preserve (authorized environments)\n\n| Evidence type | Why keep it | Honest limit |\n| --- | --- | --- |\n| Auth logs (time, IP, device) | Reconstruct login path | Source IP can be VPN/shared |\n| Session / token revoke timestamps | Prove containment timing | Timing alone is not root cause |\n| User confirmation | Separates user action from attacker | Users can be unsure |\n| Host / EDR alerts | Local activity context | Alerts can be noisy |\n| Change tickets | Shows authorized recovery steps | Missing tickets hurt later review |\n\nDo not collect personal data beyond what the investigation needs. Follow your organization’s retention and legal rules.\n\n## Example response note (suspicious login)\n\n```text\nalert_source=identity provider impossible-travel alert\nseverity=medium\ncontainment_step=reset active sessions and require MFA recheck before new login\nevidence_to_collect=login time, source IP, device, MFA status, user confirmation\nrecovery_step=restore access after password reset and successful MFA verification\ncommunication_owner=security analyst on duty\nlesson_learned=review conditional access for risky travel and unexplained new devices\n```\n\nOptional shell print:\n\n```bash\nalert_source=\"identity provider impossible travel alert\"\nseverity=\"medium\"\ncontainment_step=\"reset session and require MFA recheck\"\nevidence_to_collect=\"login time, source IP, device, user confirmation\"\nrecovery_step=\"restore access after password reset and MFA verification\"\ncommunication_owner=\"security analyst on duty\"\nlesson_learned=\"review conditional access policy for risky travel\"\n\nprintf '%s\\n' \\\n  \"alert_source=$alert_source\" \\\n  \"severity=$severity\" \\\n  \"containment_step=$containment_step\" \\\n  \"evidence_to_collect=$evidence_to_collect\" \\\n  \"recovery_step=$recovery_step\" \\\n  \"communication_owner=$communication_owner\" \\\n  \"lesson_learned=$lesson_learned\"\n```\n\n## Detection, monitoring, and ops health\n\nOperations is not only “break-glass IR.” It is also the boring health of logging, backups, patch cadence, and alert ownership.\n\n| Signal | What it may indicate | First calm check |\n| --- | --- | --- |\n| Impossible travel | Account used from distant locations quickly | VPN? shared admin? confirm with user |\n| Burst failed logins then success | Credential stuffing / password spray | Lockout policy; MFA; source reputation |\n| New admin role assignment | Privilege escalation or provisioning error | Ticket match? unexpected grantor? |\n| Unexpected outbound traffic | Malware beacon or misconfig | Host isolation only if authorized and warranted |\n| Backup job failed repeatedly | Availability / ransomware prep risk | Restore test readiness; storage health |\n\nOps checklist (lab-safe, systems you administer):\n\n| Area | Example control | Testable behavior |\n| --- | --- | --- |\n| Updates | Automatic OS/app patches | Version is current; patch window documented |\n| Host firewall | Restrict inbound services | Unexpected ports are closed |\n| EDR / AV | Malware detection agent | Agent healthy; alerts reach an owner |\n| Logging retention | Investigations have history | Retention setting + sample query |\n| Backup / restore | Recovery path exists | Restore test documented |\n\n## Common beginner mistakes\n\n- Cleaning up before preserving evidence\n- Merging containment, recovery, and communication into one vague action\n- Treating severity as certainty of breach\n- Skipping the communication owner (“someone will tell them”)\n- Writing lessons learned as slogans (“be more careful”) instead of a concrete control or process change\n- Ignoring ops health (failed backups, orphan alerts) until an incident\n\n## Your local task\n\n### Step 1 — Use a synthetic alert\n\n```text\nAlert: repeated authentication failures then success\nUser: alex\nSource IP: 10.0.3.44\nWindow: 10 minutes\nObserved: 6 failed logins, 1 success from same source\nMissing: user confirmation, VPN/geo history, MFA status\n```\n\n### Step 2 — Write the response note\n\nCreate `response_note.txt` with all seven fields. Keep containment before recovery. Name evidence explicitly.\n\n### Step 3 — Second-analyst review\n\nAsk:\n\n- Can another person follow the order without guessing?\n- Is evidence preserved before recovery steps that might destroy logs?\n- Is the lesson learned a concrete change?\n\n### Step 4 — One change you can explain\n\nRaise or lower severity based on one new fact (for example: MFA was off, or user confirms travel VPN). Rewrite containment/recovery so they still match.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Containment | Limiting active harm now |\n| Recovery | Restoring safe operation deliberately |\n| Evidence preservation | Keeping facts before they disappear |\n| Severity | Priority label tied to impact and urgency |\n| Lessons learned | Concrete improvement after the event |\n| Runbook | Prepared steps for a known alert type |\n\n## What good looks like\n\nA strong Domain 4 note:\n\n- Separates containment, evidence, recovery, and communication\n- Sets severity without panic language\n- Lists evidence that still exists after containment\n- Ends with a lesson learned that names a policy, detection, or process change\n\n## Proof checklist\n\n- [ ] Course notes folder exists for domain-04\n- [ ] `response_note.txt` includes source, severity, containment, evidence, recovery, owner, lesson\n- [ ] Containment appears before recovery\n- [ ] Evidence fields are specific\n- [ ] You can walk a second analyst through the note in under two minutes\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nPractice on synthetic alerts or systems you are authorized to investigate. Do not isolate hosts, reset production passwords, or collect logs from environments without permission and change control.\n\nWhen those items are true, continue to **Domain 5: Security Program Management and Oversight**.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why separate containment from recovery?",
+          "options": [
+            "Containment limits active harm; recovery restores safe operation",
+            "Containment is only for backups",
+            "Recovery should happen before evidence collection every time",
+            "They are only compliance labels"
+          ],
+          "correct": 0,
+          "explanation": "Incident response needs both immediate risk reduction and a controlled path back to normal."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should happen before cleanup that might destroy logs?",
+          "options": [
+            "Preserve evidence needed for investigation",
+            "Restore full access immediately",
+            "Delete the alert to reduce noise",
+            "Skip severity assignment"
+          ],
+          "correct": 0,
+          "explanation": "Evidence preservation keeps facts available for analysis and lessons learned."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Severity in an incident note is best described as:",
+          "options": [
+            "A priority label tied to urgency and impact, not a final verdict",
+            "Proof that a breach is confirmed",
+            "A replacement for evidence",
+            "Only a compliance checkbox"
+          ],
+          "correct": 0,
+          "explanation": "Severity guides response speed; it does not replace analysis."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which lesson learned is concrete enough for Domain 4 (Security Operations)?",
+          "options": [
+            "Review conditional access for risky travel and unexplained devices",
+            "Be more careful next time",
+            "Security is important",
+            "Users should try harder"
+          ],
+          "correct": 0,
+          "explanation": "Lessons learned should name a detection, policy, or process change."
+        }
+      ]
+    },
+    {
+      "slug": "domain-05",
+      "title": "Domain 5: Security Program Management and Oversight",
+      "hours": "5-6",
+      "sortOrder": 5,
+      "content": "# Domain 5: Security Program Management and Oversight\n\n## Why this lesson exists\n\nCompTIA Security+ **SY0-701** Domain 5 is **security program management and oversight**: accountable decisions, risk treatment, policy ownership, and evidence that leadership can review later. Governance language still appears, but the SY0-701 framing emphasizes running and overseeing a security **program** — not compliance theater.\n\nRisk work connects an asset, a possible event, business impact, control ownership, and the decision about what remains after controls. Compliance can make expectations measurable, but a checkbox is not the same as security. Your practice artifact is one risk-register row that names the choice: accept, reduce, transfer, or avoid — with evidence someone could check later.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-security-plus/domain-05\ncd ~/asv-learn-security-plus/domain-05\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\domain-05\"\nSet-Location \"$HOME\\asv-learn-security-plus\\domain-05\"\n```\n\nYou will write `risk_row.txt` in that folder.\n\n## Start here: decision before paperwork\n\nDo not start by writing framework jargon. First name:\n\n1. What the organization cares about (**asset**)\n2. What could happen and why it matters (**risk statement**)\n3. How probable it is (**likelihood**)\n4. What harm would result (**impact**)\n5. Who is accountable (**owner**)\n6. Which rule or control applies (**policy control**)\n7. What evidence will be kept (**oversight / compliance note**)\n8. What remains after the choice (**residual risk decision**)\n\nSay the row in one sentence: *this asset faces this risk at this likelihood and impact; this owner applies this control; evidence is this; residual decision is accept/reduce/transfer/avoid.*\n\n## Risk register row fields\n\n| Field | What it proves |\n| --- | --- |\n| Asset | What the organization cares about |\n| Risk statement | What could happen and why it matters |\n| Likelihood | How probable it is (with your scale) |\n| Impact | What harm would result |\n| Owner | Who is responsible for action |\n| Policy control | Which rule or standard applies |\n| Oversight note | What evidence is needed later |\n| Residual risk decision | Accept, reduce, transfer, or avoid |\n\nA useful risk row shows the actual decision. Hiding behind “compliant” without an owner or residual choice is not program oversight — it is paperwork.\n\n## Likelihood and impact (keep them separate)\n\n| Dimension | Question | Example scale language |\n| --- | --- | --- |\n| Likelihood | How often / how probable? | Rare / possible / likely |\n| Impact | How bad if it happens? | Low / medium / high / critical for the business |\n| Risk level | Combined priority for attention | Medium likelihood × high impact → prioritize |\n\nDo not let a scary impact story inflate likelihood without evidence. Do not let “it has not happened yet” erase high impact.\n\n## Risk treatment decisions\n\n| Decision | Meaning | When it fits |\n| --- | --- | --- |\n| Reduce (mitigate) | Apply controls to lower likelihood or impact | MFA for account takeover risk |\n| Accept | Knowingly keep the risk with an owner | Low impact; control cost exceeds benefit |\n| Transfer | Shift financial/operational impact (e.g., insurance, vendor contract) | Residual risk still needs monitoring |\n| Avoid | Stop the activity that creates the risk | Do not store data you do not need |\n\nHonest limit: transfer does not delete risk. Insurance and contracts change who pays or responds — they do not make bad auth magically safe.\n\n## Program oversight vs management vs operations (plain map)\n\n| Layer | Job | Example |\n| --- | --- | --- |\n| Oversight / governance | Sets direction, accountability, and risk appetite | Policy: MFA required for remote admin |\n| Program management | Plans and resources the controls | Budget MFA rollout; assign owner; track completion |\n| Operations | Runs day-to-day detection and response | Reset sessions on risky login alerts |\n\nSecurity+ questions often test whether you can tell **who decides**, **who implements**, and **who operates**.\n\n## Policies, standards, procedures, guidelines\n\n| Document type | What it is | Example |\n| --- | --- | --- |\n| Policy | High-level mandatory rule | “Accounts must use MFA for remote access” |\n| Standard | Specific measurable requirement | “Authenticator app or hardware key; SMS discouraged” |\n| Procedure | Step-by-step how | “Support verifies identity before recovery” |\n| Guideline | Recommended practice | “Prefer phishing-resistant MFA when available” |\n\nIf your oversight note only says “follow policy” with no evidence artifact, it is not yet measurable.\n\n## Oversight evidence (not theater)\n\n| Program idea (examples) | What study cares about | Evidence example |\n| --- | --- | --- |\n| Access reviews | Periodic proof of least privilege | Review export + sign-off date |\n| Change control | Changes are authorized and logged | Ticket ID linked to production change |\n| Logging / retention | Investigations have history | Retention setting + sample query |\n| Training | People know expected behavior | Completion record for role |\n| Privacy / data minimization | Collect only what you need | Data inventory note |\n\nYou do not need to memorize every control ID for every framework to practice Domain 5 well. You do need to explain **what evidence** would prove a decision later.\n\n## Example risk row (learning platform)\n\n```text\nasset=student identity data\nrisk_statement=weak account recovery could expose personal data\nlikelihood=medium\nimpact=high\nowner=platform security owner\npolicy_control=account recovery requires identity verification; MFA required for sensitive recovery actions\noversight_note=retain access review logs and recovery-request tickets for audit window\nresidual_risk_decision=reduce with MFA and support review workflow; accept residual social-engineering risk with monitoring\n```\n\nOptional shell print:\n\n```bash\nasset=\"student identity data\"\nrisk_statement=\"weak account recovery could expose personal data\"\nlikelihood=\"medium\"\nimpact=\"high\"\nowner=\"platform security owner\"\npolicy_control=\"account recovery requires identity verification\"\noversight_note=\"retain access review and recovery logs\"\nresidual_risk_decision=\"reduce with MFA and support review workflow\"\n\nprintf '%s\\n' \\\n  \"asset=$asset\" \\\n  \"risk_statement=$risk_statement\" \\\n  \"likelihood=$likelihood\" \\\n  \"impact=$impact\" \\\n  \"owner=$owner\" \\\n  \"policy_control=$policy_control\" \\\n  \"oversight_note=$oversight_note\" \\\n  \"residual_risk_decision=$residual_risk_decision\"\n```\n\n## Common beginner mistakes\n\n- Treating compliance as automatic security\n- Writing risk statements as tool names (“no SIEM”) instead of business harm\n- Leaving owner blank (“the security team”) with no accountable role\n- Accepting high impact risk silently with no residual decision recorded\n- Confusing likelihood with impact\n\n## Your local task\n\n### Step 1 — Pick an asset you understand\n\nUse a synthetic small-business or learning-platform asset:\n\n```text\nAsset: instructor gradebook export files\nRisk theme: unauthorized download or sharing of student grades\n```\n\n### Step 2 — Write the risk row\n\nCreate `risk_row.txt` with all eight fields. The residual decision must be one of: accept, reduce, transfer, avoid (you may combine reduce + accept residual with explanation).\n\n### Step 3 — Evidence check\n\nName two artifacts that would prove the control later (for example: access review CSV + MFA enrollment report). If you cannot name evidence, rewrite the oversight note.\n\n### Step 4 — One change you can explain\n\nChange impact from high to medium (or reverse) based on a new fact (for example: exports no longer include full identity numbers). Update residual decision so it still matches.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Residual risk | Risk that remains after controls and decisions |\n| Risk appetite | How much risk leadership is willing to accept |\n| Owner | Accountable person/role for the risk action |\n| Policy | Mandatory high-level rule |\n| Oversight evidence | Artifacts that prove a control later |\n| Treatment | Accept, reduce, transfer, or avoid |\n| Security program | Coordinated policies, owners, controls, and review cadence |\n\n## What good looks like\n\nA strong Domain 5 row:\n\n- Names asset, risk, likelihood, and impact without mixing them\n- Assigns a real owner role\n- States a policy control and concrete evidence\n- Records an explicit residual decision someone can challenge or approve\n\n## Proof checklist\n\n- [ ] Course notes folder exists for domain-05\n- [ ] `risk_row.txt` includes asset, risk, likelihood, impact, owner, control, evidence, residual decision\n- [ ] Likelihood and impact are separate\n- [ ] Residual decision is explicit\n- [ ] You can explain the row to a non-security stakeholder in plain language\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nRisk and program-oversight practice uses synthetic scenarios or systems you are authorized to document. Do not exfiltrate real personal data into study notes. Minimize sensitive details in local files.\n\nWhen those items are true, you have finished the five SY0-701 domain practice cards. Continue to Exam Mindset & Practice Set for timed local drills that map back to Domains 1–5.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does residual risk mean?",
+          "options": [
+            "The risk that remains after controls and decisions are applied",
+            "A deleted log file",
+            "A type of malware",
+            "A network route"
+          ],
+          "correct": 0,
+          "explanation": "Residual risk is what remains after the organization chooses and applies controls."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which pair must stay separate in a risk row?",
+          "options": [
+            "Likelihood and impact",
+            "Owner and asset",
+            "Policy and procedure names only",
+            "Accept and avoid (they are identical)"
+          ],
+          "correct": 0,
+          "explanation": "Probability and harm are different dimensions; mixing them distorts priority."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Choosing MFA to lower account-takeover chance is which treatment?",
+          "options": [
+            "Reduce (mitigate)",
+            "Accept with no owner",
+            "Avoid by shutting the internet",
+            "Transfer to users only"
+          ],
+          "correct": 0,
+          "explanation": "Controls that lower likelihood or impact are risk reduction."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What makes an oversight note useful in Domain 5?",
+          "options": [
+            "It names evidence artifacts that could prove the control later",
+            "It only says “compliant”",
+            "It lists every framework acronym",
+            "It hides the residual decision"
+          ],
+          "correct": 0,
+          "explanation": "Program oversight needs measurable evidence, not theater."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Who should appear in the owner field of a risk row?",
+          "options": [
+            "An accountable role that can act on the risk",
+            "Everyone in the company",
+            "No one, if a policy exists",
+            "Only the vendor"
+          ],
+          "correct": 0,
+          "explanation": "Program management requires clear accountability, not anonymous ownership."
+        }
+      ]
+    },
+    {
+      "slug": "domain-06",
+      "title": "Exam Mindset & Practice Set",
+      "hours": "3-4",
+      "sortOrder": 6,
+      "content": "# Exam Mindset & Practice Set\n\n## Why this lesson exists\n\nDomains 1–5 trained you to **reason in SY0-701 security language**: apply general security concepts, classify threats/vulnerabilities/mitigations, place controls in security architecture, run security operations (including IR order), and record a program-management / oversight decision. Exam-style questions still use that language — they hide the domain label and add distractors.\n\nThis chapter is a **local study practice set**, not a CompTIA exam dump and not official CompTIA content. ASV Labs Learn does not host a graded exam sandbox. You run timed drills from original scenarios, map each item to Domains 1–5, and keep honest notes. The goal is exam **mindset**: eliminate wrong answers with domain logic, not memorized dump strings.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-security-plus/exam-practice\ncd ~/asv-learn-security-plus/exam-practice\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-security-plus\\exam-practice\"\nSet-Location \"$HOME\\asv-learn-security-plus\\exam-practice\"\n```\n\nWrite `drill_log.txt` and optional `missed_topics.txt` here. Synthetic scenarios only — no unauthorized systems, no pirated exam materials.\n\n## Exam mindset: eliminate before you commit\n\n1. **Underline the ask** — best control, first action, residual decision, evidence?\n2. **Name the domain** — concepts, threats/vulns/mitigations, architecture, operations, or program oversight?\n3. **Eliminate distractors** — wrong phase, wrong CIA pillar, tool name without behavior, compliance theater.\n4. **Pick what matches the ask**, not what sounds most “secure” in general.\n5. **Log one sentence of proof** — why the losers fail *this* stem.\n\nSay it once: *this question is about X; option A fails because Y; option B survives because Z.*\n\n| Distractor pattern | How to kill it |\n| --- | --- |\n| Wrong phase (“restore” when ask is contain) | Match the step to the verb in the stem |\n| Wrong layer (buy SIEM for password reuse) | Prefer the control that hits the named weakness |\n| Vendor / absolute theater | Prefer scoped, testable behavior over brands and “always” |\n\n## Map the question to Domains 1–5 (SY0-701)\n\n| If the stem mainly asks… | Domain | Prior artifact |\n| --- | --- | --- |\n| CIA, control types, risk-chain vocabulary as concepts | 1 General Security Concepts | `risk_chain.txt` |\n| Actor, vector, vulnerability, impact, mitigation | 2 Threats, Vulnerabilities, and Mitigations | `risk_chain.txt` |\n| Trust boundary, defense in depth, AuthN/AuthZ placement, crypto at boundaries | 3 Security Architecture | `design_card.txt` (+ optional `control_map.txt`) |\n| Detect → contain → evidence → recover → learn; ops health | 4 Security Operations | `response_note.txt` |\n| Likelihood vs impact, owner, residual, oversight evidence | 5 Security Program Management and Oversight | `risk_row.txt` |\n\nMixed stems are normal. Pick the **primary** domain for the ask; note overlap as `D4+D2` if needed.\n\n## Practice set workflow (local only)\n\n### Step 1 — Timer and scope\n\n```text\nset_date=\nset_size=8\ntime_budget_minutes=20\nfocus_domains=1,3,4\n```\n\n### Step 2 — Log every item\n\nAppend to `drill_log.txt`:\n\n```text\nitem_id=\ndomain_guess=\nanswer_choice=\nwhy_others_fail=\n```\n\nDo not skip `why_others_fail` — that field is where exam skill grows.\n\n### Step 3 — Score and triage\n\nMark correct/incorrect without rewriting history. For each miss, one line in `missed_topics.txt` (concept + domain + confusion), then rebuild one field from the matching domain artifact.\n\n### Step 4 — Honest limits\n\nNo leaked dumps. No claim that ASV Labs Learn items are official CompTIA questions. No practice against systems you lack written authorization to use.\n\n## Sample scenario drills (Domains 1–5)\n\nAnswer first, then read the teaching point.\n\n**Drill A (D1).** A stem asks which CIA pillar MFA primarily supports for account takeover risk. What is the cleanest answer?  \n→ Confidentiality (and often integrity of sessions) — name the pillar before inventing tools.\n\n**Drill B (D2).** Email link to a lookalike grade portal; password reused; no MFA. What is the **vulnerability**?  \n→ Credential reuse without MFA (link = vector; takeover = impact).\n\n**Drill C (D3).** Public form posts to an internal API that “trusts the campus network.” Where is the key **trust boundary**?  \n→ Where internet meets the API — authenticate/authorize there, plus monitoring; not “a firewall somewhere.”\n\n**Drill D (D4).** Failed admin logins from a new country, then one success. What comes **before** wipe/restore?  \n→ Contain and preserve evidence (session kill, reset, hold logs).\n\n**Drill E (D5).** Keep SMS MFA? SIM-swap likelihood medium; grade-integrity impact high. Treatment language?  \n→ Reduce (stronger MFA); owner + evidence + residual — not “compliant” alone.\n\n## Original practice-style questions (study set)\n\nPedagogical originals for ASV Labs Learn — **not** CompTIA exam content.\n\n**Q1.** Phishing email → fake login. Reuse without MFA is the weakness. Which field is the **attack vector**?  \nA. Email link path · B. Password reuse without MFA · C. Account takeover · D. MFA enrollment\n\n**Q2.** Why place encryption and access checks at a **trust boundary** between a public form and an internal grade API?  \nA. Who can call the API changes there · B. Encryption only for marketing pages · C. Boundaries replace backups · D. Public forms never need AuthZ\n\n**Q3.** User proves identity with MFA, then is denied an admin export. What succeeded / what limited the action?  \nA. AuthN succeeded; AuthZ limited · B. AuthZ succeeded; AuthN failed · C. Encryption failed · D. Recovery replaced AuthN/AuthZ\n\n**Q4.** Suspected account takeover — best **containment** before full recovery?  \nA. Revoke sessions + password reset · B. Delete all logs · C. Restore from backup with no evidence hold · D. Accept residual risk with no owner\n\n**Q5.** Likelihood “possible,” impact “high,” residual “reduce with stronger MFA.” What else for program-oversight quality?  \nA. Accountable owner + checkable evidence · B. Product brand only · C. “Compliance = security” · D. Blank residual\n\n**Q6.** Stem asks for the *first* IR step after malware on one authorized lab VM. Best first elimination?  \nA. Discard org-wide recovery before containment · B. Longest acronym list · C. Prefer dump wording · D. Skip evidence because VM is disposable\n\n**Q7.** Design card lists five vendors but no trust boundaries or failure modes. Missing?  \nA. Layered placement tied to named risks and one-control failure · B. More logos · C. Availability irrelevant · D. Remove authentication\n\n**Q8.** Which habit matches this chapter’s local workflow?  \nA. Timed drills in `~/asv-learn-security-plus/exam-practice` with domain map + miss triage · B. Hosted CompTIA sandbox in ASV Learn · C. Memorize leaked exam strings · D. Skip Domains 1–5\n\n**Keys (after you attempt):** Q1 A · Q2 A · Q3 A · Q4 A · Q5 A · Q6 A · Q7 A · Q8 A\n\n## Common traps\n\n| Trap | Better habit |\n| --- | --- |\n| Memorizing dump wording | Map stems to domain artifacts |\n| “Most secure sounding” | Underline the verb: first, best, residual |\n| Skipping miss logs | Write `missed_topics.txt` the same day |\n| Mixing likelihood and impact | Keep Domain 5 fields separate |\n| Tools as answers | Name safer behavior + proof |\n\n## Your local task\n\n1. Confirm `~/asv-learn-security-plus/exam-practice` exists.  \n2. Run the eight-item set (~20 minutes); fill `drill_log.txt`.  \n3. Triage misses into `missed_topics.txt` and rebuild one Domain 1–5 field.  \n4. Write a five-line mixed scenario touching Domains 2, 3, and 4; map each line before inventing any multi-choice rewrite.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Distractor | Plausible wrong option that fails the ask |\n| Domain map | Linking a stem to Domains 1–5 (SY0-701) |\n| Elimination | Removing options that violate phase, CIA, or scope |\n| Drill log | Local record of answer + why losers fail |\n| Miss triage | Converting misses into targeted domain review |\n\n## What good looks like\n\nTimer + fixed set size; primary domain before commit; wrong options explained; misses reworked into Domains 1–5 artifacts; local, synthetic, dump-free.\n\n## Proof checklist\n\n- [ ] Folder `~/asv-learn-security-plus/exam-practice` exists\n- [ ] `drill_log.txt` has domain guess, answer, and why others fail for a full set\n- [ ] `missed_topics.txt` exists (or notes “0 misses” with date)\n- [ ] At least one miss/weak guess reworked with a Domain 1–5 artifact\n- [ ] You can say plainly: ASV Labs Learn study practice, not official CompTIA exam content\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nQuestions and drills here are original teaching material for ASV Labs Learn — not affiliated with, endorsed by, or copied from CompTIA exam forms. No pirated dumps. No attacks outside written authorization.\n\nWhen the proof checklist is true, you have closed the Security+ (SY0-701) path with an exam-mindset loop on top of Domains 1–5.\n\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "A phishing email links to a fake login. Password reuse without MFA is the weakness. Which field is the attack vector?",
+          "options": [
+            "The email link path to the fake page",
+            "Password reuse without MFA",
+            "Account takeover impact",
+            "MFA as the control"
+          ],
+          "correct": 0,
+          "explanation": "The vector is the path (email link). Reuse without MFA is the vulnerability; takeover is impact."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "A stem asks for the first incident action after confirmed malware on one authorized lab VM. Which elimination is best?",
+          "options": [
+            "Discard answers that jump to org-wide recovery before containment and evidence",
+            "Pick the longest acronym list",
+            "Prefer leaked exam dump wording",
+            "Ignore evidence because the VM is disposable"
+          ],
+          "correct": 0,
+          "explanation": "Match the asked phase. Cleanup or full recovery before containment often fails Domain 4 (Security Operations) stems."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "A user passes MFA but cannot download another student’s export. What does that show?",
+          "options": [
+            "Authentication succeeded; authorization limited the action",
+            "Authorization replaced authentication",
+            "Encryption failed",
+            "Residual risk was accepted with no owner"
+          ],
+          "correct": 0,
+          "explanation": "AuthN proved identity; AuthZ correctly blocked the cross-student action (Domain 3 architecture placement)."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "For a Domain 5 risk row, likelihood is possible and impact is high. You choose reduce with stronger MFA. What else is required for program-oversight quality?",
+          "options": [
+            "An accountable owner and evidence that could be checked later",
+            "Only a product brand name",
+            "A claim that compliance automatically equals security",
+            "A blank residual decision"
+          ],
+          "correct": 0,
+          "explanation": "Program management and oversight need ownership and measurable evidence, not theater."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why map each practice item to SY0-701 Domains 1–5 before committing an answer?",
+          "options": [
+            "It focuses elimination on the ask instead of “most secure sounding” options",
+            "Domain labels appear on every real exam screen",
+            "It replaces the need for local notes",
+            "It authorizes use of pirated dumps"
+          ],
+          "correct": 0,
+          "explanation": "Domain mapping is a study habit that improves distractor elimination."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which workflow matches this ASV Labs Learn exam-practice chapter?",
+          "options": [
+            "Timed local drills in ~/asv-learn-security-plus/exam-practice with miss triage",
+            "A hosted CompTIA graded sandbox inside ASV Learn",
+            "Memorizing official leaked exam strings",
+            "Skipping Domains 1–5 entirely"
+          ],
+          "correct": 0,
+          "explanation": "Practice is local study only; items are pedagogical originals, not official CompTIA content."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "A design list names five vendors but no trust boundaries or failure modes. What is missing?",
+          "options": [
+            "Layered placement tied to named risks and what happens if one control fails",
+            "More product logos",
+            "Removing authentication to simplify UX",
+            "Treating availability as irrelevant"
+          ],
+          "correct": 0,
+          "explanation": "Domain 3 (Security Architecture) quality is design reasoning at boundaries, not a shopping list."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+PYTHON FULL STACK — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Python Full Stack, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+Picture a small service: accounts, stored data, protected routes, and a working API shape.
+By the end, you can explain and practice that service end to end — in plain Python first.
+
+========== BEAT 03 → beat-03 ==========
+
+You will map Django-style apps, FastAPI endpoint contracts, SQLAlchemy-shaped data plans, and auth decisions —
+often before you are required to install the full framework stack.
+
+========== BEAT 04 → beat-04 ==========
+
+The satisfying moment is watching a request hit your route logic, touch stored data, and return JSON you shaped.
+
+========== BEAT 05 → beat-05 ==========
+
+Foundations come first, then Django thinking, FastAPI contracts, databases, auth and security, then production Python habits.
+
+========== BEAT 06 → beat-06 ==========
+
+You will care about structure: settings, apps, migrations, and tests that catch you before users do.
+
+========== BEAT 07 → beat-07 ==========
+
+If React and Node is the other highway, this is the Python highway to the same destination: a product loop you can run and explain.
+
+========== BEAT 08 → beat-08 ==========
+
+Develop locally. Use files and a database only when a stage asks for it. Deploy thinking comes after the contracts are honest.
+
+========== BEAT 09 → beat-09 ==========
+
+Bring Python Zero comfort — or equivalent. We move faster than absolute beginner pace.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a service story you can demo from local scripts: sign up flow, save something, fetch it through an API-shaped handler.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, Python full stack shows up in internal tools, data products, and API-first backends teams trust.
+Start with Python web fundamentals. Take your time.

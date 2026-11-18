@@ -1,0 +1,1 @@
+The path: foundations, React, Node and Express thinking, databases, deployment basics, then capstone proof.

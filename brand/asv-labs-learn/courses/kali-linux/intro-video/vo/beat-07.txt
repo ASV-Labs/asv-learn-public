@@ -1,0 +1,2 @@
+Chapters move from setup and basics, through gathering and scanning,
+into assessment, web tools, exploitation technique, then wireless and forensics on the same bench.

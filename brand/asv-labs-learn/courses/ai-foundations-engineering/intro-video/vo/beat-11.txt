@@ -1,0 +1,2 @@
+In industry, that is how recommendation, forecasting, and quality models survive contact with real users.
+Start with ML engineering fundamentals. Take your time.

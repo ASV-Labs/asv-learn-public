@@ -1,0 +1,53 @@
+SOC & BLUE TEAM — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is SOC and Blue Team, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+An alert hits at two thirteen a.m.
+Same host. Odd process. Is it noise — or an incident with a clock already running?
+
+========== BEAT 03 → beat-03 ==========
+
+This intro is that countdown.
+You will learn how analysts triage, enrich, decide, and write a case file someone can continue at sunrise.
+
+========== BEAT 04 → beat-04 ==========
+
+Blue team work is pattern recognition under pressure.
+Logs, detections, threat intel, and a calm hand when the room wants drama.
+
+========== BEAT 05 → beat-05 ==========
+
+You will practice SIEM thinking and log analysis,
+map activity with MITRE ATT&CK, and walk incident response from detection to containment.
+
+========== BEAT 06 → beat-06 ==========
+
+Later chapters open forensics and threat hunting — so you can chase what the alert only hinted at.
+
+========== BEAT 07 → beat-07 ==========
+
+The path: SOC fundamentals, SIEM and logs, threat intel and MITRE ATT&CK,
+incident response, forensics, then hunting.
+
+========== BEAT 08 → beat-08 ==========
+
+You work from local notes and lab datasets. No production network required to start.
+
+========== BEAT 09 → beat-09 ==========
+
+If Ethical Hacking shows how attackers think, this course shows how defenders answer — with tickets, timelines, and proof.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a case file: timeline, hypothesis, actions taken, and what to watch next.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that case file is the difference between a sleepy queue and a team that actually contains harm.
+Start with SOC fundamentals. Take your time.

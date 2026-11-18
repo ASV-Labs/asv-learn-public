@@ -1,0 +1,112 @@
+{
+  "slug": "kali-linux",
+  "title": "KALI LINUX & PENETRATION TESTING TOOLS — INTRO v4.1 VO",
+  "catalogTitle": "Kali Linux & Penetration Testing Tools",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "KALI LINUX",
+      "line2": "& pen-test tools",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · tools with intent"
+    },
+    {
+      "type": "audience",
+      "question": "every wrench has a purpose",
+      "answer": "learn which one — first."
+    },
+    {
+      "type": "definition",
+      "heading": "what you build",
+      "items": [
+        "clean setup",
+        "confident navigation",
+        "tools with intent"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "bench skills",
+      "chips": [
+        "gather",
+        "scan",
+        "assess",
+        "web tools"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "habit",
+      "leftLines": [
+        "question",
+        "tool",
+        "output"
+      ],
+      "rightTitle": "result",
+      "rightLines": [
+        "what it means",
+        "written down"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "more than one kind of day",
+      "cards": [
+        "wireless",
+        "forensics",
+        "lab only"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "setup",
+        "gather",
+        "scan",
+        "assess",
+        "web & exploit",
+        "wireless & forensics"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "your VM",
+      "sub": "targets allowed only",
+      "prompt": "whoami",
+      "result": "kali"
+    },
+    {
+      "type": "timeline",
+      "heading": "sister courses",
+      "points": [
+        {
+          "top": "Kali",
+          "bottom": "workbench"
+        },
+        {
+          "top": "Ethical Hacking",
+          "bottom": "case method"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "reusable playbook",
+      "windowTitle": "workbench notes",
+      "lines": [
+        "tool runs",
+        "what it meant",
+        "next lab ready"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with setup & basics",
+      "sub": "take your time",
+      "industry": "move fast without guessing tools"
+    }
+  ]
+}

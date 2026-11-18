@@ -1,0 +1,1 @@
+Practice is your machine and authorized lab only. ASV Learn does not host a cluster or pipeline sandbox inside the lesson.

@@ -1,0 +1,2 @@
+Today, Python is simply a way to write instructions a computer will follow.
+You write the steps. The computer runs them. That is the whole trick.

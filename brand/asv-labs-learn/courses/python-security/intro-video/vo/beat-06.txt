@@ -1,0 +1,1 @@
+Every script should be readable tomorrow morning. Clever is optional. Clear is required.

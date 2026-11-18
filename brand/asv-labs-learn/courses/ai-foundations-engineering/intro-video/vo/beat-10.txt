@@ -1,0 +1,1 @@
+Your proof is a small engineering packet: validation story, monitoring plan, and handoff notes a teammate could follow.

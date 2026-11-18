@@ -1,0 +1,2 @@
+In industry, that toolkit energy shows up in SOC automation, detection engineering helpers, and secure internal utilities.
+Start with Python basics for security. Take your time.

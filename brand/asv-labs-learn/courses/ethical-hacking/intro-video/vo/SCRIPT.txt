@@ -1,0 +1,55 @@
+ETHICAL HACKING & PENETRATION TESTING — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Ethical Hacking and Penetration Testing, from ASV Learn.
+A sanctioned investigation course — authorization first, always.
+
+========== BEAT 02 → beat-02 ==========
+
+You inherit a case file: a fake company, a written scope, and a question.
+Where could a real attacker walk in — and how do you prove it without causing harm?
+
+========== BEAT 03 → beat-03 ==========
+
+That is the work.
+Recon, scanning, careful validation, evidence, and a report a defender can use.
+
+========== BEAT 04 → beat-04 ==========
+
+You learn methodology, not chaos.
+Every step has a reason, a note, and a limit written in the rules of engagement.
+
+========== BEAT 05 → beat-05 ==========
+
+You will plan reconnaissance, enumerate services, test web apps in lab targets,
+validate findings safely, and practice post-exploitation evidence handling.
+
+========== BEAT 06 → beat-06 ==========
+
+Wireless and social-engineering defense testing appear as controlled chapters — still inside the case, still inside the scope.
+
+========== BEAT 07 → beat-07 ==========
+
+The path runs from ethical fundamentals through recon, scanning, and web testing,
+then controlled validation, evidence, and the professional report that closes the case.
+
+========== BEAT 08 → beat-08 ==========
+
+Labs stay on systems you own or are explicitly allowed to test. No freelance heroics.
+
+========== BEAT 09 → beat-09 ==========
+
+Kali Linux and Penetration Testing Tools is the sister course — the workbench and tool fluency.
+This course is the investigation method and the professional handoff.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a findings report: severity, evidence, and defender-ready recommendations.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that report is how penetration testers earn trust — not by the exploit, but by the clarity of the handoff.
+Start with Ethical Hacking Fundamentals. Take your time.

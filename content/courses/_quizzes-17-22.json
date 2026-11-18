@@ -1,0 +1,158 @@
+{
+  "module-17": [
+    {
+      "type": "multiple_choice",
+      "question": "Why use a virtual environment (.venv) for a Python project?",
+      "options": [
+        "It keeps that project’s installed packages isolated from other projects and the system Python",
+        "It makes Python run without a terminal",
+        "It replaces the need for a README or source files",
+        "It automatically turns your script into a university degree"
+      ],
+      "correct": 0,
+      "explanation": "A virtual environment is a project-local package space so dependencies do not collide across projects."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "In a beginner project tree, what belongs in requirements.txt?",
+      "options": [
+        "A package record listing libraries this project needs so the environment can be recreated",
+        "Only the virtual environment binary files",
+        "Secret passwords and API keys for every teammate",
+        "The full text of every lesson module"
+      ],
+      "correct": 0,
+      "explanation": "requirements.txt records dependencies; .venv is usually recreated from that record rather than copied as the source of truth."
+    }
+  ],
+  "module-18": [
+    {
+      "type": "multiple_choice",
+      "question": "What is a good reason to read configuration from CLI arguments instead of editing the .py file each run?",
+      "options": [
+        "The person running the script can change mode or output path without rewriting source",
+        "CLI arguments delete the need for any defaults",
+        "Arguments always hide errors from the terminal",
+        "sys.argv can only store integers"
+      ],
+      "correct": 0,
+      "explanation": "Configuration via args (and sometimes env vars) separates settings from core logic so behavior can change per run."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "When printing configuration in a beginner script, what should you avoid?",
+      "options": [
+        "Printing secrets such as API keys or passwords from environment variables",
+        "Printing the chosen output filename",
+        "Printing whether debug mode is on",
+        "Showing --help text from argparse"
+      ],
+      "correct": 0,
+      "explanation": "Safe config summaries are fine; secrets must not be printed or committed."
+    }
+  ],
+  "module-19": [
+    {
+      "type": "multiple_choice",
+      "question": "What is a dry run in filesystem automation?",
+      "options": [
+        "A preview that reports planned moves or renames without changing files yet",
+        "Deleting every file older than one day immediately",
+        "Renaming files before listing them",
+        "Only working with CSV files"
+      ],
+      "correct": 0,
+      "explanation": "Dry run means inventory and plan first so mistakes are caught before destructive actions."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Why is pathlib useful when planning file actions?",
+      "options": [
+        "Path objects expose name, suffix, and safe joining so rules can use extensions cleanly",
+        "pathlib prevents you from ever needing a terminal",
+        "pathlib only works inside web browsers",
+        "pathlib replaces JSON and CSV entirely"
+      ],
+      "correct": 0,
+      "explanation": "pathlib.Path makes extension-based planning and path joining clearer than raw string concatenation."
+    }
+  ],
+  "module-20": [
+    {
+      "type": "multiple_choice",
+      "question": "Before calling int() on a score field from messy row data, what should you do?",
+      "options": [
+        "Validate that the value is safe (for example non-empty digits) and keep rejects separate",
+        "Always divide by zero first",
+        "Convert the entire CSV file to a PNG",
+        "Delete invalid rows from the disk without counting them"
+      ],
+      "correct": 0,
+      "explanation": "Transformation pipelines validate and normalize first; blank or n/a scores must not be converted blindly."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "In a cleanup script, why keep cleaned records and rejected rows separate?",
+      "options": [
+        "So summaries and exports are based on valid data while rejects remain reviewable",
+        "So JSON can only store rejected rows",
+        "So averages ignore how many rows were valid",
+        "So the script never needs print()"
+      ],
+      "correct": 0,
+      "explanation": "Separating clean vs rejected data keeps metrics honest and supports later export or review."
+    }
+  ],
+  "module-21": [
+    {
+      "type": "multiple_choice",
+      "question": "For the Progress Tracker capstone, what is the role of progress.json versus CSV export?",
+      "options": [
+        "JSON is the source of truth between runs; CSV is a report snapshot for sharing or spreadsheets",
+        "CSV replaces JSON permanently after the first export",
+        "Neither file is needed if print() works once",
+        "JSON is only for certificates and CSV is only for modules 01–03"
+      ],
+      "correct": 0,
+      "explanation": "Persistent JSON storage keeps state; export writes a CSV snapshot for reporting."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "Which set of behaviors is required for the capstone CLI?",
+      "options": [
+        "--help, --add, --list, --complete, --summary, and --export",
+        "--browse-only and --skip-tests",
+        "--degree and --job-guarantee",
+        "--delete-all without a dry run or confirmation path"
+      ],
+      "correct": 0,
+      "explanation": "The brief requires a clear argparse CLI with help, add, list, complete, summary, and CSV export."
+    }
+  ],
+  "module-22": [
+    {
+      "type": "multiple_choice",
+      "question": "What does a Python Zero completion certificate mean in this course?",
+      "options": [
+        "Learning-path completion proof — not a university degree, license, or job guarantee",
+        "An accredited engineering degree equivalent",
+        "A government license to practice professional software engineering",
+        "Proof that no portfolio or README is needed"
+      ],
+      "correct": 0,
+      "explanation": "The certificate is honest completion evidence for a learning product; portfolio work remains the main skill proof."
+    },
+    {
+      "type": "multiple_choice",
+      "question": "When presenting graduation evidence, what should lead?",
+      "options": [
+        "The capstone README, runnable commands, and demoable scripts folder — with the certificate as supporting context",
+        "Only a badge image with no code or README",
+        "An invented verification URL that was never issued",
+        "A claim that the prototype platform already guarantees employment"
+      ],
+      "correct": 0,
+      "explanation": "Lead with portfolio artifacts you can explain; treat certificate/verification as supporting completion record, especially while the product is still prototyping delivery."
+    }
+  ]
+}

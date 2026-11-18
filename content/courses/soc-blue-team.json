@@ -1,0 +1,374 @@
+{
+  "slug": "soc-blue-team",
+  "title": "SOC & Blue Team",
+  "description": "Defensive operations: triage alerts, read SIEM evidence, map ATT&CK, run incidents, preserve evidence, and hunt.",
+  "difficulty": "Intermediate",
+  "hours": "18-24",
+  "topics": [
+    "SOC Operations",
+    "Threat Hunting",
+    "SIEM",
+    "Incident Response"
+  ],
+  "certBadges": [
+    "SOC Analyst",
+    "Incident Handler"
+  ],
+  "runtime": "shell",
+  "source": {
+    "markdown": "content/courses/soc-blue-team/",
+    "live": "https://learn.asv-labs.com"
+  },
+  "stages": [
+    {
+      "slug": "stage-01",
+      "title": "SOC Fundamentals and the Analyst Role",
+      "hours": "2-3",
+      "sortOrder": 1,
+      "content": "# SOC Fundamentals and the Analyst Role\n\n## Why this lesson exists\n\nA SOC analyst does not guess from one alert. The job is to gather enough context to decide whether an event should **close**, be **monitored**, or **escalate**.\n\nIn this lesson you will practice the first professional move: separate facts from assumptions, write a triage note another analyst can trust, and choose a next action the evidence actually supports.\n\n## Reminder: where you work\n\nCreate a course notes folder on your machine (or authorized lab host):\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-01\ncd ~/asv-learn-soc-blue-team/stage-01\n```\n\nWindows (PowerShell):\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-01\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-01\"\n```\n\nYou will write `triage_note.txt` (or a short shell script that prints the same fields) in that folder.\n\n## Start here: alert before verdict\n\nDo not try to prove a breach from one noisy signal. Read the alert like a work ticket:\n\n1. Who or what is involved?\n2. What evidence exists?\n3. What is missing?\n4. What decision should the next analyst be able to trust?\n\nYou are not building a full incident case yet. You are slowing the alert down before anyone escalates.\n\n## What a Tier 1 note must answer\n\n| Question to answer | What it protects |\n| --- | --- |\n| What did the alert actually say? | The note does not outrun the evidence. |\n| Who or what is involved? | The next analyst knows where to look. |\n| What is missing? | Assumptions stay visible instead of hidden. |\n| How urgent is it? | Severity stays tied to evidence, not fear. |\n| What should happen next? | The queue gets a clear close, monitor, or escalate decision. |\n\nA good Tier 1 note does not sound dramatic. It helps the next analyst see what is known, what is unknown, and why the chosen action is reasonable.\n\n## Alert anatomy\n\nStart with the facts the queue gives you.\n\n| Field | Why it matters | Honest limit |\n| --- | --- | --- |\n| Alert user / asset | Names the account or host tied to the event | Naming it is not proof of compromise |\n| Source IP / location | Shows where activity appears to come from | Source can be spoofed, shared, or VPN-related |\n| Severity | Sets urgency for the queue | Severity is a priority label, not a verdict |\n| Evidence | Records the observed signal | Evidence can be incomplete or noisy |\n| Missing context | Names what you still cannot claim | Hidden guesses become bad escalations |\n| Next action | Connects the decision to work someone can do | Action must follow from evidence |\n\nFirst say the alert in one plain sentence: *this signal happened to this user or asset, from this source, with this evidence; the next action is this because of that evidence.*\n\n## Facts versus assumptions\n\n| Type | Example | How to handle it |\n| --- | --- | --- |\n| Fact | “Five failed logins, then one success from `10.0.3.44`” | Put it in Evidence |\n| Assumption | “Alex’s account is compromised” | Do not write as fact; escalate only if evidence supports it |\n| Missing context | “No user confirmation yet; no geo/VPN history pulled” | Put it in Missing context |\n| Next action | “Monitor and escalate if failures repeat or user denies the login” | Make it specific and testable |\n\nIf you feel pulled toward “compromised” or “safe” too early, return to the evidence fields first.\n\n## Decision paths: close, monitor, escalate\n\n| Decision | When it fits | What the note must show |\n| --- | --- | --- |\n| Close | Evidence matches known benign behavior and nothing remains to check | Why it is benign; what you checked |\n| Monitor | Suspicious enough to watch, not yet strong enough to escalate | What would change the decision |\n| Escalate | Evidence plus missing high-impact context needs Tier 2 / IR | Facts, gaps, and why urgency rose |\n\n## Common beginner mistakes\n\n- Writing a verdict before listing evidence\n- Treating severity as certainty (“high severity = breach”)\n- Hiding unknowns so the note looks confident\n- Escalating with drama instead of missing context and impact\n- Closing because “it looks normal” without saying what you checked\n- Expecting an automatic grading inside the lesson instead of writing a local `triage_note.txt`\n\n## Your local task\n\n### Step 1 — Capture a sample alert\n\nUse this authorized practice scenario (synthetic lab data):\n\n```text\nAlert: repeated authentication failures then success\nUser: alex\nSource IP: 10.0.3.44\nTime window: 10 minutes\nObserved: 6 failed logins, 1 success from the same source\nMissing: user confirmation, VPN/geo history, MFA status\n```\n\n### Step 2 — Write the triage note\n\nCreate `triage_note.txt`:\n\n```text\nalert_user=alex\nsource_ip=10.0.3.44\nseverity=medium\nevidence=six failed logins then one success from same source in ten minutes\nmissing_context=no user confirmation; VPN/geo and MFA status not checked yet\nnext_action=monitor user activity; escalate if failures repeat or user denies login\n```\n\nOptional: print the same fields from a shell script in your lab folder:\n\n```bash\nalert_user=\"alex\"\nsource_ip=\"10.0.3.44\"\nseverity=\"medium\"\nevidence=\"six failed logins then one success from same source in ten minutes\"\nmissing_context=\"no user confirmation; VPN/geo and MFA status not checked yet\"\nnext_action=\"monitor user activity; escalate if failures repeat or user denies login\"\n\nprintf '%s\\n' \\\n  \"user=$alert_user\" \\\n  \"source_ip=$source_ip\" \\\n  \"severity=$severity\" \\\n  \"evidence=$evidence\" \\\n  \"missing_context=$missing_context\" \\\n  \"next_action=$next_action\"\n```\n\n### Step 3 — Self-review\n\nRead the note as if you are the next analyst. Ask:\n\n- Can I see the facts without guessing?\n- Are unknowns named?\n- Does the next action follow from the evidence?\n\n### Step 4 — One change you can explain\n\nChange **one** field (severity or next action) and rewrite one sentence so the decision still matches the evidence. Say out loud why that change is justified.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Triage | First pass that decides close, monitor, or escalate |\n| Tier 1 | Queue work that gathers context before deep investigation |\n| Evidence | Observed signal you can point to |\n| Missing context | What you still cannot claim |\n| Escalation | Hand-off with facts, gaps, and urgency |\n\n## What good looks like\n\nA strong Stage 1 note:\n\n- Lists evidence before any verdict language\n- Names missing context instead of hiding it\n- Chooses close, monitor, or escalate with a reason another analyst can test\n- Could be handed to Tier 2 without drama\n\n## Proof checklist\n\n- [ ] Course notes folder exists for stage-01\n- [ ] `triage_note.txt` (or equivalent) lists user, source, severity, evidence, missing context, next action\n- [ ] Facts and assumptions are separated\n- [ ] Next action is close, monitor, or escalate with a reason\n- [ ] You can explain the note to a second analyst in under one minute\n- [ ] You know practice is local / authorized lab only (no automatic grading inside the lesson)\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nUse only synthetic data, your own lab, or systems you are explicitly authorized to analyze. Do not probe, scan, or collect from real systems without written permission.\n\nWhen those items are true, continue to **SIEM Fundamentals and Log Analysis**.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What should a Tier 1 analyst do before escalating an alert?",
+          "options": [
+            "Collect context and evidence",
+            "Assume compromise",
+            "Delete the alert",
+            "Restart the user's computer"
+          ],
+          "correct": 0,
+          "explanation": "Escalation should be backed by user, source, evidence, severity, and missing context."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What belongs in a triage note's missing-context field?",
+          "options": [
+            "Facts you observed in the alert",
+            "What you still cannot claim or have not checked yet",
+            "A dramatic breach announcement",
+            "The ATT&CK technique ID only"
+          ],
+          "correct": 1,
+          "explanation": "Missing context keeps assumptions visible so the next analyst knows what is still unknown."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "When is \"monitor\" a better next action than \"escalate\"?",
+          "options": [
+            "When evidence is suspicious but not yet strong enough for handoff",
+            "When you have already confirmed active account takeover",
+            "When you want to hide uncertainty",
+            "When severity is always high by default"
+          ],
+          "correct": 0,
+          "explanation": "Monitor fits when follow-up conditions could change the decision without claiming a full incident yet."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "How do you practice this ASV Learn stage?",
+          "options": [
+            "Write local lab notes on your own terminal, VM, or authorized lab host",
+            "Wait for the lesson page to score a hosted shell for you",
+            "Probe production systems without permission",
+            "Escalate every alert with no missing-context field"
+          ],
+          "correct": 0,
+          "explanation": "Lessons are read in ASV Learn; practice is authorized local lab work only."
+        }
+      ]
+    },
+    {
+      "slug": "stage-02",
+      "title": "SIEM Fundamentals and Log Analysis",
+      "hours": "3-4",
+      "sortOrder": 2,
+      "content": "# SIEM Fundamentals and Log Analysis\n\n## Why this lesson exists\n\nA SIEM is useful because it makes events searchable and comparable. Analysts still have to define what **question** the query answers.\n\nIn this lesson you will write a SIEM search plan before inventing query syntax: log source, goal, fields, suspicious pattern, false-positive check, and escalation condition.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-02\ncd ~/asv-learn-soc-blue-team/stage-02\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-02\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-02\"\n```\n\nYou will create `siem_search_plan.txt` in that folder.\n\n## Start here: question before query\n\nDo not treat a SIEM search as magic. First name:\n\n1. The log source\n2. The fields you need\n3. The pattern you are testing\n4. The false-positive check\n5. The condition that would make the alert worth escalating\n\nA good search plan keeps you honest: the query should answer one clear question, not produce noise that feels important because it has many results.\n\n## What a SIEM can and cannot prove\n\n| SIEM can help with | SIEM cannot prove by itself |\n| --- | --- |\n| Finding events that match a pattern | That an account is definitely compromised |\n| Comparing time windows and sources | Attacker intent |\n| Correlating fields across sources (when ingested) | That missing logs never happened |\n| Supporting close / monitor / escalate | That every relevant log was collected |\n\nIf retention, parsing, or collection is incomplete, your conclusion must say so.\n\n## Search plan fields\n\n| Field | Analyst question | Example |\n| --- | --- | --- |\n| Log source | Where did the evidence come from? | Windows authentication logs |\n| Query goal | What behavior is being tested? | Failures followed by success |\n| Filter fields | Which fields keep the search focused? | user, src_ip, event_id, time |\n| Suspicious pattern | What would make this worth review? | >5 failures then 1 success in 10 minutes |\n| False-positive check | What normal activity could explain it? | VPN reconnects; password reset window |\n| Escalation note | When should another analyst pick it up? | Unusual source IP or user denies login |\n\nDo not start by writing query syntax. First say the plan in one sentence: source, goal, fields, suspicious pattern, false-positive check, and escalation condition.\n\n## A clean pass through SIEM work\n\n1. The log source says where the evidence comes from.\n2. The query goal says what behavior is being tested.\n3. The filter fields keep the search focused.\n4. The suspicious pattern says what deserves review.\n5. The false-positive check and escalation note say when to close, monitor, or hand off.\n\nThat chain keeps SIEM work from becoming noisy searching.\n\n## Reading results without overclaiming\n\n| Result shape | Better interpretation | Weak interpretation |\n| --- | --- | --- |\n| Zero hits | Pattern not seen in available logs for that window | “Nothing bad happened anywhere” |\n| Many similar hits | Pattern is common; check baselines / allowlists | “Mass compromise” |\n| Rare hit matching pattern | Worth focused review | “Proven attacker” |\n| Hits with missing fields | Parsing or collection gap | Ignore the gap |\n\n## Common beginner mistakes\n\n- Writing a query before naming the question\n- Selecting every field “just in case”\n- Treating result count as severity\n- Skipping the false-positive check\n- Escalating because the query “found something” without saying why it matters\n\n## Your local task\n\n### Step 1 — Scenario\n\nAuthorized practice alert to investigate with a search plan:\n\n```text\nSignal: possible password spray / brute force then success\nUser: alex\nHint: authentication logs may show failures then success from one source\nNeed: plan before any vendor query language\n```\n\n### Step 2 — Write the search plan\n\nCreate `siem_search_plan.txt`:\n\n```text\nlog_source=windows authentication logs\nquery_goal=find repeated failed logins followed by a success for one user\nfilter_fields=user src_ip event_id time\nsuspicious_pattern=more than five failures then one success in ten minutes\nfalse_positive_check=check VPN reconnects and known password reset window\nescalation_note=escalate if source_ip is unusual for the user or user reports no login\n```\n\nOptional shell print in your lab:\n\n```bash\nlog_source=\"windows authentication logs\"\nquery_goal=\"find repeated failed logins followed by a success\"\nfilter_fields=\"user src_ip event_id time\"\nsuspicious_pattern=\"more than five failures then one success in ten minutes\"\nfalse_positive_check=\"check VPN reconnects and known password reset window\"\nescalation_note=\"escalate if source_ip is unusual or user reports no login\"\n\nprintf '%s\\n' \\\n  \"$log_source\" \\\n  \"$query_goal\" \\\n  \"$filter_fields\" \\\n  \"$suspicious_pattern\" \\\n  \"$false_positive_check\" \\\n  \"$escalation_note\"\n```\n\n### Step 3 — Add a one-line decision rule\n\nAppend to the file:\n\n```text\ndecision_rule=close if VPN/reset explains it; monitor if pattern is rare but unconfirmed; escalate if user denies login or source is never-before-seen for this account\n```\n\n### Step 4 — Self-review\n\nCould another analyst run your plan tomorrow without asking you what you meant?\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| SIEM | System that centralizes and searches security-related events |\n| Log source | Origin of events (auth, VPN, EDR, cloud, …) |\n| False positive | Alert or hit that looks bad but has a benign explanation |\n| Correlation | Linking related events across time or sources |\n| Retention | How long logs remain searchable |\n\n## What good looks like\n\nA strong Stage 2 plan:\n\n- Names one clear question before any vendor query syntax\n- Includes a specific false-positive check another analyst can run\n- Ties escalation to evidence, not result count\n- Could be handed to a teammate tomorrow without a verbal walkthrough\n\n## Proof checklist\n\n- [ ] `siem_search_plan.txt` exists with source, goal, fields, pattern, FP check, escalation note\n- [ ] The plan answers one clear question\n- [ ] False-positive check is specific, not “maybe normal”\n- [ ] Decision rule covers close / monitor / escalate\n- [ ] You did not claim a breach from result count alone\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nQuery only logs you are allowed to access. Export practice samples into your lab folder when needed; do not pull production data into personal devices without approval.\n\nWhen those items are true, continue to **Threat Intelligence and MITRE ATT&CK**.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why should a SIEM query include a false-positive check?",
+          "options": [
+            "To avoid treating normal behavior as an incident",
+            "To hide weak evidence",
+            "To reduce log retention",
+            "To skip investigation"
+          ],
+          "correct": 0,
+          "explanation": "False-positive checks help analysts avoid unnecessary escalation while preserving evidence."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should you define before writing SIEM query syntax?",
+          "options": [
+            "A search plan: source, goal, fields, pattern, FP check, escalation condition",
+            "Only the vendor name of the SIEM",
+            "A final breach report",
+            "A malware family label"
+          ],
+          "correct": 0,
+          "explanation": "Question-before-query keeps searches focused and reviewable."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does a high result count prove by itself?",
+          "options": [
+            "Nothing conclusive about compromise; it may only show a common pattern",
+            "That every user is compromised",
+            "That log retention is infinite",
+            "That escalation is always required"
+          ],
+          "correct": 0,
+          "explanation": "Result volume is not severity. Analysts still need baseline and false-positive reasoning."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Where should SIEM practice for this course happen?",
+          "options": [
+            "Authorized log samples or exports in your local lab notes",
+            "Any production SIEM you can guess a password for",
+            "An in-lesson hosted SIEM console with auto-grading",
+            "Public internet packet captures from strangers"
+          ],
+          "correct": 0,
+          "explanation": "This path uses local SIEM-style reasoning on authorized data, not a hosted console inside the lesson."
+        }
+      ]
+    },
+    {
+      "slug": "stage-03",
+      "title": "Threat Intelligence and MITRE ATT&CK",
+      "hours": "3-4",
+      "sortOrder": 3,
+      "content": "# Threat Intelligence and MITRE ATT&CK\n\n## Why this lesson exists\n\nThreat intelligence helps analysts connect local evidence to known attacker behavior. MITRE ATT&CK gives that behavior a shared vocabulary.\n\nIn this lesson you will build a short threat-intel card: source, local indicator, tactic, technique, confidence, and one detection or hunt action that changes what the SOC does next.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-03\ncd ~/asv-learn-soc-blue-team/stage-03\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-03\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-03\"\n```\n\nYou will create `threat_intel_card.txt` in that folder.\n\n## Start here: local evidence before intel labels\n\nDo not paste an ATT&CK technique onto an alert just because the name sounds familiar. First name:\n\n1. Intel source\n2. Local indicator\n3. Mapped tactic and technique\n4. Confidence\n5. Detection or hunt action\n\nThreat intelligence should change what the SOC does next. A famous technique name is not proof by itself.\n\n## What ATT&CK is for\n\n| Piece | What it names | How analysts use it |\n| --- | --- | --- |\n| Tactic | Broad attacker goal (e.g. Credential Access) | Shared language for “what they were trying to do” |\n| Technique | How that goal might be achieved (e.g. Brute Force) | Maps local behavior to a searchable label |\n| Sub-technique | More specific method (when needed) | Only when evidence supports the extra precision |\n\nATT&CK is a map, not a conviction. Mapping helps detection and communication; it does not replace logs.\n\n## Intelligence card fields\n\n| Field | Purpose | Honest claim |\n| --- | --- | --- |\n| Intel source | Where the outside claim came from | Source quality varies |\n| Local indicator | What appears in *your* environment | Outside IOCs may never show up locally |\n| ATT&CK tactic | Attacker’s broad goal | Goal can be wrong if evidence is thin |\n| Technique | Shared behavior label | Labels can be over-applied |\n| Confidence | How much the SOC should trust the mapping | Weak intel stays medium/low |\n| Detection action | Search, rule, or hunt to run | Action must be local and authorized |\n\nSay the card in one sentence: source, local indicator, tactic, technique, confidence, and detection action.\n\n## Confidence without theater\n\n| Confidence | When to use it | What not to do |\n| --- | --- | --- |\n| High | Multiple local evidence points + trusted source | Still avoid absolute “guaranteed APT” claims |\n| Medium | Partial local match or single strong source | Do not auto-block everything |\n| Low | Speculative or incomplete match | Do not escalate as confirmed intrusion |\n\n## From intel to SOC work\n\nUseful outcomes look like:\n\n- A focused authentication hunt for the same source IP\n- A temporary detection rule with a clear false-positive note\n- An investigation checklist for Tier 2\n- A decision to *not* act because the indicator is weak or out of scope\n\nUseless outcomes look like:\n\n- Pasting IOCs into a block list with no context\n- Renaming the ticket with an ATT&CK ID and stopping\n- Claiming attribution from one public report\n\n## Common beginner mistakes\n\n- Mapping first, reading local logs second\n- Treating every public IOC as high confidence\n- Confusing tactic (goal) with technique (method)\n- Blocking indicators without an owner or rollback plan\n- Using ATT&CK labels to sound certain when evidence is thin\n\n## Your local task\n\n### Step 1 — Local evidence (authorized practice)\n\n```text\nLocal signal: source IP 10.0.3.44 shows repeated failed logins then success for user alex\nOutside note (practice): trusted report discusses brute-force credential access patterns\nYour job: map carefully and pick one SOC action\n```\n\n### Step 2 — Write the threat-intel card\n\nCreate `threat_intel_card.txt`:\n\n```text\nintel_source=trusted threat report (practice summary)\nmapped_tactic=credential access\nattack_technique=T1110 brute force\nindicator_value=10.0.3.44 repeated failed logins then success for alex\nconfidence=medium\ndetection_action=hunt for the same source_ip across authentication and VPN logs in an authorized window\n```\n\nOptional shell print:\n\n```bash\nintel_source=\"trusted threat report\"\nmapped_tactic=\"credential access\"\nattack_technique=\"T1110 brute force\"\nindicator_value=\"10.0.3.44 repeated failed logins\"\nconfidence=\"medium\"\ndetection_action=\"hunt for the same source_ip across authentication logs\"\n\nprintf '%s\\n' \\\n  \"$intel_source\" \\\n  \"$mapped_tactic\" \\\n  \"$attack_technique\" \\\n  \"$indicator_value\" \\\n  \"$confidence\" \\\n  \"$detection_action\"\n```\n\n### Step 3 — Justify confidence\n\nAdd one line:\n\n```text\nconfidence_reason=local auth pattern matches brute-force shape; no malware or second-stage evidence yet\n```\n\n### Step 4 — Self-review\n\nIf you removed the ATT&CK label, would the detection action still make sense from the local evidence alone? If not, the mapping is decoration.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Threat intelligence | Outside or shared information used to improve local defense |\n| IOC | Indicator of compromise (IP, hash, domain, …) — not proof alone |\n| ATT&CK | Shared matrix of tactics and techniques |\n| Confidence | How strongly evidence supports the claim |\n| Detection action | Concrete SOC work that follows from the card |\n\n## What good looks like\n\nA strong Stage 3 card:\n\n- Puts local evidence before the ATT&CK label\n- Records confidence with a one-line reason\n- Names one authorized detection or hunt action\n- Would still make sense if the ATT&CK ID were removed\n\n## Proof checklist\n\n- [ ] `threat_intel_card.txt` includes source, indicator, tactic, technique, confidence, action\n- [ ] Local evidence is named before the ATT&CK label\n- [ ] Confidence has a one-line reason\n- [ ] Detection action is authorized and specific\n- [ ] You did not treat the technique ID as proof of compromise\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nConsume intel sources you are allowed to use. Do not pivot into scanning, phishing, or attacking systems named in reports. Defensive mapping and authorized hunting only.\n\nWhen those items are true, continue to **Incident Response from Detection to Containment**.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does ATT&CK help analysts standardize?",
+          "options": [
+            "Adversary behavior and technique names",
+            "Employee schedules",
+            "Ticket colors",
+            "Cloud billing"
+          ],
+          "correct": 0,
+          "explanation": "ATT&CK gives teams common names for attacker tactics and techniques."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should come before pasting an ATT&CK technique onto an alert?",
+          "options": [
+            "Local evidence, intel source, confidence, and a concrete SOC action",
+            "A public blog title alone",
+            "Blocking every IOC in the report",
+            "Deleting the original logs"
+          ],
+          "correct": 0,
+          "explanation": "Intel labels are useful only when tied to local evidence and a detection or hunt action."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why record confidence on a threat-intel card?",
+          "options": [
+            "To keep weak intel from becoming certainty in SOC decisions",
+            "To make the ticket look finished",
+            "To replace local logs",
+            "To skip false-positive checks"
+          ],
+          "correct": 0,
+          "explanation": "Confidence prevents overstatement when the match is partial or the source is limited."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the difference between tactic and technique in ATT&CK?",
+          "options": [
+            "Tactic is the attacker goal; technique is how that goal might be achieved",
+            "They are identical labels",
+            "Technique is always proof of compromise",
+            "Tactic replaces the need for local evidence"
+          ],
+          "correct": 0,
+          "explanation": "Tactics name goals; techniques name methods. Neither replaces local logs."
+        }
+      ]
+    },
+    {
+      "slug": "stage-04",
+      "title": "Incident Response from Detection to Containment",
+      "hours": "3-4",
+      "sortOrder": 4,
+      "content": "# Incident Response from Detection to Containment\n\n## Why this lesson exists\n\nIncident response turns a confirmed security event into controlled action. The early priority is to **preserve evidence** while **reducing harm**.\n\nIn this lesson you will draft a containment plan: trigger, severity, affected asset, containment step, evidence to preserve, recovery step, and communication owner.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-04\ncd ~/asv-learn-soc-blue-team/stage-04\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-04\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-04\"\n```\n\nYou will create `containment_plan.txt` in that folder.\n\n## Start here: containment before recovery\n\nDo not jump from alert to cleanup. First name:\n\n1. Trigger and severity\n2. Affected asset\n3. Containment step\n4. Evidence to preserve\n5. Recovery step\n6. Communication owner\n\nResponse work is useful when the order is defensible. Containment limits current harm; evidence preserves facts; recovery returns safer operation.\n\n## Response frame\n\n| Field | Reason | Honest limit |\n| --- | --- | --- |\n| Incident severity | Sets response speed | Severity can change as scope expands |\n| Affected asset | Names what is at risk | Scope may grow beyond the first host |\n| Containment step | Stops spread or misuse | Wrong containment can break business function |\n| Evidence to preserve | Keeps facts available | Some evidence is volatile and time-sensitive |\n| Recovery step | Restores safer operation | Recovery too early can destroy proof |\n| Communication owner | Keeps handoff clear | Silence and rumor both hurt response |\n\nSay the plan in one sentence: trigger, severity, asset, containment, evidence, recovery, and owner.\n\n## A clean pass through response order\n\n1. The trigger and severity say why response is needed now.\n2. The affected asset says where harm could continue.\n3. The containment step reduces current risk.\n4. The evidence list preserves facts before recovery changes the system.\n5. The recovery step and communication owner make the handoff safe.\n\nThat chain keeps response from becoming panic cleanup.\n\n## Containment options (examples, not a shopping list)\n\n| Option | When it may fit | What to preserve first |\n| --- | --- | --- |\n| Network isolate / EDR quarantine | Host shows active suspicious use | Auth logs, process list, network connections |\n| Disable or reset credentials | Account misuse suspected | Login history, MFA events, session list |\n| Block indicator at perimeter | Clear malicious destination (authorized) | Connection logs and who approved the block |\n| Monitor-only with heightened logging | Impact of isolation is too high right now | Explicit risk acceptance and watch criteria |\n\nChoose the least destructive option that still reduces harm—and write why.\n\n## Severity without drama\n\n| Severity | When it fits | What the plan must show |\n| --- | --- | --- |\n| Low | Limited blast radius; known benign pattern likely | What you checked before monitor/close |\n| Medium | Suspicious; needs timely action; not confirmed breach | Containment + evidence plan |\n| High | Confirmed or highly likely misuse of an important asset | Fast containment + escalation path |\n| Critical | Broad impact, sensitive data, or active destructive activity | Immediate containment and communications path |\n\nSeverity is a priority label tied to impact and confidence. Prefer evidence-tied urgency over adjectives like “catastrophic” with no facts.\n\n## Evidence before rebuild\n\nWhy preserve before recovery?\n\n- Scope: which users, hosts, and data were touched?\n- Cause: what allowed the event?\n- Detection: what should alert sooner next time?\n- Reporting: what must leadership or legal see later?\n\nWiping first can feel decisive and still leave the team blind.\n\n## Common beginner mistakes\n\n- Reimaging before capturing volatile evidence\n- Containing without naming the asset and owner\n- Treating “reset password” as full recovery\n- Skipping communication ownership\n- Writing severity from fear instead of impact + confidence\n\n## Your local task\n\n### Step 1 — Confirmed-suspicious practice scenario\n\nAuthorized practice event (not a real production incident):\n\n```text\nTrigger: suspicious login success after failure burst; user denies the login\nAsset: workstation alex-laptop\nSeverity candidate: high (active account misuse risk)\nNeed: containment before rebuild; evidence list; recovery; owner\n```\n\n### Step 2 — Write the containment plan\n\nCreate `containment_plan.txt`:\n\n```text\nincident_severity=high\naffected_asset=workstation alex-laptop\ncontainment_step=isolate host from network using approved EDR quarantine\nevidence_to_preserve=authentication logs; process list; network connections; EDR timeline\nrecovery_step=reset password and reimage host after evidence capture\ncommunication_owner=SOC incident lead\nlesson_learned_note=add detection for rare-source success after failure burst\n```\n\nOptional shell print:\n\n```bash\nincident_severity=\"high\"\naffected_asset=\"workstation alex-laptop\"\ncontainment_step=\"isolate host from network using EDR quarantine\"\nevidence_to_preserve=\"authentication logs process list network connections\"\nrecovery_step=\"reset password and reimage host after evidence capture\"\ncommunication_owner=\"SOC incident lead\"\n\nprintf '%s\\n' \\\n  \"$incident_severity\" \\\n  \"$affected_asset\" \\\n  \"$containment_step\" \\\n  \"$evidence_to_preserve\" \\\n  \"$recovery_step\" \\\n  \"$communication_owner\"\n```\n\n### Step 3 — Order check\n\nNumber the steps in the order you would execute them. Containment and evidence collection must appear before reimage.\n\n### Step 4 — Self-review\n\nWould another responder know what not to destroy? If not, expand the evidence list.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Containment | Actions that limit ongoing harm or spread |\n| Eradication / recovery | Removing cause and restoring safer operation |\n| Evidence preservation | Keeping facts usable for scope and cause |\n| Incident severity | Priority based on impact and confidence |\n| Communication owner | Person who coordinates updates and handoffs |\n\n## What good looks like\n\nA strong Stage 4 plan:\n\n- Keeps containment and evidence before recovery or reimage\n- Names a specific authorized containment step for the practice context\n- Lists evidence another responder must not destroy\n- Assigns a communication owner instead of “someone will tell them”\n\n## Proof checklist\n\n- [ ] `containment_plan.txt` includes severity, asset, containment, evidence, recovery, owner\n- [ ] Evidence is listed before recovery/rebuild\n- [ ] Containment step is specific and authorized for the practice context\n- [ ] Communication owner is named\n- [ ] You can explain why the order reduces harm without destroying facts\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not wipe real machines without process and authorization.\n\nIsolate, quarantine, or reimage only systems you are authorized to touch—usually a lab VM for this course. Never practice containment on someone else’s production host.\n\nWhen those items are true, continue to **Digital Forensics and Malware Analysis**.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "Why preserve evidence before recovery?",
+          "options": [
+            "So the team can understand scope and cause",
+            "So the alert looks longer",
+            "So containment is delayed forever",
+            "So logs can be deleted"
+          ],
+          "correct": 0,
+          "explanation": "Evidence supports scope, root cause, and better future detection."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "In a sound response order, what comes before reimaging a host?",
+          "options": [
+            "Containment and evidence preservation",
+            "Deleting authentication logs",
+            "Closing the ticket as noise",
+            "Public disclosure of every IOC"
+          ],
+          "correct": 0,
+          "explanation": "Containment limits harm; evidence capture protects facts before recovery changes the system."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What does naming a communication owner protect during an incident?",
+          "options": [
+            "Clear handoffs and updates instead of rumor or silence",
+            "Faster malware detonation on a laptop",
+            "Skipping severity assessment",
+            "Automatic proof of attribution"
+          ],
+          "correct": 0,
+          "explanation": "Ownership keeps coordination accountable while technical work continues."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "For this course, where may you practice containment actions like isolate or reimage?",
+          "options": [
+            "Only systems you are authorized to touch—usually a lab VM",
+            "Any coworker laptop that looks suspicious",
+            "Production hosts without a ticket because practice is urgent",
+            "Public cloud instances you discover by scanning"
+          ],
+          "correct": 0,
+          "explanation": "Containment practice stays inside authorization; lab VMs are the default for this path."
+        }
+      ]
+    },
+    {
+      "slug": "stage-05",
+      "title": "Digital Forensics and Malware Analysis",
+      "hours": "3-4",
+      "sortOrder": 5,
+      "content": "# Digital Forensics and Malware Analysis\n\n## Why this lesson exists\n\nForensics asks **what happened**. Malware analysis asks **how suspicious code behaves**. SOC analysts need enough structure to preserve evidence and ask the right analysis question—without turning an unknown sample into a new risk.\n\nIn this lesson you will write a forensic note: evidence ID, acquisition method, chain of custody, hash, analysis question, and handling rule.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-05\ncd ~/asv-learn-soc-blue-team/stage-05\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-05\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-05\"\n```\n\nYou will create `forensic_note.txt` in that folder. If your lab provides a safe sample copy, keep it isolated. Success here is a complete handling note—not malware detonation.\n\n## Start here: evidence handling before analysis\n\nDo not analyze evidence before you can trust where it came from. First name:\n\n1. Evidence ID\n2. Acquisition method\n3. Chain of custody\n4. Hash value\n5. Analysis question\n6. Handling rule\n\nInteresting behavior is not useful if the artifact cannot be trusted or the handling rule creates new risk.\n\n## Evidence handling fields\n\n| Field | Purpose | Why SOC cares |\n| --- | --- | --- |\n| Evidence ID | Makes the artifact traceable | Tickets and vaults stay aligned |\n| Acquisition method | Explains how it was collected | Reviewers can judge reliability |\n| Chain of custody | Names who handled it | Gaps weaken conclusions |\n| Hash value | Supports integrity checks | Detects accidental change |\n| Analysis question | Keeps work focused | Avoids endless curiosity detours |\n| Handling rule | Protects evidence and people | Prevents unsafe execution |\n\nSay the note in one sentence: evidence id, acquisition method, custody, hash, analysis question, and handling rule.\n\n## Integrity in plain language\n\nA hash is a fingerprint of the bytes you have. If the fingerprint changes, the file changed (or you hashed the wrong object).\n\n| Practice | Good habit |\n| --- | --- |\n| Before analysis | Record hash of the working copy |\n| After transfer | Re-hash and compare |\n| During analysis | Work on a copy, not the vault original |\n| In the ticket | Store algorithm + value (e.g. SHA-256) |\n\nA hash does **not** prove a file is malicious. It only helps prove you still have the same bytes.\n\n## Analysis questions that stay useful\n\nGood questions are narrow:\n\n- Which process made outbound connections after the suspicious login?\n- Does the sample drop persistence under an authorized lab analysis path?\n- What network destinations appear in the memory capture?\n\nWeak questions are vague:\n\n- “Is this APT?”\n- “Hack everything about this file”\n- “Prove the user is guilty”\n\n## Handling rules (non-negotiable for this course)\n\n| Rule | Why |\n| --- | --- |\n| Analyze a copy only | Protects the original |\n| Do not execute unknown samples on a daily workstation | Avoids turning your laptop into a patient |\n| Use an authorized isolated lab if dynamic analysis is needed | Keeps risk inside a controlled boundary |\n| Record who touched the evidence | Custody stays honest |\n| Stop if authorization is unclear | Legal and safety first |\n\n## Common beginner mistakes\n\n- Opening or running the sample “just to see”\n- Forgetting to hash before and after transfer\n- Writing conclusions without an evidence ID\n- Mixing personal Downloads with evidence vault paths\n- Claiming malware family from a filename alone\n\n## Your local task\n\n### Step 1 — Practice evidence item\n\nAuthorized practice artifact description (synthetic):\n\n```text\nEvidence: memory capture labeled for host alex-laptop after suspicious login\nAcquisition: approved EDR memory capture in lab\nHandlers: SOC analyst → evidence vault\nNeed: forensic note before any deep analysis claims\n```\n\n### Step 2 — Write the forensic note\n\nCreate `forensic_note.txt`:\n\n```text\nevidence_id=host-alex-memory-001\nacquisition_method=approved EDR memory capture\nchain_of_custody=collected by SOC analyst and stored in evidence vault\nhash_value=sha256 recorded before analysis\nanalysis_question=identify suspicious process and network destination\nhandling_rule=analyze copy only; do not execute unknown sample on workstation\n```\n\nOptional shell print:\n\n```bash\nevidence_id=\"host-alex-memory-001\"\nacquisition_method=\"approved EDR memory capture\"\nchain_of_custody=\"collected by SOC analyst and stored in evidence vault\"\nhash_value=\"sha256 recorded before analysis\"\nanalysis_question=\"identify suspicious process and network destination\"\nhandling_rule=\"analyze copy only and do not execute unknown sample on workstation\"\n\nprintf '%s\\n' \\\n  \"$evidence_id\" \\\n  \"$acquisition_method\" \\\n  \"$chain_of_custody\" \\\n  \"$hash_value\" \\\n  \"$analysis_question\" \\\n  \"$handling_rule\"\n```\n\n### Step 3 — Optional hash practice (safe file)\n\nHash a harmless lab file you create yourself (not malware):\n\n```bash\nprintf 'lab-note\\n' > sample_lab_note.txt\nshasum -a 256 sample_lab_note.txt\n```\n\nRecord the output in `forensic_note.txt` under `practice_hash=` so you prove you can capture a digest.\n\n### Step 4 — Self-review\n\nIf custody or hash were blank, would you trust a later “malware” claim? If not, fix the note.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Chain of custody | Documented handling history for evidence |\n| Hash | Digitized fingerprint used for integrity checks |\n| Acquisition | How evidence was collected |\n| Static analysis | Inspecting without running code |\n| Dynamic analysis | Observing behavior when run in a controlled lab |\n\n## What good looks like\n\nA strong Stage 5 note:\n\n- Has an evidence ID, acquisition method, and custody trail before analysis claims\n- Records a hash and understands hash ≠ malice\n- Asks one specific analysis question\n- States a handling rule that forbids unsafe execution on a daily workstation\n\n## Proof checklist\n\n- [ ] `forensic_note.txt` has ID, acquisition, custody, hash, question, handling rule\n- [ ] Analysis question is specific\n- [ ] Handling rule forbids unsafe execution on a daily workstation\n- [ ] You understand hash ≠ malice\n- [ ] Optional practice hash of a harmless file is recorded\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo **not** execute unknown samples on your daily workstation.\n\nDo not download or run real malware for this course unless you are in a formally authorized, isolated lab with explicit permission. Documentation discipline is the win here.\n\nWhen those items are true, continue to **Threat Hunting and Advanced Detection**.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What does a hash value help prove?",
+          "options": [
+            "The evidence has not changed",
+            "The file is always malicious",
+            "The analyst owns the system",
+            "The incident is closed"
+          ],
+          "correct": 0,
+          "explanation": "A recorded hash helps verify evidence integrity during handling and analysis."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should you do before analyzing a suspicious sample?",
+          "options": [
+            "Record ID, acquisition, custody, hash, question, and a safe handling rule",
+            "Run it on your daily workstation",
+            "Rename it to look trusted",
+            "Delete the original so nobody else can see it"
+          ],
+          "correct": 0,
+          "explanation": "Evidence handling comes before analysis so conclusions remain trustworthy and safe."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which handling rule fits this course?",
+          "options": [
+            "Analyze a copy only; do not execute unknown samples on a daily workstation",
+            "Open every attachment from the internet to learn faster",
+            "Share live malware in chat for convenience",
+            "Skip hashes if the filename looks serious"
+          ],
+          "correct": 0,
+          "explanation": "Safe handling protects people and preserves the original evidence."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What is the main practice artifact for the forensics stage?",
+          "options": [
+            "A local forensic handling note with ID, custody, hash, question, and handling rule",
+            "Detonating malware on your daily workstation for a score",
+            "An in-lesson auto-graded forensics workspace",
+            "A filename that sounds like a malware family"
+          ],
+          "correct": 0,
+          "explanation": "Success is documentation discipline—not unsafe detonation or a hosted grader."
+        }
+      ]
+    },
+    {
+      "slug": "stage-06",
+      "title": "Threat Hunting and Advanced Detection",
+      "hours": "3-4",
+      "sortOrder": 6,
+      "content": "# Threat Hunting and Advanced Detection\n\n## Why this lesson exists\n\nThreat hunting starts with a **hypothesis**. The analyst assumes automated alerts may miss quiet attacker behavior, then searches approved data for evidence.\n\nIn this lesson you will write a hunt plan: hypothesis, data source, lookback window, query pattern, anomaly signal, finding decision, and detection update.\n\n## Reminder: where you work\n\n```bash\nmkdir -p ~/asv-learn-soc-blue-team/stage-06\ncd ~/asv-learn-soc-blue-team/stage-06\n```\n\nWindows:\n\n```powershell\nNew-Item -ItemType Directory -Force -Path \"$HOME\\asv-learn-soc-blue-team\\stage-06\"\nSet-Location \"$HOME\\asv-learn-soc-blue-team\\stage-06\"\n```\n\nYou will create `hunt_plan.txt` in that folder.\n\n## Start here: hypothesis before hunting\n\nDo not browse logs until something looks suspicious. First write:\n\n1. Hunt hypothesis\n2. Data source\n3. Lookback window\n4. Expected / query pattern\n5. Anomaly signal\n6. Validation step and finding decision\n7. Detection update\n\nA hunt is not random searching. It is a testable question that can find evidence, rule out the behavior for now, or improve a future detection.\n\n## Hunt versus triage\n\n| | Alert triage | Threat hunting |\n| --- | --- | --- |\n| Starts from | An alert in the queue | A hypothesis |\n| Goal | Close, monitor, or escalate that alert | Find quiet behavior alerts may miss |\n| Success | Defensible queue decision | Evidence, rule-out, or better detection |\n| Failure mode | Drama without context | Log tourism without a question |\n\nHunting still needs authorization, scope, and notes another analyst can repeat.\n\n## Hunt structure\n\n| Field | Purpose | Example |\n| --- | --- | --- |\n| Hunt hypothesis | States what behavior might exist | Compromised account logs in from a rare source after failures |\n| Data source | Where approved evidence can be found | Auth logs + VPN logs |\n| Lookback window | Time boundary for the search | Last 7 days |\n| Query pattern | Makes the search repeatable | Group by user, source_ip, hour; sort rare successes |\n| Anomaly signal | Defines suspicious difference | Success after failure burst from never-seen source |\n| Finding decision | Close, monitor, or escalate | Monitor; escalate if user denies login |\n| Detection update | Turns learning into coverage | SIEM rule for rare-source success after failures |\n\nSay the plan in one sentence: hypothesis, source, pattern, anomaly, decision, and detection update.\n\n## Possible honest outcomes\n\n| Outcome | What you write | What you do not claim |\n| --- | --- | --- |\n| Finding | Evidence matched the hypothesis | Instant attribution |\n| No finding (for now) | Pattern not seen in the window/sources used | “Environment is clean forever” |\n| Detection improvement | New or tuned rule/query with FP notes | That the rule catches all attackers |\n| Scope gap | Needed logs were missing | Invented events to fill the gap |\n\n## A clean pass through a hunt\n\n1. The hypothesis says what behavior might exist.\n2. The data source says where approved evidence can be found.\n3. The query pattern makes the search repeatable.\n4. The anomaly signal says what would matter.\n5. The finding decision and detection update turn the result into SOC action.\n\nDo not call the idea a finding before evidence supports it.\n\n## Common beginner mistakes\n\n- Hunting without a written hypothesis\n- Searching all logs “for evil”\n- Treating rarity alone as malice\n- Skipping a validation step with the user or a second source\n- Leaving no detection update after a useful hunt\n\n## Your local task\n\n### Step 1 — Practice hypothesis\n\nAuthorized continuation of the course scenario:\n\n```text\nHypothesis: a compromised account is logging in from a rare source after failures\nSources allowed: authentication logs and VPN logs (lab/export)\nWindow: last 7 days (practice)\nNeed: repeatable hunt plan + detection update idea\n```\n\n### Step 2 — Write the hunt plan\n\nCreate `hunt_plan.txt`:\n\n```text\nhunt_hypothesis=compromised account is logging in from a rare source after failures\ndata_source=authentication logs and VPN logs\nlookback_window=7 days\nquery_pattern=group by user source_ip and hour then sort rare successful logins\nanomaly_signal=success after repeated failures from a source not seen before for that user\nvalidation_step=confirm with user and check VPN ownership of the source\nfinding_decision=monitor and escalate if the user confirms no login\ndetection_update=add SIEM rule for rare source success after failure burst with VPN FP check\n```\n\nOptional shell print:\n\n```bash\nhunt_hypothesis=\"compromised account is logging in from a rare source after failures\"\ndata_source=\"authentication logs and VPN logs\"\nquery_pattern=\"group by user source_ip and hour then sort rare successful logins\"\nanomaly_signal=\"success after repeated failures from a source not seen before\"\nfinding_decision=\"monitor and escalate if the user confirms no login\"\ndetection_update=\"add SIEM rule for rare source success after failure burst\"\n\nprintf '%s\\n' \\\n  \"$hunt_hypothesis\" \\\n  \"$data_source\" \\\n  \"$query_pattern\" \\\n  \"$anomaly_signal\" \\\n  \"$finding_decision\" \\\n  \"$detection_update\"\n```\n\n### Step 3 — Write a negative result note\n\nAdd a short block for the “no finding” case so you practice honest closure:\n\n```text\nnegative_result_note=no rare-source success-after-failure pattern in the 7-day lab export; keep rule idea in detection backlog with FP checks\n```\n\n### Step 4 — Self-review\n\nCould another analyst repeat the hunt from your file alone? If they would need to ask you what “weird” meant, tighten the anomaly signal.\n\n## Key vocabulary\n\n| Term | Meaning here |\n| --- | --- |\n| Hypothesis | Testable statement about possible attacker or misuse behavior |\n| Lookback window | Time range included in the hunt |\n| Anomaly | Difference from expected baseline that deserves review |\n| Detection engineering | Turning hunt lessons into durable alerts/queries |\n| Rule-out | Documented conclusion that the pattern was not found (for now) |\n\n## What good looks like\n\nA strong Stage 6 plan:\n\n- Starts from a testable hypothesis, not log tourism\n- Names approved sources, window, pattern, and anomaly signal\n- Includes a validation step and an honest negative-result option\n- Ends with a detection update that could become durable coverage\n\n## Proof checklist\n\n- [ ] `hunt_plan.txt` has hypothesis, source, window, pattern, anomaly, decision, detection update\n- [ ] Hypothesis is testable in one sentence\n- [ ] Validation step is included\n- [ ] Negative-result note exists\n- [ ] You did not claim a finding without evidence\n\n## ASV Learn house notes\n\nPractice runs in your own lab (local terminal, VM, or authorized lab hosts). ASV Learn hosts the lesson text; keep scope legal and document evidence yourself.\n\nDo not browse production logs without written approval.\n\nHunt only in data stores and time ranges you are authorized to use. Document scope. Do not expand into systems outside the written approval “because the hypothesis is interesting.”\n\n## Course wrap for this path\n\nAcross six stages you practiced: triage notes, SIEM search plans, intel cards, containment plans, forensic handling notes, and hunt plans. Keep the folder `~/asv-learn-soc-blue-team/` as your portfolio of calm, evidence-first blue-team work.\n",
+      "quiz": [
+        {
+          "type": "multiple_choice",
+          "question": "What makes threat hunting different from alert triage?",
+          "options": [
+            "It proactively searches for behavior that may not have alerted",
+            "It ignores evidence",
+            "It only reads tickets",
+            "It avoids hypotheses"
+          ],
+          "correct": 0,
+          "explanation": "Threat hunting proactively searches for suspicious behavior using a testable hypothesis."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "What should a hunt plan include before searching logs?",
+          "options": [
+            "A testable hypothesis, approved source, pattern, anomaly signal, and decision path",
+            "Only a feeling that something is wrong",
+            "A public tweet",
+            "Unlimited access to every system"
+          ],
+          "correct": 0,
+          "explanation": "Hypothesis-before-hunting keeps the work repeatable and honest."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Which outcome is still valuable if no attacker activity is found?",
+          "options": [
+            "A documented rule-out and/or a detection update with false-positive notes",
+            "Deleting the hypothesis so nobody sees it",
+            "Claiming the environment is permanently safe",
+            "Escalating with no evidence"
+          ],
+          "correct": 0,
+          "explanation": "Hunts can improve coverage or honestly rule out a pattern for the searched window."
+        },
+        {
+          "type": "multiple_choice",
+          "question": "Why include a detection update after a useful hunt?",
+          "options": [
+            "So learning becomes durable coverage instead of a one-time search",
+            "So the hunt can avoid authorization",
+            "So analysts never need logs again",
+            "So rarity alone becomes proof of malice"
+          ],
+          "correct": 0,
+          "explanation": "Detection engineering turns hunt lessons into repeatable alerts or queries."
+        }
+      ]
+    }
+  ],
+  "tags": "Cyber, cybersecurity, security",
+  "learnings": [
+    "Work a SOC analyst workflow from alert intake through triage decisions",
+    "Read SIEM evidence and turn noisy signals into actionable cases",
+    "Map activity to MITRE ATT&CK and prioritize what matters first",
+    "Run incident response steps from detection to containment",
+    "Practice threat hunting and evidence preservation with a defender mindset"
+  ]
+}

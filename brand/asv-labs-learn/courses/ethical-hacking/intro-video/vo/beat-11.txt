@@ -1,0 +1,2 @@
+In industry, that report is how penetration testers earn trust — not by the exploit, but by the clarity of the handoff.
+Start with Ethical Hacking Fundamentals. Take your time.

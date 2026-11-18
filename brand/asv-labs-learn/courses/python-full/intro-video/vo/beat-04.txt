@@ -1,0 +1,1 @@
+The satisfying moment is watching a request hit your route logic, touch stored data, and return JSON you shaped.

@@ -1,0 +1,2 @@
+Optional local installs come later if you want hands on a real daemon.
+The lessons themselves train judgment with artifacts you can show a reviewer.

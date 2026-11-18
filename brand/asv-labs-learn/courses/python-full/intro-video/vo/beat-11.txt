@@ -1,0 +1,2 @@
+In industry, Python full stack shows up in internal tools, data products, and API-first backends teams trust.
+Start with Python web fundamentals. Take your time.

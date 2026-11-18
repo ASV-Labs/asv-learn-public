@@ -1,0 +1,111 @@
+{
+  "slug": "fullstack",
+  "title": "FULL STACK DEVELOPMENT — INTRO v4.1 VO",
+  "catalogTitle": "Full Stack Development",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "FULL STACK",
+      "line2": "development",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · one feature, all layers"
+    },
+    {
+      "type": "audience",
+      "question": "user saves a photo",
+      "answer": "follow the click."
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "browser",
+      "leftLines": [
+        "button",
+        "UI"
+      ],
+      "rightTitle": "system",
+      "rightLines": [
+        "API contract",
+        "data plan",
+        "back"
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "the joy",
+      "items": [
+        "end-to-end path",
+        "every layer visible",
+        "feature you can prove"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "your practice stack",
+      "chips": [
+        "React",
+        "Node contracts",
+        "in-memory data"
+      ]
+    },
+    {
+      "type": "timeline",
+      "heading": "each week",
+      "points": [
+        {
+          "top": "layer",
+          "bottom": "was a rumor"
+        },
+        {
+          "top": "now",
+          "bottom": "you can edit it"
+        }
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "HTML/CSS/JS",
+        "React",
+        "Node & Express",
+        "databases",
+        "deploy",
+        "proof card"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "your machine",
+      "sub": "local Node practice",
+      "prompt": "node status_card.js",
+      "result": "loop explained"
+    },
+    {
+      "type": "cards",
+      "heading": "sister track",
+      "cards": [
+        "this: JavaScript",
+        "Python Full Stack",
+        "same joy"
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "portfolio proof card",
+      "windowTitle": "feature loop",
+      "lines": [
+        "click → save → reload",
+        "behavior visible",
+        "README-ready"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with foundations",
+      "sub": "take your time",
+      "industry": "own a change end-to-end"
+    }
+  ]
+}

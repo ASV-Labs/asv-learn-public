@@ -1,0 +1,2 @@
+Give an agent one vague instruction — “handle the inbox” —
+and watch it get creative in all the wrong ways.

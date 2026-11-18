@@ -1,0 +1,1 @@
+You work from local notes and lab datasets. No production network required to start.

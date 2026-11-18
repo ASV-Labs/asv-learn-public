@@ -1,0 +1,2 @@
+In industry, that journey is how teams ship without heroic weekends.
+Start with Linux and shell foundations. Take your time.

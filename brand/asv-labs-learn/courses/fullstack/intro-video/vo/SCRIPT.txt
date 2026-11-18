@@ -1,0 +1,52 @@
+FULL STACK DEVELOPMENT — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is Full Stack Development, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+Imagine one feature: a user saves a profile photo.
+You will follow that click from the button, through the API, into data, and back to the screen — as a clear design you can prove.
+
+========== BEAT 03 → beat-03 ==========
+
+That end-to-end path is the joy of full stack work.
+Nothing mystical — just seeing a whole feature live in every layer.
+
+========== BEAT 04 → beat-04 ==========
+
+You start with HTML, CSS, and JavaScript foundations,
+then practice React interfaces, Node API contracts, and data plans — including a simulated in-memory table before a real database.
+
+========== BEAT 05 → beat-05 ==========
+
+You finish with deployment thinking and a portfolio proof card that shows behavior, not only screenshots.
+
+========== BEAT 06 → beat-06 ==========
+
+Each week, another layer stops being a rumor and becomes something you can edit and run locally.
+
+========== BEAT 07 → beat-07 ==========
+
+The path: foundations, React, Node and Express thinking, databases, deployment basics, then capstone proof.
+
+========== BEAT 08 → beat-08 ==========
+
+You develop on your own machine with Node. You are not submitting a production app to ASV Learn.
+
+========== BEAT 09 → beat-09 ==========
+
+Python Full Stack is the sister track with Django and FastAPI thinking.
+This course is the JavaScript-centered path from browser to data.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a proof card for a feature loop — click, save, reload story included — ready for a portfolio README.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, that is how product engineers own a change without losing the plot between layers.
+Start with HTML, CSS, and JavaScript foundations. Take your time.

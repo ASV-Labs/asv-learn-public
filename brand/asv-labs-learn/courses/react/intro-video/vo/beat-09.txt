@@ -1,0 +1,1 @@
+When you later wire a real API, you will already think in components, state, and clear loading states.

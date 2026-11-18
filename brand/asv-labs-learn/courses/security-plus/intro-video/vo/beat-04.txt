@@ -1,0 +1,3 @@
+You will work through the five SY0-701 domains:
+general security concepts; threats, vulnerabilities, and mitigations; security architecture;
+security operations; and security program management and oversight.

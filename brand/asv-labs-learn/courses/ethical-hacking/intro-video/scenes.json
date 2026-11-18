@@ -1,0 +1,116 @@
+{
+  "slug": "ethical-hacking",
+  "title": "ETHICAL HACKING & PENETRATION TESTING — INTRO v4.1 VO",
+  "catalogTitle": "Ethical Hacking & Penetration Testing",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "ETHICAL HACKING",
+      "line2": "& pen testing",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · authorized"
+    },
+    {
+      "type": "audience",
+      "question": "you inherit a case file",
+      "answer": "scope · question · proof."
+    },
+    {
+      "type": "definition",
+      "heading": "the work",
+      "items": [
+        "recon",
+        "careful validation",
+        "defender report"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "method",
+      "leftLines": [
+        "plan",
+        "test",
+        "note"
+      ],
+      "rightTitle": "limits",
+      "rightLines": [
+        "written scope",
+        "no harm"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "investigation moves",
+      "chips": [
+        "recon plan",
+        "enumerate",
+        "web lab tests",
+        "evidence"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "still in scope",
+      "cards": [
+        "wireless lab",
+        "social defense",
+        "controlled only"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "case path",
+      "steps": [
+        "fundamentals",
+        "recon",
+        "scanning",
+        "web testing",
+        "validation",
+        "evidence & report"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "authorized lab only",
+      "sub": "systems you may test",
+      "prompt": "scope check",
+      "result": "IN SCOPE"
+    },
+    {
+      "type": "timeline",
+      "heading": "sister courses",
+      "points": [
+        {
+          "top": "Kali",
+          "bottom": "workbench"
+        },
+        {
+          "top": "this course",
+          "bottom": "method"
+        },
+        {
+          "top": "handoff",
+          "bottom": "defenders"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "findings report",
+      "windowTitle": "case-01",
+      "lines": [
+        "severity",
+        "evidence",
+        "fix next"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with fundamentals",
+      "sub": "take your time",
+      "industry": "trust earned by clear handoffs"
+    }
+  ]
+}

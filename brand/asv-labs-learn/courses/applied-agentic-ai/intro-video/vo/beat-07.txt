@@ -1,0 +1,2 @@
+The path moves from LLM foundations and prompting mastery,
+through retrieval and agent architectures, into tools, then production agent systems.

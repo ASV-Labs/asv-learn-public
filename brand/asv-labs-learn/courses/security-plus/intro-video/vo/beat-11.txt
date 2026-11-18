@@ -1,0 +1,2 @@
+In industry, Security+ language shows up in analyst interviews, GRC conversations, and day-one SOC expectations.
+Start with general security concepts. Take your time.

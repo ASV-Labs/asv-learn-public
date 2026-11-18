@@ -1,0 +1,2 @@
+Picture this: you ask a model for tomorrow’s meeting notes.
+It answers with total confidence — and invents three people who were never in the room.

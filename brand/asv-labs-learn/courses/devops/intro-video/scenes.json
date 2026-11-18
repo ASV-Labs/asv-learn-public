@@ -1,0 +1,113 @@
+{
+  "slug": "devops",
+  "title": "DEVOPS & INFRASTRUCTURE — INTRO v4.1 VO",
+  "catalogTitle": "DevOps & Infrastructure",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "DEVOPS",
+      "line2": "& infrastructure",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · ship & survive"
+    },
+    {
+      "type": "audience",
+      "question": "works on my laptop…",
+      "answer": "then three a.m. happens."
+    },
+    {
+      "type": "timeline",
+      "heading": "one app’s journey",
+      "points": [
+        {
+          "top": "laptop",
+          "bottom": "messy project"
+        },
+        {
+          "top": "container",
+          "bottom": "release card"
+        },
+        {
+          "top": "pipeline",
+          "bottom": "under watch"
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "heading": "make shipping boring",
+      "items": [
+        "repeatable builds",
+        "clear deploys",
+        "alerts with meaning"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "package",
+      "leftLines": [
+        "Docker card",
+        "Kubernetes card"
+      ],
+      "rightTitle": "operate",
+      "rightLines": [
+        "CI/CD card",
+        "Terraform",
+        "observe"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "artifacts over theater",
+      "chips": [
+        "shell",
+        "container",
+        "cluster",
+        "pipeline",
+        "observe"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "Linux & shell",
+        "Docker",
+        "Kubernetes",
+        "CI/CD",
+        "Terraform",
+        "monitoring"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "local lab",
+      "sub": "cards you can show",
+      "prompt": "./container_release_card.sh",
+      "result": "gates named"
+    },
+    {
+      "type": "audience",
+      "question": "kernel expert on day one?",
+      "answer": "no. curiosity is enough."
+    },
+    {
+      "type": "panel",
+      "heading": "capstone chain",
+      "subheading": "one artifact per stage",
+      "windowTitle": "review packet",
+      "lines": [
+        "build story",
+        "ship story",
+        "page → fix"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with Linux & shell",
+      "sub": "take your time",
+      "industry": "ship without heroic weekends"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+Imagine one feature: a user saves a profile photo.
+You will follow that click from the button, through the API, into data, and back to the screen — as a clear design you can prove.

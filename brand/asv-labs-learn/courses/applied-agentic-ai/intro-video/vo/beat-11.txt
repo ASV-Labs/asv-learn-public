@@ -1,0 +1,2 @@
+In industry, that is how teams ship research agents, ops assistants, and workflow bots that do not go rogue.
+Start with LLM foundations. Take your time.

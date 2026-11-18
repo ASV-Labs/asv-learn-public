@@ -1,0 +1,2 @@
+You will design architectures, write tool contracts, and practice production habits:
+logging, safe failure, and a trail you can audit — in local Python with dictionaries and small loops.

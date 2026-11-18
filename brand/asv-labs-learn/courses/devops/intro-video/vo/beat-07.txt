@@ -1,0 +1,2 @@
+We start with Linux and shell foundations, then Docker, Kubernetes,
+GitHub Actions pipelines, Terraform, and observability.

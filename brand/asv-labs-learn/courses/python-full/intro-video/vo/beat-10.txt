@@ -1,0 +1,1 @@
+Your payoff is a service story you can demo from local scripts: sign up flow, save something, fetch it through an API-shaped handler.

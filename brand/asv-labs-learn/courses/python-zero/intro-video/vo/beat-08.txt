@@ -1,0 +1,2 @@
+Module Zero gets Python onto your machine.
+You open a terminal, type one short command, and find out if it is already there.

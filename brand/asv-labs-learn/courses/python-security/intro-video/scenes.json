@@ -1,0 +1,100 @@
+{
+  "slug": "python-security",
+  "title": "PYTHON FOR CYBERSECURITY — INTRO v4.1 VO",
+  "catalogTitle": "Python for Cybersecurity",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "PYTHON",
+      "line2": "for cybersecurity",
+      "brand": "ASV LEARN",
+      "tag": "intermediate · defensive"
+    },
+    {
+      "type": "audience",
+      "question": "thousands of log lines",
+      "answer": "one useful clue."
+    },
+    {
+      "type": "definition",
+      "heading": "defensive amplifier",
+      "items": [
+        "safe checks",
+        "evidence",
+        "fail closed"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "noise",
+      "leftLines": [
+        "raw logs"
+      ],
+      "rightTitle": "signal",
+      "rightLines": [
+        "parsed clue",
+        "human judgment"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "weekly proof work",
+      "chips": [
+        "HTTP evidence",
+        "hashing choices",
+        "small tools"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "readable tomorrow",
+      "sub": "clear > clever",
+      "prompt": "python parse_logs.py",
+      "result": "1 suspicious host"
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "Python for security",
+        "safe network checks",
+        "HTTP evidence",
+        "hashing",
+        "defensive tools",
+        "secure coding"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "local practice",
+      "cards": [
+        "synthetic logs",
+        "allowed targets",
+        "your machine"
+      ]
+    },
+    {
+      "type": "audience",
+      "question": "loud offensive theater?",
+      "answer": "no. defensive craft."
+    },
+    {
+      "type": "panel",
+      "heading": "capstone toolkit",
+      "subheading": "prove it",
+      "windowTitle": "helpers/",
+      "lines": [
+        "parse logs",
+        "pull evidence",
+        "document proof"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with Python basics for security",
+      "sub": "take your time",
+      "industry": "SOC automation · detection helpers"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Your proof is one honest artifact from each stage — a chain that shows how that app would build, ship, and page a human when it breaks.

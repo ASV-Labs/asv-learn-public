@@ -1,0 +1,2 @@
+Python Full Stack is the sister track with Django and FastAPI thinking.
+This course is the JavaScript-centered path from browser to data.

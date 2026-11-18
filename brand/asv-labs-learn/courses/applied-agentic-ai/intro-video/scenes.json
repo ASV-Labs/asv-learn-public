@@ -1,0 +1,116 @@
+{
+  "slug": "applied-agentic-ai",
+  "title": "APPLIED AGENTIC AI — INTRO v4.1 VO",
+  "catalogTitle": "Applied Agentic AI",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "APPLIED AGENTIC",
+      "line2": "AI",
+      "brand": "ASV LEARN",
+      "tag": "advanced · mission control"
+    },
+    {
+      "type": "audience",
+      "question": "“handle the inbox”?",
+      "answer": "creative… in the wrong ways."
+    },
+    {
+      "type": "definition",
+      "heading": "you are mission control",
+      "items": [
+        "set the goal",
+        "choose tools",
+        "demand evidence"
+      ]
+    },
+    {
+      "type": "pipeline",
+      "leftTitle": "agent",
+      "leftLines": [
+        "plan",
+        "call tools",
+        "retry"
+      ],
+      "rightTitle": "limits",
+      "rightLines": [
+        "stop rules",
+        "audit trail"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "local practice",
+      "chips": [
+        "architectures",
+        "tool contracts",
+        "safe failure",
+        "logging"
+      ]
+    },
+    {
+      "type": "terminal",
+      "heading": "off-script",
+      "sub": "interrupt · inspect · recover",
+      "prompt": "agent.run(mission)",
+      "result": "STOPPED — limit hit"
+    },
+    {
+      "type": "ladder",
+      "heading": "course path",
+      "steps": [
+        "LLM foundations",
+        "prompt mastery",
+        "retrieval",
+        "architectures",
+        "tools",
+        "production"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "local + scoped",
+      "cards": [
+        "your machine",
+        "synthetic tasks",
+        "no live model required"
+      ]
+    },
+    {
+      "type": "timeline",
+      "heading": "when to take this",
+      "points": [
+        {
+          "top": "after",
+          "bottom": "Fundamentals"
+        },
+        {
+          "top": "ideally after",
+          "bottom": "Engineering"
+        },
+        {
+          "top": "then",
+          "bottom": "missions"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone",
+      "subheading": "mission-control packet",
+      "windowTitle": "agent brief",
+      "lines": [
+        "goal + tools",
+        "stop conditions",
+        "failure report"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with LLM foundations",
+      "sub": "take your time",
+      "industry": "ops assistants · research agents · workflow bots"
+    }
+  ]
+}

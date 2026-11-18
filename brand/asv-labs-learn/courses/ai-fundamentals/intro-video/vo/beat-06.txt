@@ -1,0 +1,2 @@
+Later, you practice grounding: choose sources, plan retrieval, and refuse a guess when evidence is missing.
+Lessons use simulated model outputs on your machine, so the skill is judgment — not a live API bill.

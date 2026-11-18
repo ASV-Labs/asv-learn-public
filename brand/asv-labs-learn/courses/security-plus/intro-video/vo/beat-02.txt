@@ -1,0 +1,2 @@
+A vendor wants the cheap control. An auditor wants the documented one.
+Your job is to choose a security decision that still makes sense under both pressures.

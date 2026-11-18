@@ -1,0 +1,2 @@
+Kali is that workbench: a Linux environment packed with security tools.
+This course teaches you to set it up cleanly, navigate it confidently, and use tools with intent.

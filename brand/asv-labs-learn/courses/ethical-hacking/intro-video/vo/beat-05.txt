@@ -1,0 +1,2 @@
+You will plan reconnaissance, enumerate services, test web apps in lab targets,
+validate findings safely, and practice post-exploitation evidence handling.

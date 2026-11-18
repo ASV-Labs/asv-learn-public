@@ -1,0 +1,1 @@
+Your payoff is a small toolkit: parse logs, pull evidence, make a hashing decision, and document what you proved.

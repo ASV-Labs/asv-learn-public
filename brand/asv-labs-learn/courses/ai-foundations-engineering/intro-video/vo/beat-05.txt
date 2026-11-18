@@ -1,0 +1,2 @@
+You will shape data and features, compare training choices,
+and write validation and deployment stories you can defend in a review.

@@ -1,0 +1,71 @@
+{
+  "org": "charles-learning-lab",
+  "base": "http://localhost:8088",
+  "courses": [
+    {
+      "title": "Python Zero to Useful",
+      "slug": "python-zero",
+      "course_uuid": "course_ea63f73a-a1c3-4581-a488-ef2043f1351f"
+    },
+    {
+      "title": "AI Foundations Engineering",
+      "slug": "ai-foundations-engineering",
+      "course_uuid": "course_28d6fa2c-d07c-40d1-8e5c-cec0ccfbefdb"
+    },
+    {
+      "title": "AI Fundamentals for Builders",
+      "slug": "ai-fundamentals",
+      "course_uuid": "course_8d4468d9-5e14-43a8-82da-6bd554c55fd3"
+    },
+    {
+      "title": "Applied Agentic AI",
+      "slug": "applied-agentic-ai",
+      "course_uuid": "course_44b6dcde-e812-4711-8ae2-9a3c233e85d9"
+    },
+    {
+      "title": "DevOps & Infrastructure",
+      "slug": "devops",
+      "course_uuid": "course_86b646be-6d4d-4b10-972a-2aebfeb8b4ea"
+    },
+    {
+      "title": "Ethical Hacking & Penetration Testing",
+      "slug": "ethical-hacking",
+      "course_uuid": "course_b9a42307-1ae2-48e8-86c0-8a475fb36733"
+    },
+    {
+      "title": "Full Stack Development",
+      "slug": "fullstack",
+      "course_uuid": "course_b043c3e3-a61d-4aed-8cff-08a2d5a27910"
+    },
+    {
+      "title": "Kali Linux & Penetration Testing Tools",
+      "slug": "kali-linux",
+      "course_uuid": "course_1d8c44b1-597b-48a1-b458-71fce37ab865"
+    },
+    {
+      "title": "Python Full Stack",
+      "slug": "python-full",
+      "course_uuid": "course_dbb622a1-536b-4c87-bcf0-b4701c0ef00b"
+    },
+    {
+      "title": "Python for Cybersecurity",
+      "slug": "python-security",
+      "course_uuid": "course_776c6203-334d-438d-8380-a010ebca3237"
+    },
+    {
+      "title": "React & Modern Frontend",
+      "slug": "react",
+      "course_uuid": "course_34fdce31-7ae0-4506-8316-ffb1a7e0ba4f"
+    },
+    {
+      "title": "CompTIA Security+",
+      "slug": "security-plus",
+      "course_uuid": "course_71f2d464-d997-4e98-97d2-6f0c715abc59"
+    },
+    {
+      "title": "SOC & Blue Team",
+      "slug": "soc-blue-team",
+      "course_uuid": "course_dd3c7490-4927-41fc-b000-ef5853c19570"
+    }
+  ]
+}

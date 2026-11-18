@@ -1,0 +1,53 @@
+COMPTIA SECURITY+ (SY0-701) — INTRO v4.1 VO
+ElevenLabs / sketch pipeline. One file per beat: beat-01 … beat-11
+beat-0N.txt files contain spoken lines only (no production headers).
+
+========== BEAT 01 → beat-01 ==========
+
+This is CompTIA Security+, aligned to the SY0-701 exam, from ASV Learn.
+
+========== BEAT 02 → beat-02 ==========
+
+A vendor wants the cheap control. An auditor wants the documented one.
+Your job is to choose a security decision that still makes sense under both pressures.
+
+========== BEAT 03 → beat-03 ==========
+
+Security+ is not trivia night.
+It is judgment: threats, architecture, operations, and program oversight — practiced as decisions.
+
+========== BEAT 04 → beat-04 ==========
+
+You will work through the five SY0-701 domains:
+general security concepts; threats, vulnerabilities, and mitigations; security architecture;
+security operations; and security program management and oversight.
+
+========== BEAT 05 → beat-05 ==========
+
+Each domain ends in a local artifact — a risk chain, a design card, a response note —
+so you can explain why, not only what the flashcard said.
+
+========== BEAT 06 → beat-06 ==========
+
+A sixth chapter trains exam mindset with original practice scenarios. No dump memorization.
+
+========== BEAT 07 → beat-07 ==========
+
+Come for the certificate language. Stay for the habit of clear security reasoning.
+
+========== BEAT 08 → beat-08 ==========
+
+You practice in your own notes folder on your machine. Authorized lab thinking from day one.
+
+========== BEAT 09 → beat-09 ==========
+
+If you later take Ethical Hacking or SOC courses, this vocabulary becomes the shared map.
+
+========== BEAT 10 → beat-10 ==========
+
+Your payoff is a set of decision artifacts you could defend in a study group — or a junior analyst desk.
+
+========== BEAT 11 → beat-11 ==========
+
+In industry, Security+ language shows up in analyst interviews, GRC conversations, and day-one SOC expectations.
+Start with general security concepts. Take your time.

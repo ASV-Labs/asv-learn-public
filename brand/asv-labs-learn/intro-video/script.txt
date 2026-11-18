@@ -1,0 +1,11 @@
+This is Python Zero to Useful, from ASV Learn.
+It is a free course for people who have never written code.
+Maybe you are not even sure how to spell Python — that is exactly who this is for.
+Python started in the early 1990s. Guido van Rossum wanted a language people could read; he named it after Monty Python.
+Today it is a programming language: you write instructions, the computer follows them.
+You type those into a file; Python reads top to bottom and shows the result.
+People use it for real work — reports, automation, websites, data, and AI tools.
+In this course you learn print and variables, decisions and loops, lists and dictionaries, functions, files, and fixing breaks — on your own computer.
+Module Zero gets Python on your machine. Mac, Windows, and Linux each have clear steps.
+You finish with a progress-tracker tool you can show someone.
+You do not need a fancy computer or to be good at math. Start with Module Zero. Take your time.

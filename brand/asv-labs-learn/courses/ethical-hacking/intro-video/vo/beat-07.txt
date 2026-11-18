@@ -1,0 +1,2 @@
+The path runs from ethical fundamentals through recon, scanning, and web testing,
+then controlled validation, evidence, and the professional report that closes the case.

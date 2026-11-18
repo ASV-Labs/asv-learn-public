@@ -1,0 +1,105 @@
+{
+  "slug": "security-plus",
+  "title": "COMPTIA SECURITY+ (SY0-701) — INTRO v4.1 VO",
+  "catalogTitle": "CompTIA Security+",
+  "version": "4.1",
+  "beats": [
+    {
+      "type": "title",
+      "line1": "SECURITY+",
+      "line2": "SY0-701",
+      "brand": "ASV LEARN",
+      "tag": "beginner · judgment under pressure"
+    },
+    {
+      "type": "audience",
+      "question": "cheap control vs documented one?",
+      "answer": "choose a decision that holds."
+    },
+    {
+      "type": "definition",
+      "heading": "not trivia night",
+      "items": [
+        "threats",
+        "architecture",
+        "operations",
+        "oversight"
+      ]
+    },
+    {
+      "type": "ladder",
+      "heading": "SY0-701 domains",
+      "steps": [
+        "general concepts",
+        "threats & mitigations",
+        "architecture",
+        "operations",
+        "program oversight"
+      ]
+    },
+    {
+      "type": "chips",
+      "heading": "local artifacts",
+      "chips": [
+        "risk chain",
+        "design card",
+        "response note"
+      ]
+    },
+    {
+      "type": "cards",
+      "heading": "exam mindset",
+      "cards": [
+        "original scenarios",
+        "no dumps",
+        "explain why"
+      ]
+    },
+    {
+      "type": "audience",
+      "question": "here for the cert language?",
+      "answer": "stay for the reasoning habit."
+    },
+    {
+      "type": "terminal",
+      "heading": "your notes folder",
+      "sub": "authorized thinking",
+      "prompt": "mkdir ~/asv-learn-security-plus",
+      "result": "ready"
+    },
+    {
+      "type": "timeline",
+      "heading": "later courses",
+      "points": [
+        {
+          "top": "Security+",
+          "bottom": "shared map"
+        },
+        {
+          "top": "Ethical Hacking",
+          "bottom": "offense method"
+        },
+        {
+          "top": "SOC",
+          "bottom": "defense desk"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "heading": "capstone habit",
+      "subheading": "defend the why",
+      "windowTitle": "decision set",
+      "lines": [
+        "study group ready",
+        "junior desk ready"
+      ]
+    },
+    {
+      "type": "outro",
+      "headline": "start with general security concepts",
+      "sub": "take your time",
+      "industry": "analyst interviews · GRC · SOC day one"
+    }
+  ]
+}

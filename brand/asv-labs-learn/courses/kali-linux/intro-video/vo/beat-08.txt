@@ -1,0 +1,1 @@
+Install Kali in a VM you control. Keep targets synthetic or explicitly allowed.
